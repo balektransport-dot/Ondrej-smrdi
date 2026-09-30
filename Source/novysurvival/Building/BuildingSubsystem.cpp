@@ -83,7 +83,7 @@ bool UBuildingSubsystem::IsSupported(const FVector& O, float Y, const FIntVector
 			return true;
 		}
 		// previs max. 1 bunka od podopretej podlahy / zakladu
-		static const FIntVector Dirs[] = { {1, 0, 0}, {-1, 0, 0}, {0, 1, 0}, {0, -1, 0} };
+		static const FIntVector Dirs[] = { FIntVector(1, 0, 0), FIntVector(-1, 0, 0), FIntVector(0, 1, 0), FIntVector(0, -1, 0) };
 		for (const FIntVector& D : Dirs)
 		{
 			if (HasFloor(O, Y, C + D) && IsFloorDirectlySupported(O, Y, C + D))

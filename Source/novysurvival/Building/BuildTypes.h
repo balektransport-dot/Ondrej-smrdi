@@ -133,6 +133,7 @@ namespace BuildGrid
 	inline bool IsDoor(EBuildSlot S) { return S == EBuildSlot::DoorX || S == EBuildSlot::DoorY; }
 
 	// Svetova transformacia dielu v danom slote.
+	// RoofDir: pri strechach smer stupania (0..3), pri dverach neparne = otocene (pant na druhej strane).
 	inline FTransform SlotTransform(const FVector& Origin, float Yaw, const FIntVector& C, EBuildSlot Slot, int32 RoofDir)
 	{
 		FVector L(C.X * Cell, C.Y * Cell, C.Z * Height);
@@ -140,7 +141,29 @@ namespace BuildGrid
 		if (Slot == EBuildSlot::EdgeX || Slot == EBuildSlot::DoorX) { L.X += Cell * 0.5f; LocalYaw = 90.f; }
 		else if (Slot == EBuildSlot::EdgeY || Slot == EBuildSlot::DoorY) { L.Y += Cell * 0.5f; }
 		else if (Slot == EBuildSlot::Floor) { LocalYaw = 90.f * RoofDir; }
+		if (IsDoor(Slot) && (RoofDir & 1)) { LocalYaw += 180.f; }
 		return FTransform(FRotator(0.f, Yaw + LocalYaw, 0.f), LocalToWorld(Origin, Yaw, L));
+	}
+
+	// Stred bunky (na urovni jej podlahy) v lokalnych suradniciach mriezky.
+	inline FVector CellCenter(const FIntVector& C)
+	{
+		return FVector(C.X * Cell, C.Y * Cell, C.Z * Height);
+	}
+
+	// Ktory slot patri ku ktoremu typu dielu.
+	inline bool SlotMatchesType(EBuildPieceType Type, EBuildSlot S)
+	{
+		switch (Type)
+		{
+		case EBuildPieceType::Foundation:
+		case EBuildPieceType::Floor:
+		case EBuildPieceType::Roof:    return S == EBuildSlot::Floor;
+		case EBuildPieceType::Wall:
+		case EBuildPieceType::Doorway: return IsEdge(S);
+		case EBuildPieceType::Door:    return IsDoor(S);
+		default:                       return S == EBuildSlot::None;
+		}
 	}
 
 	// Tvar dielu z kociek (/Engine/BasicShapes/Cube = 100 cm).

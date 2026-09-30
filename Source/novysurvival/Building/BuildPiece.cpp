@@ -138,9 +138,11 @@ void ABuildPiece::SetupPreview(EBuildPieceType InType, UStaticMesh* InPropMesh, 
 	bPreview = true;
 	PieceType = InType;
 	PropMesh = InPropMesh;
-	if (!GhostMID && GhostMaterial)
+	// Bez vlastneho priehladneho materialu pouzi zakladny (nahlad bude plny, ale farebny).
+	UMaterialInterface* GhostSource = GhostMaterial ? GhostMaterial : BaseMaterial.Get();
+	if (!GhostMID && GhostSource)
 	{
-		GhostMID = UMaterialInstanceDynamic::Create(GhostMaterial, this);
+		GhostMID = UMaterialInstanceDynamic::Create(GhostSource, this);
 	}
 	RebuildVisual();
 }
