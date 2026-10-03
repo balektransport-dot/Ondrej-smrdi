@@ -72,3 +72,66 @@ sa z inventára odoberie. Zbúraním (X) sa vráti.
 
 - **Ghost Material**: priehľadný materiál s vektorovým parametrom `Color` – krajší hologram (nepovinné).
 - Farby materiálov: sprav Blueprint z `BuildPiece`, zmeň **Tier Colors** a daj ho do **Piece Class** v komponente.
+
+---
+
+# Ťažba zlata – bager, sklápač, triedička (low poly)
+
+Bagrom naberáš hlinu z kopy, nasypeš ju do sklápača, odvezieš k triedičke a tá z nej vytriedi zlato.
+Odpad vysype na kopu za sebou. Všetko je poskladané z jednoduchých tvarov (kocky, valce, kužele),
+takže to vyzerá low poly a netreba žiadne modely. Kód je v `Source/novysurvival/Mining`.
+
+| Súbor | Čo to je |
+|---|---|
+| `DigSite` | kopa hliny (ložisko so zlatom alebo vysypaná kopa) – zmenšuje sa, ako ju kopeš |
+| `Excavator` | bager – pásy, otočná kabína, výložník, rameno, lopata |
+| `DumpTruck` | sklápač – korba sa vyklápa |
+| `WashPlant` | triedička – násypka, pás, točiaci sa bubon, stôl so zlatom |
+| `MiningVehicle` | spoločný základ strojov (jazda, kamera, nastupovanie) |
+| `DirtContainerComponent` | nádoba na hlinu (lopata, korba, násypka) |
+
+## Ako to vyskúšať
+
+1. Skopíruj priečinok `Source/novysurvival/Mining` do projektu a skompiluj.
+   V `novysurvival.Build.cs` musia byť moduly `Core`, `CoreUObject`, `Engine`, `InputCore`.
+2. Do levelu potiahni z **Place Actors** (alebo Content Browser → C++ Classes):
+   - pár **DigSite** na zem (ložiská – v detailoch nastav **Initial Dirt** = koľko ton a **Gold Per Ton** = koľko gramov zlata na tonu),
+   - **Excavator** vedľa nich,
+   - **DumpTruck**,
+   - **WashPlant** kúsok ďalej.
+3. Spusť hru, dojdi k stroju a stlač **F** – nastúpiš. Znova **F** – vystúpiš.
+
+Netreba nastavovať žiadne Input Actions, klávesy si stroje čítajú samy.
+
+## Ovládanie
+
+**Všetky stroje:** W/S jazda, A/D zatáčanie, myš kamera, F vystúpiť
+
+**Bager:**
+
+| Kláves | Čo robí |
+|---|---|
+| Q / E | otáčanie kabíny |
+| šípka hore / dole | výložník hore / dole |
+| šípka vľavo / vpravo | rameno k sebe / od seba |
+| ľavé tlačidlo myši | zatvára lopatu – keď je špička lopaty v kope, naberá hlinu |
+| pravé tlačidlo myši | otvára lopatu – úplne otvorená vysype hlinu (do korby, násypky alebo na zem) |
+
+**Sklápač:** drž **medzerník** – korba sa vyklopí a hlina sa vysype vzadu.
+Cúvni zadkom nad násypku triedičky a vyklop.
+
+## Ako sa hrá
+
+1. Bagrom otvor lopatu (pravé tlačidlo), spusti ju do kopy a zatváraj (ľavé tlačidlo) – naberie hlinu.
+2. Otoč kabínu nad korbu sklápača a lopatu otvor – hlina sa nasype do korby.
+3. Sklápačom zacúvaj k triedičke a vyklop korbu do násypky.
+4. Triedička hlinu spracuje: zlato pribúda na stole (a na tabuli), odpad rastie na kope za bubnom.
+
+Čo nie je v nádobe, padne na zem a vznikne z toho nová kopa – dá sa znova nabrať.
+
+## Čo zatiaľ nie je
+
+- stroje fungujú v singleplayeri (alebo pre hráča, ktorý hru hostí) – multiplayer pre ostatných hráčov je ďalší krok,
+- predaj zlata za peniaze a vylepšovanie strojov,
+- skutočné kopanie do terénu (teraz sa kope z kôp – ložísk, ktoré položíš do levelu),
+- vlastné 3D modely – dajú sa neskôr vymeniť namiesto kociek.
