@@ -72,3 +72,56 @@ sa z inventára odoberie. Zbúraním (X) sa vráti.
 
 - **Ghost Material**: priehľadný materiál s vektorovým parametrom `Color` – krajší hologram (nepovinné).
 - Farby materiálov: sprav Blueprint z `BuildPiece`, zmeň **Tier Colors** a daj ho do **Piece Class** v komponente.
+
+---
+
+# Prístrojový panel kamióna (tachometer)
+
+Panel sa kreslí sám kódom (žiadne textúry) vpravo dole na obrazovke:
+
+- **otáčkomer** (0 – 3500 ot/min) so zeleným úsporným a červeným pásmom, v strede **zaradený stupeň** (N, R, 1, 2…)
+- **kontrolky priamo v ciferníku**: smerovky (blikajú samy), stretávacie a diaľkové svetlá, parkovacia brzda,
+  porucha motora, žhavenie, dobíjanie, tlak oleja, teplota chladiva, ABS
+- dole v ciferníku **digitálna rýchlosť** v km/h, **počítadlo km** a **priemerná spotreba** (l/100 km)
+- vedľa dva **ručičkové budíky**: **nafta** a **AdBlue** – pri nízkom stave sa v nich rozsvieti oranžová kontrolka
+- po zapnutí zapaľovania sa na chvíľu rozsvietia všetky kontrolky (test), keď motor nebeží, svieti dobíjanie a olej
+
+| Súbor | Čo robí |
+|---|---|
+| `Dashboard/TruckGaugeWidget.h/.cpp` | widget panelu – hodnoty, kontrolky a kreslenie |
+
+## Ako to dostať do hry
+
+1. Skopíruj priečinok `Source/novysurvival/Dashboard` do svojho projektu do `Source/novysurvival/`.
+2. V `novysurvival.Build.cs` pridaj do `PublicDependencyModuleNames` moduly `"UMG", "Slate", "SlateCore"`:
+   ```csharp
+   PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "UMG", "Slate", "SlateCore" });
+   ```
+3. Pravý klik na `.uproject` → **Generate Visual Studio project files** a projekt skompiluj.
+4. V Blueprinte vozidla (alebo PlayerControllera) v **Event BeginPlay**:
+   **Create Widget** (Class: `Truck Gauge Widget`) → **Add to Viewport** → výstup si ulož do premennej, napr. `Panel`.
+5. Na vyskúšanie bez vozidla zaškrtni na paneli **Demo Mode** (uzol `Set Demo Mode` hneď po Create Widget) –
+   ručičky a kontrolky sa začnú hýbať samy.
+
+## Napojenie na vozidlo (Event Tick)
+
+| Čo | Uzol na `Panel` | Odkiaľ (Chaos Vehicle) |
+|---|---|---|
+| rýchlosť, otáčky, stupeň | `Set Vehicle State` | `Get Forward Speed` × 0.036 (= km/h), `Get Engine Rotation Speed`, `Get Current Gear` |
+| nafta 0 – 1 | `Set Fuel Level` | tvoja nádrž: aktuálne litre / objem nádrže |
+| AdBlue 0 – 1 | `Set Ad Blue Level` | tvoja nádrž AdBlue |
+| spotreba a km | `Add Trip` | vzdialenosť za tick v km (rýchlosť km/h × Delta Seconds / 3600) a minuté litre za tick |
+| kontrolky | `Set Warning` | napr. `Parkovacia brzda` = true, keď je zatiahnutá |
+| zapaľovanie | `Set Ignition`, `Set Engine Running` | pri štarte / vypnutí motora |
+
+- Priemerná spotreba sa z `Add Trip` počíta sama, `Reset Trip` ju vynuluje. Ak ju počítaš inak, nastav `Average Consumption`.
+- Rezerva nafty a AdBlue sa rozsvieti sama pod `Low Fuel Threshold` / `Low Ad Blue Threshold` (12 % a 10 %).
+- Smerovky stačí zapnúť (`Set Warning` → `Smerovka vlavo` = true), blikanie robí panel. Výstražné svetlá = obe smerovky.
+
+## Nastavenie vzhľadu
+
+- **Scale** – veľkosť panelu (1 = približne tretina výšky obrazovky).
+- **Max Rpm**, **Green Rpm From/To**, **Red Rpm From** – rozsah otáčkomera a farebné pásma.
+- **Needle Smoothing** – ako rýchlo ručičky dobiehajú hodnotu.
+- Panel sa kreslí vždy do pravého dolného rohu plochy, ktorú dostane. Ak ho chceš inde, vlož ho do vlastného
+  Widget Blueprintu do Canvas Panelu a nastav mu veľkosť a pozíciu.
