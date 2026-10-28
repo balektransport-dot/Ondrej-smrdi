@@ -414,7 +414,7 @@ MATERIALS = [
     ("PV_Ram", (0.035, 0.037, 0.045, 1.0), 0.3, 0.50, 0.0, 1.0),
     ("PV_Ocel", (0.50, 0.51, 0.53, 1.0), 0.6, 0.40, 0.0, 1.0),
     ("PV_Chrom", (0.85, 0.85, 0.85, 1.0), 1.0, 0.15, 0.0, 1.0),
-    ("PV_Pneu", (0.015, 0.015, 0.017, 1.0), 0.0, 0.90, 0.0, 1.0),
+    ("PV_Pneu", (0.010, 0.010, 0.010, 1.0), 0.0, 0.95, 0.0, 1.0),
     ("PV_Disk", (0.62, 0.63, 0.64, 1.0), 0.6, 0.35, 0.0, 1.0),
     ("PV_Tmava", (0.03, 0.03, 0.03, 1.0), 0.0, 0.55, 0.0, 1.0),
     ("PV_Sklo", (0.10, 0.18, 0.24, 1.0), 0.0, 0.05, 0.0, 0.45),
@@ -588,8 +588,16 @@ def tire_profile(r, w, rim, th, grooves=(), bead=None):
 
 
 def tire_lug(bm, t, rho, y, size, yaw, tilt, mat, bev):
+    # dezenovy blok so zaoblenymi hranami (jeden segment zrazenia): guma, nie plech
     frame = Matrix.Rotation(t, 4, "Y") @ Matrix.Translation((0.0, 0.0, rho))
-    add_box(bm, size, (0.0, y, 0.0), mat, bev=bev, rotation=(tilt, 0.0, yaw), frame=frame)
+    matrix = frame @ place((0.0, y, 0.0), (tilt, 0.0, yaw)) @ Matrix.Diagonal((size[0], size[1], size[2], 1.0))
+    verts = bmesh.ops.create_cube(bm, size=1.0, matrix=matrix)["verts"]
+    faces = faces_of(verts)
+    set_material(faces, mat)
+    r = 0.12 * min(size)
+    if r > 0.0:
+        res = bmesh.ops.bevel(bm, geom=list({e for f in faces for e in f.edges}), offset=r, segments=1, profile=0.5, affect="EDGES", clamp_overlap=True)
+        set_material(res["faces"], mat)
 
 
 def add_tire(bm, r, w, rim, style="road", segs=TIRE_SEGS):
@@ -617,12 +625,12 @@ def add_tire(bm, r, w, rim, style="road", segs=TIRE_SEGS):
 
 
 
-def tire_valve(bm, rim, y_out):
-    # ventilok na vonkajsej strane disku (kratka trubka s ciapockou), mierne nad prirubou
+def tire_valve(bm, rim, y_out, sc=1.0):
+    # ventilok na vonkajsej strane disku: gumova stopka s malou chromovou ciapockou, tesne nad plochou disku
     t = 0.75
-    x, z = rim * 0.80 * math.sin(t), rim * 0.80 * math.cos(t)
-    add_cylinder(bm, 0.0085, 0.032, along_y((x, y_out - 0.002, z)), STEEL, segments=8)
-    add_cylinder(bm, 0.0065, 0.020, along_y((x, y_out + 0.020, z)), CHROME, segments=8)
+    x, z = rim * 0.78 * math.sin(t), rim * 0.78 * math.cos(t)
+    add_cylinder(bm, 0.0075 * sc, 0.020 * sc, along_y((x, y_out - 0.010 * sc, z)), DARK, segments=8)
+    add_cylinder(bm, 0.0058 * sc, 0.010 * sc, along_y((x, y_out + 0.006 * sc, z)), CHROME, segments=8)
 
 
 DOC_EXTRA.extend(["", "PNEUMATIKY (Pv_pk_pneu pickup, Pv_tr_pneu_<polomer> privesy, Pv_auto_koleso): telo je otoceny prierez (zaoblene rameno, vypukla bocnica, ochranne rebro pri disku a rebro na bocnici),",
@@ -3627,6 +3635,12 @@ def main():
         scene.collection.children.link(coll)
     clear_collection(coll)
     mats = [get_material(*m) for m in MATERIALS]
+    bsdf = mats[TIRE].node_tree.nodes.get("Principled BSDF") if mats[TIRE].node_tree else None
+    if bsdf:
+        for sock in ("Specular IOR Level", "Specular"):
+            if sock in bsdf.inputs:
+                bsdf.inputs[sock].default_value = 0.08          # matna guma bez kovoveho lesku
+                break
     parts = build_parts(mats)
     roots = []
     for builder in SCENE_BUILDERS:
