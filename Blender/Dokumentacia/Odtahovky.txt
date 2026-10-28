@@ -1,0 +1,210 @@
+Odtahovky - diely (rozmery X x Y x Z v metroch). Predok = +X, lava = +Y.
+
+== KABINA ==
+Odt_kabina                         2.31 x 3.15 x 3.19
+Odt_interier                       2.14 x 2.28 x 2.33
+Odt_volant                         0.53 x 0.53 x 0.18
+Odt_rucicka_velka                  0.02 x 0.08 x 0.00
+Odt_rucicka_mala                   0.01 x 0.03 x 0.00
+Odt_nasavanie                      0.41 x 0.04 x 0.67
+Odt_perovanie_kabiny_mech          0.12 x 0.12 x 0.19
+Odt_perovanie_kabiny_piest         0.06 x 0.06 x 0.24
+
+== RAMY A PREDOK ==
+Odt_4x2_ram                        7.25 x 1.28 x 0.52
+Odt_6x2_ram                        8.35 x 1.28 x 0.52
+Odt_8x2_ram                        9.45 x 1.28 x 0.52
+Odt_naraznik                       0.44 x 2.40 x 0.46
+Odt_chladic                        0.25 x 0.72 x 0.70
+
+== PRISLUSENSTVO ==
+Odt_nadrz_nafta                    1.20 x 0.67 x 0.70
+Odt_nadrz_adblue                   0.40 x 0.49 x 0.52
+Odt_baterie                        0.62 x 0.55 x 0.39
+Odt_vzduchojemy                    0.62 x 0.32 x 0.56
+Odt_vyfuk                          0.49 x 0.93 x 0.40
+
+== BLATNIKY ==
+Odt_blatnik_zadny_L                1.35 x 0.86 x 1.08
+Odt_blatnik_zadny_P                1.35 x 0.86 x 1.08
+Odt_blatnik_zadny_svetla_L         1.41 x 0.86 x 1.08
+Odt_blatnik_zadny_svetla_P         1.41 x 0.86 x 1.08
+Odt_blatnik_vleceny_L              1.41 x 0.67 x 1.08
+Odt_blatnik_vleceny_P              1.41 x 0.67 x 1.08
+Odt_blatnik_predny_L               1.19 x 0.73 x 0.98
+Odt_blatnik_predny_P               1.19 x 0.73 x 0.98
+
+== NAPRAVY A PEROVANIE ==
+Odt_naprava_predna                 0.33 x 1.83 x 0.23
+Odt_naprava_hnacia                 0.60 x 1.45 x 0.40
+Odt_naprava_vlecena                0.24 x 1.45 x 0.28
+Odt_koleso_predne                  1.05 x 0.36 x 1.04
+Odt_koleso_zadne                   1.05 x 0.57 x 1.05
+Odt_pero_predna_cast               0.74 x 0.10 x 0.08
+Odt_pero_zadna_cast                0.74 x 0.10 x 0.08
+Odt_tlmic_valec                    0.07 x 0.07 x 0.35
+Odt_tlmic_piestnica                0.08 x 0.08 x 0.37
+Odt_rameno                         1.12 x 0.16 x 0.29
+Odt_vankus                         0.30 x 0.30 x 0.30
+
+== KARDANY ==
+Odt_4x2_kardan_predny              2.07 x 0.13 x 0.12
+Odt_6x2_kardan_predny              2.17 x 0.13 x 0.12
+Odt_8x2_kardan_predny              3.27 x 0.13 x 0.12
+Odt_kardan_zadny                   1.00 x 0.13 x 0.14
+
+== SPOLOCNE NA NADSTAVBY ==
+Odt_naradie_skrinka                0.80 x 0.49 x 0.40
+
+== PLOSINOVA ODTAHOVKA ==
+Odt_od_plosina_eu_4x2              4.75 x 2.61 x 0.30
+Odt_od_plosina_eu_6x2              5.85 x 2.61 x 0.30
+Odt_od_plosina_us_4x2              4.75 x 2.61 x 0.30
+Odt_od_plosina_us_6x2              5.85 x 2.61 x 0.30
+Odt_od_podram_4x2                  4.59 x 1.51 x 0.33
+Odt_od_podram_6x2                  5.69 x 1.51 x 0.33
+Odt_od_podstavec_eu_4x2            4.59 x 1.37 x 0.61
+Odt_od_podstavec_eu_6x2            5.33 x 1.37 x 0.61
+Odt_od_podstavec_us_4x2            4.59 x 1.37 x 0.61
+Odt_od_podstavec_us_6x2            5.33 x 1.37 x 0.61
+Odt_od_celna_stena_eu              0.24 x 2.34 x 1.12
+Odt_od_celna_stena_us              0.26 x 2.40 x 1.51
+Odt_od_navijak_eu                  0.89 x 1.70 x 0.66
+Odt_od_navijak_us                  0.89 x 1.70 x 0.66
+Odt_od_navijak_buben               0.53 x 1.17 x 0.54
+Odt_od_hak                         0.30 x 0.10 x 0.66
+Odt_od_lano                        0.02 x 0.03 x 1.00
+Odt_od_auto_4x2                    3.55 x 1.76 x 1.46
+Odt_od_auto_6x2                    4.65 x 1.92 x 1.49
+Odt_od_auto_koleso_4x2             0.55 x 0.23 x 0.56
+Odt_od_auto_koleso_6x2             0.60 x 0.23 x 0.62
+Odt_valec_pt4x2_0                  0.10 x 0.13 x 1.24
+Odt_valec_pt4x2_1                  0.10 x 0.13 x 1.25
+Odt_valec_ps4x2_0                  0.14 x 0.18 x 2.32
+Odt_valec_ps4x2_1                  0.11 x 0.12 x 2.25
+Odt_valec_ps4x2_2                  0.11 x 0.14 x 2.32
+Odt_valec_pt6x2_0                  0.10 x 0.13 x 1.24
+Odt_valec_pt6x2_1                  0.10 x 0.13 x 1.25
+Odt_valec_ps6x2_0                  0.14 x 0.18 x 2.84
+Odt_valec_ps6x2_1                  0.11 x 0.12 x 2.77
+Odt_valec_ps6x2_2                  0.11 x 0.14 x 2.84
+
+== DOPLNKY STYLU ==
+Odt_od_kabina_eu                   0.29 x 1.50 x 0.22
+Odt_od_kabina_us                   0.34 x 1.72 x 0.33
+Odt_od_us_doplnky                  2.77 x 2.27 x 3.04
+Odt_naradie_skrinka                0.80 x 0.49 x 0.40
+
+== TAZKA ODTAHOVKA - ZAKLAD ==
+Odt_tz_podstavec_eu                0.95 x 2.48 x 0.59
+Odt_tz_podstavec_us                1.00 x 1.38 x 0.59
+Odt_tz_kolona_eu                   0.92 x 1.07 x 1.42
+Odt_tz_kolona_us                   0.92 x 0.86 x 1.42
+Odt_tz_podpera_L                   0.44 x 1.22 x 0.34
+Odt_tz_podpera_P                   0.44 x 1.22 x 0.34
+Odt_tz_noha                        0.30 x 0.19 x 0.73
+Odt_tz_noha_piest                  0.44 x 0.44 x 1.14
+Odt_tz_zadna_podpera               0.38 x 0.34 x 0.61
+Odt_tz_zadna_podpera_piest         0.40 x 0.40 x 0.71
+Odt_tz_hak                         0.36 x 0.14 x 0.70
+Odt_tz_lano                        0.03 x 0.03 x 1.00
+Odt_tz_dvere_eu_L                  0.90 x 0.10 x 0.78
+Odt_tz_dvere_eu_P                  0.90 x 0.10 x 0.78
+Odt_tz_dvere_us_L                  0.90 x 0.09 x 0.78
+Odt_tz_dvere_us_P                  0.90 x 0.09 x 0.78
+Odt_tz_podjazd_vysun               1.10 x 0.20 x 0.22
+Odt_tz_podjazd_rameno_eu           1.29 x 0.45 x 0.38
+Odt_tz_podjazd_rameno_us           1.29 x 0.45 x 0.38
+Odt_tz_kolebka_eu                  0.78 x 2.38 x 0.86
+Odt_tz_kolebka_us                  0.78 x 2.38 x 0.86
+
+== TAZKA ODTAHOVKA - PODLA PODVOZKU ==
+Odt_tz_paluba_eu_6x2               4.32 x 2.54 x 1.32
+Odt_tz_rameno_eu_6x2               3.84 x 0.70 x 0.95
+Odt_tz_vysun_eu_6x2                3.15 x 0.46 x 0.66
+Odt_tz_zadok_eu_6x2                0.20 x 2.46 x 0.23
+Odt_tz_paluba_us_6x2               4.32 x 2.54 x 1.32
+Odt_tz_rameno_us_6x2               3.84 x 0.70 x 0.96
+Odt_tz_vysun_us_6x2                3.15 x 0.46 x 0.66
+Odt_tz_zadok_us_6x2                0.20 x 2.58 x 1.39
+Odt_tz_paluba_eu_8x2               5.42 x 2.54 x 1.32
+Odt_tz_rameno_eu_8x2               4.44 x 0.70 x 0.95
+Odt_tz_vysun_eu_8x2                3.65 x 0.46 x 0.66
+Odt_tz_zadok_eu_8x2                0.20 x 2.46 x 0.23
+Odt_tz_paluba_us_8x2               5.42 x 2.54 x 1.32
+Odt_tz_rameno_us_8x2               4.44 x 0.70 x 0.96
+Odt_tz_vysun_us_8x2                3.65 x 0.46 x 0.66
+Odt_tz_zadok_us_8x2                0.20 x 2.58 x 1.39
+Odt_tz_skrina_eu_6x2_L             2.71 x 0.55 x 1.00
+Odt_tz_skrina_eu_6x2_P             2.71 x 0.55 x 1.00
+Odt_tz_skrina_us_6x2_L             2.71 x 0.55 x 1.00
+Odt_tz_skrina_us_6x2_P             2.71 x 0.55 x 1.00
+Odt_tz_skrina_eu_8x2_L             3.81 x 0.55 x 1.00
+Odt_tz_skrina_eu_8x2_P             3.81 x 0.55 x 1.00
+Odt_tz_skrina_us_8x2_L             3.81 x 0.55 x 1.00
+Odt_tz_skrina_us_8x2_P             3.81 x 0.55 x 1.00
+Odt_tz_navijak_zadny_6x2           1.60 x 1.52 x 0.58
+Odt_tz_navijak_zadny_8x2           1.60 x 1.52 x 0.58
+Odt_tz_podjazd_drziak_6x2          0.70 x 0.60 x 0.77
+Odt_tz_podjazd_drziak_8x2          0.70 x 0.60 x 0.77
+Odt_valec_tzh6x2_0                 0.15 x 0.19 x 2.09
+Odt_valec_tzh6x2_1                 0.15 x 0.19 x 2.10
+Odt_valec_tzu6x2_0                 0.12 x 0.16 x 0.42
+Odt_valec_tzu6x2_1                 0.10 x 0.10 x 0.35
+Odt_valec_tzu6x2_2                 0.10 x 0.12 x 0.42
+Odt_valec_tzh8x2_0                 0.15 x 0.19 x 2.36
+Odt_valec_tzh8x2_1                 0.15 x 0.19 x 2.36
+Odt_valec_tzu8x2_0                 0.12 x 0.16 x 0.42
+Odt_valec_tzu8x2_1                 0.10 x 0.10 x 0.35
+Odt_valec_tzu8x2_2                 0.10 x 0.12 x 0.42
+
+MOTORY: nase R4 / R6 / V8 s prevodovkami (diely su v skripte Motory). Koniec vystupneho hriadela kazdej
+  prevodovky je na rame v (-1.300, 0.000, 0.900), takze kazdy motor sedi na ten isty kardan. Vlastnost Motor = 1 / 2 / 3.
+  Motor R4: pivot motora na rame v (-0.258, 0.000, 0.670)
+  Motor R6: pivot motora na rame v (0.062, 0.000, 0.660)
+  Motor V8: pivot motora na rame v (-0.008, 0.000, 0.640)
+
+AKO JE TO POSKLADANE (kolekcie Plosinova_EU_4x2 ... Tazka_US_8x2, suradnice od pociatku auta = zem pod prvou prednou napravou):
+  <Auto>_xxx (prazdny objekt) - posuvaj nim cele auto, vlastnosti = ovladanie (popis na zaciatku skriptu).
+  Napravy: pivot v osi kolies (z = 0.525). Predne kolesa su na capoch riadenia (y = +-0.86), zadne na koncoch naprav.
+  <Auto>_ram (odpruzena cast): z = 0.6 x pohyb prvej napravy, sklon podla hnacej napravy + vyska vankusov. Nadstavba je dieta ramu.
+  Predne pera, zadne ramena, vankuse, tlmice, kardan, kabina (vyklapanie, perovanie), volant a budiky - ako pri tahacoch.
+  Kabina: pivot = predny cap vyklapania (1.030, 0.000, 0.910) (na rame). Vyklopenie = otocenie okolo Y o 55 st.
+  Blatniky: pivot v osi kolesa; zadne svetla su priamo na poslednom zadnom blatniku. Vyfuk je pod autom vpravo.
+  Prave diely _P su zrkadlove, kolesa vpravo otoc o 180 st. okolo Z.
+  Pevny ram (vrch ramu z = 1.08): nadstavba odtahovky je na nom ulozena, siroka najviac 2.50 m.
+  Zadny naraznik (ochrana proti podbehnutiu) na konci ramu, bocna ochrana medzi napravami, skrinka na naradie vlavo (plosinove odtahovky aj vpravo).
+
+PLOSINOVA ODTAHOVKA (Plosinova_EU_xxx a Plosinova_US_xxx na podvozkoch 4x2 a 6x2; us = vysoka celna stena z chromovych rur, kominy za kabinou, bull bar, svetelna lista, cervena farba):
+  Sklopny podram: prazdny objekt <Auto>_plosina_klb (pivot v osi klbu vzadu na rame, os Y, otaca sa o -Plosina_sklon x uhol, zadok ide dole). Jeho deti:
+    podram (diel Odt_od_podram_<podvozok>: dva nosniky s valcekmi, priecniky, cap), plosina (Odt_od_plosina_<styl>_<podvozok>, pohyb v X o -Plosina_odsun x odsun),
+    valce odsunu (zaklad na podrame vpredu). Plosina ma na zadnom konci skosenie (1.25 m) a spicka sa po odsune dotkne zeme.
+  Dieta plosiny: celna stena (pivot na prednej hrane na podlahe), navijak (pivot na podlahe v strede, 0.60 m za prednou hranou), jeho buben (otaca sa podla vzdialenosti haku),
+    prazdny objekt navijak_vodiaca (vystup lana, zaklad lana) a hak_drziak (miesto haku v pokoji).
+  Lano (Odt_od_lano, jednotkova dlzka v +Z): zaklad na vodiacej kladke, mieri (track Z) na hak, mierka Z = vzdialenost vodiacej kladky a haku.
+  Hak (Odt_od_hak) je dieta hak_drziak; constraint Copy Location 'Na_aute' (cielom je prazdny objekt auto_oko = tazne oko auta) ma vplyv = vlastnost Hak_k_autu (0 = v drziaku, 1 = na aute).
+  Naklapacie valce (dva, v kanali medzi nosnikmi): zaklad na rame, ciel na podrame; valec odsunu: zaklad na podrame, ciel na plosine (teleskop: stupen k = (d - dlzka stupna) x k / (n - 1) po +Z).
+  Auto (Odt_od_auto_<podvozok>, dieta korena, pivot v strede medzi napravami vo vyske osi, predok +X) a jeho 4 kolesa: poloha, sklon a otacanie kolies su kluce po snimkach
+    (vytahovanie po plosine 620 az 740, potom jazda na plosine pri odsune a sklopeni spat). Auto nie je sucastou odtahovky, volne ho presun / zmaz.
+  Vlastnosti: Plosina_sklon (0 az 1), Plosina_odsun (0 az 1), Hak_k_autu (0 az 1). Animacia (snimky 450 az 900): sklopenie, odsun, hak k autu, vytiahnutie auta, odsun spat, sklopenie spat.
+  4x2: klb v (-5.90, 0, 1.22), plosina 4.75 m (x od -0.40 do 4.35 od klbu), odsun 3.25 m, sklon 22.2 st.; valec naklapania 2 stupnov po 1.18 m (1.20 az 1.61 m), odsunu 3 stupnov po 2.25 m (2.28 az 5.53 m); auto 3.40 m, rozvor 2.15 m
+  6x2: klb v (-7.00, 0, 1.22), plosina 5.85 m (x od -0.40 do 5.45 od klbu), odsun 4.35 m, sklon 16.9 st.; valec naklapania 2 stupnov po 1.18 m (1.20 az 1.55 m), odsunu 3 stupnov po 2.77 m (2.81 az 7.16 m); auto 4.50 m, rozvor 2.70 m
+
+TAZKA ODTAHOVKA (Tazka_EU_xxx a Tazka_US_xxx na podvozkoch 6x2 a 8x2): zadna paluba (od x = -3.00 po koniec ramu) so skrinami po stranach (x od -3.10 dozadu), za kabinou otocny zeriav,
+  vzadu podjazdove rameno s kolebkou, dve zadne podpery, zadny navijak (nepohyblivy). eu: zeriav ma na podstavci dve vysuvne podpery, skrine maju zaluziove dvere, jeden hak;
+  us: tazky pevny podstavec, skrine z pozinku s riflovanym plechom a chromom, dva haky (dve kladky), svetelne stlpiky vzadu, kominy a bull bar na kabine, svetelna lista na streche.
+  Kinematika (kazdy diel je dieta predosleho): podstavec (dieta ramu, os x = -2.45, spodok z = 1.12) -> kolona (okolo Z o Zeriav_otocenie, us: Strela_otocenie)
+  -> rameno (okolo Y o -zdvih, pivot v (0.25, 0.0, 1.05) od kolony; ulozene 3 st. smerom dozadu na opore) -> vysuvny dielec (posun v X o vysun x dlzka vysunu)
+  -> zaves haku (otaca sa o +zdvih, aby hak visel zvisle) -> hak (posun v -Z o spustenie x 3.2 m) a lano (mierka Z = 0.04 + spustenie x 3.2).
+  Zdvihove valce ramena (dva, teleskop): zaklad na kolone, ciel na ramene. Podpery: eu = nosnik (pohyb v Y), klb nohy (otocenie okolo X o 180 st.), noha a piest (ako pri hydraulickej ruke),
+    plus dve zadne podpery (puzdro pri konci paluby, piest ide o 0.65 m dole); Podpery 0 az 1 (0.9 az 1 = pritlacenie, podvozok sa nadvihne o 8 cm).
+  Podjazdove rameno: klb vzadu pod ramom (otocenie okolo Y o Podjazd_zdvih st., kladne = zdvih konca, -10 az 22), vysuvny dielec (posun v -X o Podjazd_vysun x 0.95 m), kolebka (dieta vysuvu),
+    valec zdvihu (teleskop): zaklad na rame pod palubou, ciel na ramene. Dvere skrin: otacaju sa okolo hornej hrany (os X) o 100 st. von (vlastnost Skrine).
+  Vlastnosti: Podpery, Zeriav_otocenie / Strela_otocenie (st.), Zeriav_zdvih / Strela_zdvih (st.), Zeriav_vysun / Strela_vysun (0 az 1), Hak_spustenie / Hak1_spustenie (0 az 1), Podjazd_zdvih (st.), Podjazd_vysun, Skrine; us ma aj Hak2_spustenie.
+  Animacia (snimky 450 az 900): podpery, skrine, rameno sa zdvihne, otaca a vysuva, haky sa spustaju, podjazdove rameno klesne, vysunie sa a zdvihne, potom vsetko spat.
+  6x2: rameno 3.6 m + vysun 2.4 m (dielec 2.7 m), 2 skrin dveri na strane po 0.90 m, valec zdvihu 2 stupnov po 2.02 m (2.05 az 2.44 m), podjazd klb v (-6.70, 0, 0.66), valec podjazdu 3 stupnov po 0.35 m (0.36 az 0.73 m), zadok paluby x = -7.32
+  8x2: rameno 4.2 m + vysun 3.0 m (dielec 3.2 m), 4 skrin dveri na strane po 0.90 m, valec zdvihu 2 stupnov po 2.28 m (2.31 az 2.70 m), podjazd klb v (-7.80, 0, 0.66), valec podjazdu 3 stupnov po 0.35 m (0.36 az 0.73 m), zadok paluby x = -8.42
+V Unreali: kazdy par 'mieri na' urob cez Find Look at Rotation (alebo Look At v Control Rig / Animation Blueprinte).
+Podvozok 4x2: napravy x = 0.00, -4.50, koniec ramu x = -6.20
+Podvozok 6x2: napravy x = 0.00, -4.60, -5.95, koniec ramu x = -7.30
+Podvozok 8x2: napravy x = 0.00, -1.95, -5.70, -7.05, koniec ramu x = -8.40
