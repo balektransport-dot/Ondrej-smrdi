@@ -795,7 +795,7 @@ def build_pv_cable():
 
 
 # odtahovane auto: dva typy podla velkosti podvalu (pivot v strede medzi napravami vo vyske osi, predok +X), kolesa zvlast
-PV_CARS = {"4_0": dict(L=3.45, wb=2.30, fo=0.58, w=1.60, h=1.45, rw=0.26, paint=PAINT_ORANGE),
+PV_CARS = {"4_0": dict(L=3.35, wb=2.30, fo=0.58, w=1.60, h=1.45, rw=0.26, paint=PAINT_ORANGE),
            "5_2": dict(L=4.45, wb=2.65, fo=0.80, w=1.76, h=1.46, rw=0.30, paint=PAINT_TEAL)}
 
 
@@ -805,23 +805,33 @@ def build_pv_car(size):
     xf, xr = wb * 0.5 + fo, -(L - wb * 0.5 - fo)
     zb0, zroof = -rw + 0.17, h - rw
     bm = bmesh.new()
-    prof = [(xr, zb0), (xf, zb0), (xf, 0.04), (xf - 0.30, 0.30), (wb * 0.5 - 0.35, 0.36), (wb * 0.5 - 0.95, zroof),
-            (-wb * 0.5 + 0.30, zroof), (-wb * 0.5 - 0.50, 0.40), (xr, 0.34)]
-    add_extruded(bm, prof, -w * 0.5 + 0.04, w * 0.5 - 0.04, "XZ", c["paint"], bev=0.012)
-    add_box(bm, (L, w, 0.14), ((xf + xr) * 0.5, 0.0, zb0 + 0.07), c["paint"], bev=0.02)
+    zh, zt = 0.50, 0.46          # vyska kapoty pri skle / pri predku, kufor; nad kolesovymi oblukmi (kolesa maju stred v z = 0)
+    prof = [(xr, zb0), (xf, zb0), (xf, 0.08), (xf - 0.30, zt), (wb * 0.5 - 0.35, zh), (wb * 0.5 - 0.95, zroof),
+            (-wb * 0.5 + 0.30, zroof), (-wb * 0.5 - 0.50, zh + 0.02), (xr, zt)]
+    # kolesove obluky: stred a vonkajsie steny karoserie maju vystrihy nad kolesami, kolesa (pri krajoch) su vidiet; stred (|y| < yc) je plny
+    ra, yc = rw + 0.06, w * 0.5 - 0.30
+    a0 = math.degrees(math.asin(-zb0 / ra))
+    arch = []
+    for xc in (-wb * 0.5, wb * 0.5):
+        arch.append([(xc + ra * math.cos(math.radians(a)), ra * math.sin(math.radians(a))) for a in [180.0 + a0 - (180.0 + 2.0 * a0) * k / 12.0 for k in range(13)]])
+    side = [prof[0]] + arch[0] + arch[1] + prof[1:]
+    add_extruded(bm, prof, -yc, yc, "XZ", c["paint"])
+    for sy in SIDES_LR:
+        add_extruded(bm, side, min(sy * yc, sy * (w * 0.5 - 0.04)), max(sy * yc, sy * (w * 0.5 - 0.04)), "XZ", c["paint"])
+        for ar in arch:
+            add_extruded(bm, ar, min(sy * (yc + 0.01), sy * (yc + 0.03)), max(sy * (yc + 0.01), sy * (yc + 0.03)), "XZ", DARK)
+    add_box(bm, (L, 2.0 * yc, 0.14), ((xf + xr) * 0.5, 0.0, zb0 + 0.07), c["paint"])
     for s in SIDES_LR:
-        win = [(wb * 0.5 - 0.42, 0.40), (wb * 0.5 - 0.92, zroof - 0.07), (-wb * 0.5 + 0.38, zroof - 0.07), (-wb * 0.5 - 0.38, 0.44)]
+        win = [(wb * 0.5 - 0.42, zh + 0.03), (wb * 0.5 - 0.92, zroof - 0.07), (-wb * 0.5 + 0.38, zroof - 0.07), (-wb * 0.5 - 0.38, zh + 0.05)]
         add_extruded(bm, win, s * (w * 0.5 - 0.043), s * (w * 0.5 - 0.034), "XZ", GLASS, bev=0.0)
-        add_box(bm, (0.06, 0.10, 0.04), (wb * 0.5 - 0.50, s * (w * 0.5 + 0.02), 0.38), DARK, bev=0.006)
-        add_cylinder(bm, rw + 0.04, 0.012, along_y((wb * 0.5, s * (w * 0.5 - 0.035), 0.0)), DARK, segments=12)
-        add_cylinder(bm, rw + 0.04, 0.012, along_y((-wb * 0.5, s * (w * 0.5 - 0.035), 0.0)), DARK, segments=12)
-        add_box(bm, (0.04, 0.22, 0.09), (xf - 0.01, s * (w * 0.5 - 0.24), 0.08), LAMP_WHITE, bev=0.006)
-        add_box(bm, (0.04, 0.22, 0.08), (xr + 0.01, s * (w * 0.5 - 0.24), 0.14), LAMP_RED, bev=0.006)
-    ws = [(wb * 0.5 - 0.35, 0.36), (wb * 0.5 - 0.95, zroof), (wb * 0.5 - 0.92, zroof - 0.06), (wb * 0.5 - 0.40, 0.38)]
+        add_box(bm, (0.06, 0.10, 0.04), (wb * 0.5 - 0.50, s * (w * 0.5 + 0.02), zh + 0.02), DARK, bev=0.006)
+        add_box(bm, (0.04, 0.22, 0.09), (xf - 0.01, s * (w * 0.5 - 0.24), 0.20), LAMP_WHITE, bev=0.006)
+        add_box(bm, (0.04, 0.22, 0.08), (xr + 0.01, s * (w * 0.5 - 0.24), 0.26), LAMP_RED, bev=0.006)
+    ws = [(wb * 0.5 - 0.35, zh), (wb * 0.5 - 0.95, zroof), (wb * 0.5 - 0.92, zroof - 0.06), (wb * 0.5 - 0.40, zh + 0.02)]
     add_extruded(bm, ws, -w * 0.5 + 0.12, w * 0.5 - 0.12, "XZ", GLASS)
     add_box(bm, (0.10, w - 0.04, 0.12), (xf + 0.02, 0.0, zb0 + 0.10), DARK, bev=0.02)
     add_box(bm, (0.10, w - 0.04, 0.12), (xr - 0.02, 0.0, zb0 + 0.10), DARK, bev=0.02)
-    add_box(bm, (0.03, 0.50, 0.12), (xf + 0.01, 0.0, 0.0), DARK, bev=0.006)
+    add_box(bm, (0.03, 0.50, 0.12), (xf + 0.01, 0.0, 0.16), DARK, bev=0.006)
     add_box(bm, (0.014, 0.36, 0.09), (xf + 0.075, 0.0, zb0 + 0.10), WHITE, bev=0.003)
     add_box(bm, (0.04, 0.10, 0.04), (xf + 0.05, 0.0, zb0 + 0.02), STEEL, bev=0.006)
     return finish_mesh(bm, "SM_Pv_auto_" + size)
@@ -1155,8 +1165,13 @@ def build_pk_pohon(pk):
 
 
 def build_pk_nadrz(pk):
+    # palivova nadrz: pod podlahou po lavej strane vedla ramu (kardan prechadza stredom), dva upinacie pasy
     bm = bmesh.new()
-    add_box(bm, (0.80, 0.52, 0.24), (-pk["wb"] * 0.62, -0.05, 0.40), PLAST, bev=0.05)
+    x = -pk["wb"] * 0.62
+    add_box(bm, (0.80, 0.345, 0.24), (x, 0.6075, 0.40), PLAST, bev=0.05)
+    for dx in (-0.26, 0.26):
+        add_box(bm, (0.045, 0.37, 0.27), (x + dx, 0.6075, 0.405), STEEL, bev=0.008)
+    add_cylinder(bm, 0.035, 0.03, along_z((x + 0.20, 0.72, 0.535)), DARK, segments=10)
     return finish_mesh(bm, "SM_Pv_pk_nadrz_" + pk["key"])
 
 
@@ -1180,13 +1195,15 @@ def build_pk_blatnik(pk):
     p = pk["paint"]
     bm = bmesh.new()
     poly = arch_polygon(-0.28, 0.90, 0.46, 1.00, 0.0, PK_ARCH)
+    inner = arch_polygon(-0.28, 0.90, 0.46, 0.93, 0.0, PK_ARCH)
     band = arch_polygon(-0.28, 0.90, BAND_Z0, BAND_Z1, 0.0, PK_FLARE)
     flare = flare_poly(0.0, PK_ARCH, PK_FLARE, xmin=-0.28)
-    add_extruded(bm, poly, 0.62, 0.93, "XZ", p, bev=0.014)
+    add_extruded(bm, inner, 0.62, 0.81, "XZ", p, bev=0.014)      # vnutri pod kapotou (kapota lezi nad nou)
+    add_extruded(bm, poly, 0.80, 0.93, "XZ", p, bev=0.014)       # vonkajsia hrana vedla kapoty
     add_extruded(bm, band, 0.93, 0.944, "XZ", DARK)
     add_extruded(bm, flare, 0.93, 0.964, "XZ", p, bev=0.01)
-    add_box(bm, (0.50, 0.30, 0.04), (0.0, 0.62, 0.99), p, bev=0.012)
-    add_box(bm, (0.30, 0.06, 0.20), (-0.11, 0.66, 0.90), DARK, bev=0.01)
+    add_box(bm, (0.50, 0.30, 0.04), (0.0, 0.62, 0.91), p, bev=0.012)
+    add_box(bm, (0.30, 0.06, 0.08), (-0.11, 0.66, 0.89), DARK, bev=0.01)
     add_box(bm, (0.10, 0.014, 0.04), (0.45, 0.934, 0.80), LAMP_OR, bev=0.004)
     return bm
 
@@ -1231,7 +1248,8 @@ def build_pk_naraznik_predny(pk):
     add_box(bm, (0.012, 0.52, 0.12), (1.058, 0.0, 0.56), WHITE, bev=0.004)
     for s in SIDES_LR:
         add_box(bm, (0.02, 0.16, 0.08), (1.052, s * 0.72, 0.56), LAMP_WHITE, bev=0.006)
-        add_box(bm, (0.08, 0.04, 0.06), (1.06, s * 0.38, 0.42), RED, bev=0.006)
+        add_box(bm, (0.14, 0.05, 0.05), (1.00, s * 0.38, 0.41), RED, bev=0.006)
+        add_ring_loop(bm, (1.105, s * 0.38, 0.41), 0.034, RED, rod_r=0.011, steps=8)
     return finish_mesh(bm, "SM_Pv_pk_naraznik_predny_" + pk["key"])
 
 
@@ -1252,13 +1270,13 @@ def build_pk_bullbar(pk):
 def build_pk_motor(pk):
     # motor, chladic, baterka a nadoby v motorovom priestore
     bm = bmesh.new()
-    add_box(bm, (0.60, 0.50, 0.44), (0.30, 0.0, 0.74), FRAME, bev=0.04)
-    add_box(bm, (0.30, 0.46, 0.14), (0.30, 0.0, 1.00), DARK, bev=0.02)
-    add_box(bm, (0.05, 0.84, 0.50), (0.72, 0.0, 0.76), DARK, bev=0.006)
-    add_cylinder(bm, 0.20, 0.06, along_x((0.66, 0.0, 0.76)), STEEL, segments=14)
+    add_box(bm, (0.60, 0.50, 0.36), (0.30, 0.0, 0.72), FRAME, bev=0.04)
+    add_box(bm, (0.30, 0.46, 0.045), (0.30, 0.0, 0.9225), DARK, bev=0.012)
+    add_box(bm, (0.05, 0.84, 0.40), (0.72, 0.0, 0.72), DARK, bev=0.006)
+    add_cylinder(bm, 0.17, 0.06, along_x((0.66, 0.0, 0.72)), STEEL, segments=14)
     add_box(bm, (0.28, 0.20, 0.20), (0.30, 0.46, 0.80), PLAST, bev=0.015)
     add_box(bm, (0.26, 0.17, 0.19), (0.30, -0.47, 0.70), DARK, bev=0.012)
-    add_box(bm, (0.04, 0.03, 0.03), (0.38, -0.47, 0.82), RED, bev=0.003)
+    add_box(bm, (0.04, 0.03, 0.03), (0.38, -0.47, 0.80), RED, bev=0.003)
     return finish_mesh(bm, "SM_Pv_pk_motor_" + pk["key"])
 
 
@@ -1279,10 +1297,11 @@ def build_pk_kabina(pk):
     bm = bmesh.new()
     ln = PK_WS - cb
     xc = (PK_WS + cb) * 0.5
-    add_box(bm, (ln, 1.70, 0.04), (xc, 0.0, 0.62), INT, bev=0.004)
+    add_box(bm, (ln, 1.14, 0.04), (xc, 0.0, 0.62), INT, bev=0.004)
     for s in SIDES_LR:
-        add_box(bm, (ln - 0.10, 0.10, 0.14), (xc, s * 0.865, 0.52), p, bev=0.025)
-        add_box(bm, (ln - 0.05, 0.02, 0.50), (xc - 0.02, s * 0.825, 0.88), INT, bev=0.004)
+        add_box(bm, (ln - 0.30, 0.285, 0.04), (xc - 0.15, s * 0.7125, 0.62), INT, bev=0.004)
+        sx0, sx1 = xc - (ln - 0.10) * 0.5, min(xc + (ln - 0.10) * 0.5, -0.52)     # prah zacina za vystrihom predneho kolesa (nie v pneumatike)
+        add_box(bm, (sx1 - sx0, 0.10, 0.14), ((sx0 + sx1) * 0.5, s * 0.865, 0.52), p, bev=0.025)
         add_box_between(bm, (-0.22, s * 0.855, 1.06), (PK_ROOF_X, s * 0.83, PK_ROOF - 0.04), 0.075, 0.07, p, bev=0.025)
         if dc:
             add_box(bm, (0.075, 0.075, PK_ROOF - 1.06), (-1.28, s * 0.855, (PK_ROOF + 1.06) * 0.5 - 0.02), p, bev=0.02)
@@ -1377,18 +1396,30 @@ def build_pk_mirror(pk):
     return bm
 
 
+def bed_poly(x0, x1, wb, inset=0.0):
+    # obrys podlahy korby (XY) s vyrezmi pre kolesa po stranach: pneumatika prechadza podlahou do kolesovej skrine (naboj), nie cez dosku
+    nx0, nx1, yi, yo = -wb - 0.40, -wb + 0.40, 0.585, 0.81 - inset
+    xa, xb = x0 + inset, x1 - inset
+    return [(xa, -yo), (nx0, -yo), (nx0, -yi), (nx1, -yi), (nx1, -yo), (xb, -yo), (xb, yo), (nx1, yo), (nx1, yi), (nx0, yi), (nx0, yo), (xa, yo)]
+
+
 def build_pk_podlaha(pk):
-    # podlaha korby: plast, vlozka, listy a priecniky pod podlahou
+    # podlaha korby: plast s vyrezmi pre kolesa, vlozka, listy a priecniky pod podlahou (v okoli kolies kratsie)
+    wb = pk["wb"]
     x1 = pk["cab_back"] - 0.05
     x0 = pk_rear(pk)
-    ln, xc = x1 - x0, (x1 + x0) * 0.5
+    ln = x1 - x0
     bm = bmesh.new()
-    add_box(bm, (ln, 1.62, 0.04), (xc, 0.0, BED_Z), PLAST, bev=0.008)
-    add_box(bm, (ln - 0.02, 1.54, 0.012), (xc, 0.0, BED_Z + 0.026), DARK)
+    add_extruded(bm, bed_poly(x0, x1, wb), BED_Z - 0.02, BED_Z + 0.02, "XY", PLAST, bev=0.008)
+    add_extruded(bm, bed_poly(x0, x1, wb, 0.01), BED_Z + 0.02, BED_Z + 0.032, "XY", DARK)
     for k in range(int(ln / 0.14)):
-        add_box(bm, (0.035, 1.54, 0.012), (x1 - 0.12 - 0.14 * k, 0.0, BED_Z + 0.033), DARK)
+        x = x1 - 0.12 - 0.14 * k
+        w = 1.15 if abs(x + wb) < 0.42 else 1.54
+        add_box(bm, (0.035, w, 0.012), (x, 0.0, BED_Z + 0.033), DARK)
     for k in range(int(ln / 0.55) + 1):
-        add_box(bm, (0.08, 1.50, 0.06), (x1 - 0.20 - 0.55 * k, 0.0, BED_Z - 0.05), FRAME, bev=0.012)
+        x = x1 - 0.20 - 0.55 * k
+        w = 1.14 if abs(x + wb) < 0.46 else 1.50
+        add_box(bm, (0.08, w, 0.06), (x, 0.0, BED_Z - 0.05), FRAME, bev=0.012)
     return finish_mesh(bm, "SM_Pv_pk_podlaha_" + pk["key"])
 
 
@@ -1412,9 +1443,10 @@ def build_pk_bok(pk):
 
 
 def build_pk_naboj(pk):
-    # vnutorny naboj kolesa v korbe (lavy; pravy je zrkadlo)
+    # kolesova skrina v korbe (lava; prava je zrkadlo): kryt s kruhovym vystrihom nad pneumatikou (pneumatika prechadza vystrihom v podlahe)
     bm = bmesh.new()
-    add_box(bm, (0.86, 0.26, 0.26), (-pk["wb"], 0.68, BED_Z + 0.13), PLAST, bev=0.05)
+    wb = pk["wb"]
+    add_extruded(bm, arch_polygon(-wb - 0.43, -wb + 0.43, BED_Z + 0.02, BED_Z + 0.26, -wb, 0.46, n=12), 0.55, 0.81, "XZ", PLAST, bev=0.02)
     return bm
 
 
@@ -1437,7 +1469,7 @@ def build_pk_naraznik_zadny(pk):
         add_box(bm, (0.02, 0.70, 0.01), (xr - 0.20 - 0.07 + 0.04 * k, 0.0, 0.73), STEEL)
     add_box(bm, (0.012, 0.52, 0.12), (xr - 0.325, 0.0, 0.60), WHITE, bev=0.004)
     for s in SIDES_LR:
-        add_box(bm, (0.06, 0.04, 0.05), (xr - 0.32, s * 0.88, 0.45), RED, bev=0.005)
+        add_box(bm, (0.06, 0.04, 0.10), (xr - 0.32, s * 0.88, 0.50), RED, bev=0.005)
         add_box(bm, (0.012, 0.12, 0.05), (xr - 0.322, s * 0.80, 0.64), RED, bev=0.003)
     return finish_mesh(bm, "SM_Pv_pk_naraznik_zadny_" + pk["key"])
 
@@ -1662,8 +1694,8 @@ def _pk_doc():
     lines += [
         "  Kostra: root (<Pickup>) -> prazdny objekt <Pickup>_karoseria (nasleduje teren: nakloni sa podla predneho a zadneho terenneho objektu a podla ich vysky, PK_FOLLOW 0.6) -> uchyty dielov.",
         "  DEMONTAZ: kazdy diel je samostatny objekt <Pickup>_<diel> na UCHYTE <Pickup>_uchyt_<diel> (prazdny objekt v pivote dielu); animacia je na uchyte. Vymena / oprava: zmaz objekt dielu a novy diel (rovnaky pivot) daj ako dieta uchytu s nulovou polohou.",
-        "    Pevne diely karoserie (pivot v pociatku pickupu): ram, pohon (prevodovka, kardany), nadrz, vyfuk, kryt (spodny kryt motora), celny_panel, mriezka, naraznik_predny, bullbar, motor, stierace, kabina (schranka s podlahou a stlpikmi), strecha, sklo_predne, sklo_zadne, lista (svetelna),",
-        "    palubka, sedadla, podlaha (korby), celo (celna stena korby), naraznik_zadny, tazne (gula, drziak, zasuvka), rollbar; po stranach (_L / _P): blatnik, svetlomet, bok (bok korby), naboj (naboj kolesa v korbe), svetlo_zadne, zachytavac (blata), schodiky.",
+        "    Pevne diely karoserie (pivot v pociatku pickupu): ram, pohon (prevodovka, kardany), nadrz (palivova, bocna vedla ramu), vyfuk, kryt (spodny kryt motora), celny_panel, mriezka, naraznik_predny, bullbar, motor, stierace, kabina (schranka s podlahou, prahmi a stlpikmi; bez bocnych stien - vnutorne obklady su na dverach, otvorene dvere odkryju interier), strecha, sklo_predne, sklo_zadne, lista (svetelna),",
+        "    palubka, sedadla, podlaha (korby, s vyrezmi pre kolesa), celo (celna stena korby), naraznik_zadny, tazne (gula, drziak, zasuvka), rollbar; po stranach (_L / _P): blatnik, svetlomet, bok (bok korby), naboj (kolesova skrina v korbe s kruhovym vystrihom nad pneumatikou), svetlo_zadne, zachytavac (blata), schodiky.",
         "  Pohyblive diely: kapota (pivot na zadnej hrane (-0.18, 0, 1.06), rotacia Y o -Kapota x 55 st.), zadne_celo (pivot na spodnom pante, rotacia Y o -Zadne_celo x 90 st.), dvere_pred_L / _P a dvere_zad_L / _P (pivot na zavese, predne -0.30, zadne -1.30, rotacia Z o -/+ Dvere_xxx x 72 st.),",
         "    zrkadlo_L / _P (dieta uchytu dveri, pohybuje sa s nimi), volant (uchyt na stlpiku riadenia, toci sa o trojnasobok Riadenia).",
         "  Naprava predna / zadna (uchyt <Pickup>_uchyt_naprava_predna / _zadna) sa hybe podla terennych prazdnych objektov <Pickup>_teren_predna / _zadna; zadne pera (pero_zadne_L / _P) su deti zadnej napravy; tlmice (valec + piestnica) mieria na seba medzi naprava a karoseriou.",
@@ -1780,20 +1812,20 @@ def build_tr_fender(r, width):
     return bm
 
 
-def build_tr_wing(r, length, width):
+def build_tr_wing(r, length, width, off=0.0):
     # krdlovy blatnik (lava strana; prava je zrkadlo), pivot v osi kolesa: rovna horna plocha so skosenymi koncami, okraj (nad polovicou kolesa)
     bm = bmesh.new()
     top, low = r + 0.055, r - 0.05
     prof = [(-length * 0.5, low - 0.03), (-length * 0.5, low), (-length * 0.5 + 0.16, top), (length * 0.5 - 0.16, top), (length * 0.5, low),
             (length * 0.5, low - 0.03), (length * 0.5 - 0.16, top - 0.03), (-length * 0.5 + 0.16, top - 0.03)]
-    add_extruded(bm, prof, -width * 0.5, width * 0.5, "XZ", PAINT_BLUE, bev=0.01)
+    add_extruded(bm, prof, -width * 0.5 + off, width * 0.5 + off, "XZ", PAINT_BLUE, bev=0.01)
     lip = [(-length * 0.5 + 0.05, low - 0.02), (-length * 0.5 + 0.16, top - 0.02), (length * 0.5 - 0.16, top - 0.02), (length * 0.5 - 0.05, low - 0.02),
            (length * 0.5 - 0.10, low - 0.06), (-length * 0.5 + 0.10, low - 0.06)]
-    add_extruded(bm, lip, width * 0.5 - 0.025, width * 0.5, "XZ", PAINT_BLUE, bev=0.006)
+    add_extruded(bm, lip, width * 0.5 - 0.025 + off, width * 0.5 + off, "XZ", PAINT_BLUE, bev=0.006)
     for k in range(3):
         x = -length * 0.5 + 0.40 + (length - 0.80) * k / 2.0
-        add_box(bm, (0.06, 0.05, 0.04), (x, -width * 0.5 + 0.03, top - 0.045), STEEL, bev=0.008)
-    add_box(bm, (0.10, 0.012, 0.045), (0.0, width * 0.5 + 0.006, top - 0.07), LAMP_OR, bev=0.004)
+        add_box(bm, (0.06, 0.05, 0.03), (x, -width * 0.5 + 0.03 + off, top - 0.035), STEEL, bev=0.008)
+    add_box(bm, (0.10, 0.012, 0.045), (0.0, width * 0.5 + 0.006 + off, top - 0.07), LAMP_OR, bev=0.004)
     return bm
 
 
@@ -1956,7 +1988,7 @@ def tr_type_parts(put, put_lr, t):
     put(build_tr_obrysove(t))
     put(build_tr_naprava(t["track"], "SM_" + ax_key(t["track"], t.get("dual", 0.0)), t.get("dual", 0.0)))
     if t.get("fender") == "wing":
-        put_lr(build_tr_wing(t["R"], t["wing"][0], t["wing"][1]), "SM_Pv_tr_kridlo_" + t["key"])
+        put_lr(build_tr_wing(t["R"], *t["wing"]), "SM_Pv_tr_kridlo_" + t["key"])
 
 
 def tr_rig(coll, tr, parts, mats, ball_src, x_pos, y_pos, delay_m):
@@ -2294,7 +2326,7 @@ def pd_tr(p):
     xw = sum(xs) / len(xs)
     g = pd_geo(p)
     zt = PD_ZT
-    return dict(name=p["name"], key="pd_" + p["key"], R=p["R"], axles=xs, track=PD_TRACK, sy=PD_SY, wheel="alloy", dual=0.09, fender="wing", wing=((max(xs) - min(xs)) + 0.70, 0.38),
+    return dict(name=p["name"], key="pd_" + p["key"], R=p["R"], axles=xs, track=PD_TRACK, sy=PD_SY, wheel="alloy", dual=0.09, fender="wing", wing=((max(xs) - min(xs)) + 0.70, 0.40, 0.04),
                 oje=dict(xf=PD_XF, hw=PD_SY, z=0.515, z0=0.53), hang=dict(z=0.43, h=0.07),
                 kons=dict(y0=PD_SY - 0.01, y1=1.00, zb=0.43, zt=0.64, yr=0.97), kons_mat=PAINT_BLUE,
                 bump=dict(x=g["xr"] - 0.08, w=2.62, z=0.50, gap=(0.34, 0.90)),
@@ -2554,7 +2586,7 @@ def pd_animate_car(p, root):
     tl_ = PD_TL
     path, surf = pd_rail_path(g, car)
     wb, fo, rw = car["wb"], car["fo"], car["rw"]
-    f_end = Vector((g["xf"] - 0.30 - fo, g["zt"] + rw))
+    f_end = Vector((g["xf"] - 0.56 - fo, g["zt"] + rw))       # nos auta zastane pred navijakom na prednej stene
     s_end = path_param(path, f_end)
     s_start = path_param(path, Vector((surf[1].x - 1.3 - fo, rw)))
 
@@ -2756,12 +2788,14 @@ def build_pa_pallet(kind):
         add_box(bm, (0.012, 0.44, 0.24), (0.605, 0.0, z0 + 0.60), WHITE, bev=0.002)
     else:
         for layer in range(5):
-            for i in range(2):
-                for j in range(2):
-                    if layer % 2 == 0:
-                        add_box(bm, (0.58, 0.39, 0.19), (-0.295 + 0.59 * i, -0.195 + 0.39 * j, z0 + 0.10 + 0.20 * layer), PAINT_WHITE, bev=0.06)
-                    else:
-                        add_box(bm, (0.39, 0.58, 0.19), (-0.195 + 0.39 * i, -0.295 + 0.59 * j, z0 + 0.10 + 0.20 * layer), PAINT_WHITE, bev=0.06)
+            z = z0 + 0.10 + 0.20 * layer
+            if layer % 2 == 0:
+                for i in range(2):
+                    for j in range(2):
+                        add_box(bm, (0.58, 0.39, 0.19), (-0.295 + 0.59 * i, -0.195 + 0.39 * j, z), PAINT_WHITE, bev=0.06)
+            else:
+                for i in range(3):         # prekladana vrstva: tri vrecia naprec, striedavo posunute (cely podorys ostava v 1.2 x 0.8 m)
+                    add_box(bm, (0.39, 0.58, 0.19), (-0.39 + 0.39 * i, (0.11 if i % 2 == 0 else -0.11), z), PAINT_WHITE, bev=0.06)
         add_box(bm, (1.18, 0.78, 0.014), (0.0, 0.0, z0 + 0.60), STRAP, bev=0.003)
         add_box(bm, (0.014, 0.78, 1.0), (0.0, 0.0, z0 + 0.50), STRAP, bev=0.003)
     return finish_mesh(bm, "SM_Pv_pa_paleta_" + kind)
@@ -2818,7 +2852,7 @@ def _pa_doc():
             p["name"], p["Ld"], PA_WD, PA_ZF, PA_HS, len(pa_pallets(p)), p["rows"], len(p["axles"]), ", ".join("%.2f" % x for x in p["axles"]), PA_TRACK * 2.0, p["R"]))
     lines += [
         "  Typove diely (uchyt <Vozik>_uchyt_<diel>): ram, podlaha, celna (celna stena), bocnica_L / _P (pivot na spodnej hrane vonkajsej steny, rotacia X o -/+ Bocnice x 90 st.), zadne_celo (rotacia Y o -Zadne_celo x 90 st.), paleta_N.",
-        "  EUR paleta (Pv_pa_paleta_karton: 18 kartonov s paskou a foliou, Pv_pa_paleta_vrecia: 20 vriec s popruhom): pivot v strede spodku palety, 1.20 x 0.80 m; vlastnost Naklad = pocet nalozenych paliet (palety miznu od zadnej).",
+        "  EUR paleta (Pv_pa_paleta_karton: 18 kartonov s paskou a foliou, Pv_pa_paleta_vrecia: 18 vriec s popruhom): pivot v strede spodku palety, 1.20 x 0.80 m; vlastnost Naklad = pocet nalozenych paliet (palety miznu od zadnej).",
         "  Spolocne diela (oje, naprava, pera, kolesa, blatniky, naraznik so svetlami ...) ako pri malom vozikoch.",
     ]
     return lines
@@ -2970,9 +3004,9 @@ def build_cs_komin(c, i):
     bm = bmesh.new()
     add_cylinder(bm, CS_MH_R, CS_MH_H + 0.08, along_z((mx, 0.0, top + (CS_MH_H - 0.08) * 0.5)), STEEL, segments=16, bev=0.006)
     add_cylinder(bm, CS_MH_R + 0.03, 0.04, along_z((mx, 0.0, top + CS_MH_H - 0.02)), STEEL, segments=16, bev=0.004)
-    for k in range(8):
+    for k in range(8):       # skrutky v prirube (hlavy vo vyske prirubby, poklop lezi nad nimi)
         a = 2.0 * math.pi * (k + 0.5) / 8.0
-        add_box(bm, (0.035, 0.035, 0.03), (mx + (CS_MH_R + 0.015) * math.cos(a), (CS_MH_R + 0.015) * math.sin(a), top + CS_MH_H + 0.01), DARK, bev=0.004)
+        add_box(bm, (0.035, 0.035, 0.03), (mx + (CS_MH_R + 0.012) * math.cos(a), (CS_MH_R + 0.012) * math.sin(a), top + CS_MH_H - 0.03), DARK, bev=0.004)
     for s in SIDES_LR:
         add_box(bm, (0.06, 0.05, 0.09), (mx + CS_MH_R + 0.04, s * 0.11, top + CS_MH_H + 0.04), STEEL, bev=0.006)
     add_cylinder(bm, 0.04, 0.14, along_z((mx - 0.36, 0.0, top + 0.04)), STEEL, segments=10, bev=0.004)
@@ -2984,11 +3018,11 @@ def build_cs_lid():
     # poklop: pivot v osi pantu na zadnom okraji komina (os Y); poklop lezi pred pivotom (-X je zadok, preto poklop smeruje do -X)
     bm = bmesh.new()
     r = CS_MH_R + 0.03
-    add_cylinder(bm, r, 0.05, along_z((-r, 0.0, 0.005)), STEEL, segments=16, bev=0.006)
-    add_cylinder(bm, 0.065, 0.04, along_z((-r, 0.0, 0.045)), ALU, segments=10, bev=0.004)
-    add_box(bm, (0.18, 0.04, 0.03), (-r, 0.0, 0.075), ALU, bev=0.006)
+    add_cylinder(bm, r, 0.05, along_z((-r, 0.0, 0.025)), STEEL, segments=16, bev=0.006)       # poklop lezi na prirube komina (nie v nom)
+    add_cylinder(bm, 0.065, 0.04, along_z((-r, 0.0, 0.07)), ALU, segments=10, bev=0.004)
+    add_box(bm, (0.18, 0.04, 0.03), (-r, 0.0, 0.10), ALU, bev=0.006)
     for s in SIDES_LR:
-        add_box(bm, (0.04, 0.04, 0.04), (-r - 0.08 * s, 0.0, 0.055), ALU, bev=0.004)
+        add_box(bm, (0.04, 0.04, 0.05), (-r - 0.08 * s, 0.0, 0.08), ALU, bev=0.004)
         add_box(bm, (0.05, 0.06, 0.06), (-2.0 * r + 0.01, s * 0.10, 0.0), DARK, bev=0.006)
         add_box(bm, (0.05, 0.05, 0.05), (0.0, s * 0.11, 0.0), STEEL, bev=0.006)
     add_cylinder(bm, 0.02, 0.26, along_y((0.0, 0.0, 0.0)), CHROME, segments=8)

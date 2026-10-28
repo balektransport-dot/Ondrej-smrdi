@@ -9,7 +9,8 @@
 #     QV_CHECK=1 vypise levitujuce diely a prieniky; QV_IGN = subor s riadkami "cast_nazvu_A|cast_nazvu_B" (zamerne prieniky, ktore sa nemaju vypisovat)
 #     QV_CAMS  vlastne pohlady namiesto sesticky: "popis:x,y,z>cielx,ciely,cielz>ohnisko;..." (svetove suradnice, max 6)
 #   Hak, lano, naklad na pase, vnorene teleskopy a piest podpery su v zozname vynimiek pre levitovanie.
-import bpy, os, math, sys, time
+import bpy, os, math, sys, time, tempfile
+QV_TMP = os.path.join(tempfile.gettempdir(), "qv_tmp_%d.png" % os.getpid())
 import numpy as np
 from mathutils import Vector
 from mathutils.bvhtree import BVHTree
@@ -70,6 +71,9 @@ if os.environ.get("QV_CHECK"):
             o2, tree2, vs2, (c0, c1) = info[m]
             if any(b0[i] - tol > c1[i] or b1[i] + tol < c0[i] for i in range(3)):
                 continue
+            if len(tree.overlap(tree2)) > 0:        # diely sa dotykaju / prenikaju = nelevituju
+                best = 0.0
+                break
             step = max(1, len(vs) // 150)
             for p in vs[::step]:
                 loc = tree2.find_nearest(p)
@@ -101,15 +105,16 @@ if os.environ.get("QV_CHECK"):
     print("  (celkom dvojic s prienikom: %d)" % len(rows))
 
 # pohlady
-allp = [bbox_of(o) for o in meshes]
+shown = [o for o in meshes if not o.hide_render] or meshes
+allp = [bbox_of(o) for o in shown]
 lo = Vector((min(b[0][i] for b in allp) for i in range(3)))
 hi = Vector((max(b[1][i] for b in allp) for i in range(3)))
 c = (lo + hi) * 0.5
 ext = hi - lo
 R = ext.length * 0.5
-for o in O:
-    if o not in mine and o.type in ("MESH", "EMPTY", "FONT", "CURVE"):
-        o.hide_render = True
+for o in list(O):
+    if o not in mine and o.type in ("MESH", "FONT", "CURVE"):
+        O.remove(o, do_unlink=True)  # aj objekty s ovladanou viditelnostou (napr. naklad inych strojov)
 bpy.ops.mesh.primitive_plane_add(size=300, location=(c.x, c.y, 0.0))
 floor = bpy.context.active_object
 fm = bpy.data.materials.new("Floor")
@@ -147,9 +152,9 @@ for view in views:
         cam.data.type = "PERSP"; cam.data.lens = lens
         cam.location = Vector(cp)
         cam.rotation_euler = (Vector(tp) - cam.location).to_track_quat("-Z", "Y").to_euler()
-        sc.render.filepath = "/tmp/claude-0/qv_tmp.png"
+        sc.render.filepath = QV_TMP
         bpy.ops.render.render(write_still=True)
-        im = bpy.data.images.load("/tmp/claude-0/qv_tmp.png")
+        im = bpy.data.images.load(QV_TMP)
         imgs.append(np.array(im.pixels[:], dtype=np.float32).reshape(H, W, 4))
         bpy.data.images.remove(im)
         continue
@@ -167,17 +172,21 @@ for view in views:
     up = "Y"
     rot = (c - cam.location).to_track_quat("-Z", "Y")
     cam.rotation_euler = rot.to_euler()
-    sc.render.filepath = "/tmp/claude-0/qv_tmp.png"
+    sc.render.filepath = QV_TMP
     bpy.ops.render.render(write_still=True)
-    im = bpy.data.images.load("/tmp/claude-0/qv_tmp.png")
+    im = bpy.data.images.load(QV_TMP)
     arr = np.array(im.pixels[:], dtype=np.float32).reshape(H, W, 4)
     bpy.data.images.remove(im)
     imgs.append(arr)
-while len(imgs) < 6:
-    imgs.append(np.zeros_like(imgs[0]))
-rows = [np.concatenate(imgs[0:3], axis=1), np.concatenate(imgs[3:6], axis=1)]
-sheet = np.concatenate(rows[::-1], axis=0)       # pixely Blendera ide odspodu
-out = bpy.data.images.new("sheet", 3 * W, 2 * H)
+if len(imgs) == 1:                                # jeden vlastny pohlad = samostatny obrazok (bez zostavy)
+    sheet = imgs[0]
+    out = bpy.data.images.new("sheet", W, H)
+else:
+    while len(imgs) < 6:
+        imgs.append(np.zeros_like(imgs[0]))
+    rows = [np.concatenate(imgs[0:3], axis=1), np.concatenate(imgs[3:6], axis=1)]
+    sheet = np.concatenate(rows[::-1], axis=0)       # pixely Blendera ide odspodu
+    out = bpy.data.images.new("sheet", 3 * W, 2 * H)
 out.pixels = sheet.flatten().tolist()
 out.filepath_raw = os.environ["QV_OUT"]
 out.file_format = "PNG"
