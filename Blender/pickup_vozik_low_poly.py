@@ -441,9 +441,10 @@ MATERIALS = [
     ("PV_Siva", (0.40, 0.42, 0.45, 1.0), 0.5, 0.50, 0.0, 1.0),
     ("PV_Kora", (0.30, 0.19, 0.10, 1.0), 0.0, 0.95, 0.0, 1.0),
     ("PV_Drevo_rez", (0.78, 0.60, 0.38, 1.0), 0.0, 0.85, 0.0, 1.0),
+    ("PV_ADR", (1.0, 0.55, 0.02, 1.0), 0.0, 0.50, 0.0, 1.0),
 ]
 (FRAME, STEEL, CHROME, TIRE, RIM, DARK, GLASS, LAMP_OR, LAMP_RED, LAMP_WHITE, RED, WHITE, GALV, ALU, PLY, INT, SEAT, PLAST,
- PAINT_BLUE, PAINT_WHITE, PAINT_RED, PAINT_TEAL, PAINT_ORANGE, CARTON, WRAP, PALLET, STRAP, GRAY, BARK, WOODCUT) = range(30)
+ PAINT_BLUE, PAINT_WHITE, PAINT_RED, PAINT_TEAL, PAINT_ORANGE, CARTON, WRAP, PALLET, STRAP, GRAY, BARK, WOODCUT, ADR_MAT) = range(31)
 PART_MAKERS = []
 SCENE_BUILDERS = []
 DOC_EXTRA = []
@@ -1604,21 +1605,25 @@ for _pk in PICKUPS.values():
 # Diel vymenis tak, ze zmazes objekt <Privesok>_<diel> a novy objekt (rovnaky pivot) das za dieta uchytu - animacia ostane.
 # ---------------------------------------------------------------------------
 
-def build_tr_pneu(r, alloy=False):
-    # pneumatika (pivot v osi kolesa, symetricka): ring s dezenom a zaoblenymi ramenami
-    w = 0.20 if alloy else (0.19 if r < 0.34 else 0.21)
+def tr_wheel_code(r, alloy=False, narrow=False):
+    return "%d%s%s" % (round(r * 100), "a" if alloy else "", "d" if narrow else "")
+
+
+def build_tr_pneu(r, alloy=False, narrow=False):
+    # pneumatika (pivot v osi kolesa, symetricka): ring s dezenom a zaoblenymi ramenami; narrow = uzsia pre dvojmontaz
+    w = 0.16 if narrow else (0.20 if alloy else (0.19 if r < 0.34 else 0.21))
     rim = r * (0.70 if alloy else 0.62)
     bm = bmesh.new()
     add_ring(bm, r - 0.02, rim * 0.94, w, 0.0, TIRE, 24, bev=0.03)
     for k in range(24):
         a = 2.0 * math.pi * k / 24
         add_box(bm, (0.05, w * 0.84, 0.03), (0.0, 0.0, 0.0), TIRE, bev=0.008, frame=Matrix.Rotation(a, 4, "Y") @ Matrix.Translation((0.0, 0.0, r - 0.018)))
-    return finish_mesh(bm, "SM_Pv_tr_pneu_%d%s" % (round(r * 100), "a" if alloy else ""))
+    return finish_mesh(bm, "SM_Pv_tr_pneu_" + tr_wheel_code(r, alloy, narrow))
 
 
-def build_tr_disk(r, alloy=False):
+def build_tr_disk(r, alloy=False, narrow=False):
     # disk kolesa (lava strana, vonkajsia strana +Y; prava je zrkadlo): ocelovy s prelisom a maticami, alebo hlinikovy s 15 licami
-    w = 0.20 if alloy else (0.19 if r < 0.34 else 0.21)
+    w = 0.16 if narrow else (0.20 if alloy else (0.19 if r < 0.34 else 0.21))
     rim = r * (0.70 if alloy else 0.62)
     bm = bmesh.new()
     add_ring(bm, rim, rim * 0.90, 0.04, w * 0.5 - 0.03, RIM, 24, bev=0.008)
@@ -1643,13 +1648,17 @@ def build_tr_disk(r, alloy=False):
     return bm
 
 
-def build_tr_naprava(track, name):
-    # naprava (pivot v osi kolies): trubka, dva bubny ulozenia, cepy; pera a kolesa su zvlast
+def build_tr_naprava(track, name, dual=0.0):
+    # naprava (pivot v osi kolies): trubka, dva bubny ulozenia, cepy (pri dvojmontazi dlhsie cez obe kolesa); pera a kolesa su zvlast
     bm = bmesh.new()
     add_cylinder(bm, 0.045, 2.0 * track - 0.20, along_y((0.0, 0.0, 0.0)), STEEL, segments=12)
     for s in SIDES_LR:
-        add_cylinder(bm, 0.085, 0.10, along_y((0.0, s * (track - 0.17), 0.0)), DARK, segments=12)
-        add_cylinder(bm, 0.055, 0.08, along_y((0.0, s * (track - 0.095), 0.0)), STEEL, segments=10)
+        if dual:
+            add_cylinder(bm, 0.085, 0.08, along_y((0.0, s * (track - dual - 0.13), 0.0)), DARK, segments=12)
+            add_cylinder(bm, 0.055, 2.0 * dual + 0.18, along_y((0.0, s * track, 0.0)), STEEL, segments=10)
+        else:
+            add_cylinder(bm, 0.085, 0.10, along_y((0.0, s * (track - 0.17), 0.0)), DARK, segments=12)
+            add_cylinder(bm, 0.055, 0.08, along_y((0.0, s * (track - 0.095), 0.0)), STEEL, segments=10)
         add_box(bm, (0.09, 0.07, 0.04), (0.0, s * (track - 0.30), 0.045), STEEL, bev=0.008)
     return finish_mesh(bm, name)
 
@@ -1669,18 +1678,17 @@ def build_tr_pero():
 
 
 def build_tr_fender(r, width):
-    # blatnik (lava strana; prava je zrkadlo), pivot v osi kolesa: obluk len nad kolesom (od vodorovnej roviny osi, teda najviac po polovicu kolesa), vonkajsi okraj, priruba na strane -Y
+    # blatnik (lava strana; prava je zrkadlo), pivot v osi kolesa: maly oblukovy kryt len nad horom kolesa (150 az 30 st. nad osou), vonkajsi okraj, priruba na strane -Y
     bm = bmesh.new()
     ro, ri = r + 0.085, r + 0.045
-    angles = [180.0 - 180.0 * k / 14.0 for k in range(15)]
+    angles = [150.0 - 120.0 * k / 12.0 for k in range(13)]
     outer = [(ro * math.cos(math.radians(a)), ro * math.sin(math.radians(a))) for a in angles]
     inner = [(ri * math.cos(math.radians(a)), ri * math.sin(math.radians(a))) for a in angles]
     add_extruded(bm, outer + inner[::-1], -width * 0.5, width * 0.5, "XZ", GALV, bev=0.008)
-    skirt_i = [((ro - 0.07) * math.cos(math.radians(a)), (ro - 0.07) * math.sin(math.radians(a))) for a in angles]
+    skirt_i = [((ro - 0.05) * math.cos(math.radians(a)), (ro - 0.05) * math.sin(math.radians(a))) for a in angles]
     add_extruded(bm, outer + skirt_i[::-1], width * 0.5 - 0.02, width * 0.5 + 0.012, "XZ", GALV, bev=0.005)
-    for a in (180.0, 0.0):
-        ax = ro * math.cos(math.radians(a))
-        add_box(bm, (0.07, width + 0.02, 0.03), (ax, 0.0, 0.0), STEEL, bev=0.008)
+    for a in (150.0, 30.0):
+        add_box(bm, (0.06, width + 0.02, 0.03), (ro * math.cos(math.radians(a)), 0.0, ro * math.sin(math.radians(a))), STEEL, bev=0.008, rotation=(0.0, 90.0 - a, 0.0))
     add_box(bm, (0.26, 0.05, 0.03), (0.0, -width * 0.5 + 0.005, ro - 0.012), STEEL, bev=0.006)      # priruba na strane k telu (vnutorna = -Y)
     return bm
 
@@ -1688,12 +1696,12 @@ def build_tr_fender(r, width):
 def build_tr_wing(r, length, width):
     # krdlovy blatnik (lava strana; prava je zrkadlo), pivot v osi kolesa: rovna horna plocha so skosenymi koncami, okraj (nad polovicou kolesa)
     bm = bmesh.new()
-    top, low = r + 0.055, r - 0.12
-    prof = [(-length * 0.5, low - 0.03), (-length * 0.5, low), (-length * 0.5 + 0.20, top), (length * 0.5 - 0.20, top), (length * 0.5, low),
-            (length * 0.5, low - 0.03), (length * 0.5 - 0.20, top - 0.03), (-length * 0.5 + 0.20, top - 0.03)]
+    top, low = r + 0.055, r - 0.05
+    prof = [(-length * 0.5, low - 0.03), (-length * 0.5, low), (-length * 0.5 + 0.16, top), (length * 0.5 - 0.16, top), (length * 0.5, low),
+            (length * 0.5, low - 0.03), (length * 0.5 - 0.16, top - 0.03), (-length * 0.5 + 0.16, top - 0.03)]
     add_extruded(bm, prof, -width * 0.5, width * 0.5, "XZ", PAINT_BLUE, bev=0.01)
-    lip = [(-length * 0.5 + 0.06, low - 0.02), (-length * 0.5 + 0.20, top - 0.02), (length * 0.5 - 0.20, top - 0.02), (length * 0.5 - 0.06, low - 0.02),
-           (length * 0.5 - 0.12, low - 0.09), (-length * 0.5 + 0.12, low - 0.09)]
+    lip = [(-length * 0.5 + 0.05, low - 0.02), (-length * 0.5 + 0.16, top - 0.02), (length * 0.5 - 0.16, top - 0.02), (length * 0.5 - 0.05, low - 0.02),
+           (length * 0.5 - 0.10, low - 0.06), (-length * 0.5 + 0.10, low - 0.06)]
     add_extruded(bm, lip, width * 0.5 - 0.025, width * 0.5, "XZ", PAINT_BLUE, bev=0.006)
     for k in range(3):
         x = -length * 0.5 + 0.40 + (length - 0.80) * k / 2.0
@@ -1806,13 +1814,12 @@ def build_tr_konzola(t):
 
 
 def build_tr_svetlo():
-    # koncove svetlo (pivot v strede, sklo smeruje do -X): tmave puzdro s tromi okruhlymi sklami (brzdove cervene, smerovka oranzova, cuvanie biele) a odrazkou
+    # koncove svetlo (lave; prave je zrkadlo; pivot v strede, sklo smeruje do -X): VODOROVNE puzdro s tromi okruhlymi sklami vedla seba (von brzdove cervene, smerovka oranzova, cuvanie biele) a odrazkou
     bm = bmesh.new()
-    add_box(bm, (0.05, 0.13, 0.30), (0.0, 0.0, 0.0), DARK, bev=0.025)
-    for dz, mat in ((0.095, LAMP_RED), (0.0, LAMP_OR), (-0.095, LAMP_WHITE)):
-        add_cylinder(bm, 0.038, 0.014, along_x((-0.028, 0.0, dz)), mat, segments=14, bev=0.003)
-    add_box(bm, (0.012, 0.09, 0.03), (-0.028, 0.0, -0.14), RED, bev=0.003)
-    return finish_mesh(bm, "SM_Pv_tr_svetlo")
+    add_box(bm, (0.05, 0.34, 0.12), (0.0, 0.0, 0.0), DARK, bev=0.025)
+    for dy, mat in ((0.115, LAMP_RED), (0.0, LAMP_OR), (-0.115, LAMP_WHITE)):
+        add_cylinder(bm, 0.043, 0.014, along_x((-0.028, dy, 0.0)), mat, segments=16, bev=0.003)
+    return bm
 
 
 def build_tr_spz():
@@ -1820,22 +1827,23 @@ def build_tr_spz():
     bm = bmesh.new()
     add_box(bm, (0.012, 0.44, 0.14), (0.0, 0.0, 0.0), STEEL, bev=0.004)
     add_box(bm, (0.014, 0.40, 0.12), (-0.006, 0.0, 0.0), WHITE, bev=0.004)
-    add_box(bm, (0.03, 0.10, 0.03), (-0.01, 0.0, 0.085), DARK, bev=0.006)
+    add_box(bm, (0.03, 0.10, 0.03), (-0.01, 0.0, 0.105), DARK, bev=0.006)
     return finish_mesh(bm, "SM_Pv_tr_spz")
 
 
 def build_tr_naraznik(t):
-    # zadny naraznik (ocelovy nosnik so zachytnymi konzolami k ramu, odrazkami a stupackou); pri medzere (gap) je prerusena v strede (napr. pre najazdy)
+    # zadny naraznik (VACSI: hlboky hlinikovy profil so spodnym pasom, zachytne konzoly k ramu, odrazky); pri medzere (gap) je prerusena v strede (napr. pre najazdy)
     b = t["bump"]
     x, w, z = b["x"], b["w"], b["z"]
     bm = bmesh.new()
     gap = b.get("gap")
     spans = [(-w * 0.5, w * 0.5)] if not gap else [(-w * 0.5, -gap[1]), (-gap[0], gap[0]), (gap[1], w * 0.5)]
     for y0, y1 in spans:
-        add_box(bm, (0.10, y1 - y0, 0.10), (x + 0.05, (y0 + y1) * 0.5, z), GRAY, bev=0.025)
+        add_box(bm, (0.16, y1 - y0, 0.18), (x + 0.08, (y0 + y1) * 0.5, z), GRAY, bev=0.035)
+        add_box(bm, (0.03, y1 - y0 - 0.06, 0.04), (x - 0.005, (y0 + y1) * 0.5, z - 0.065), DARK, bev=0.006)
     for s in SIDES_LR:
-        add_box(bm, (0.012, 0.10, 0.04), (x - 0.006, s * (w * 0.5 - 0.06), z - 0.0), RED, bev=0.003)
-        add_box(bm, (0.32, 0.06, 0.07), (x + 0.26, s * t["sy"], z - 0.0), GRAY, bev=0.012)
+        add_box(bm, (0.012, 0.10, 0.05), (x - 0.006, s * (w * 0.5 - 0.40), z + 0.06), RED, bev=0.003)
+        add_box(bm, (0.36, 0.08, 0.10), (x + 0.30, s * t["sy"], z - 0.0), GRAY, bev=0.015)
     return finish_mesh(bm, "SM_Pv_tr_naraznik_" + t["key"])
 
 
@@ -1859,7 +1867,7 @@ def tr_type_parts(put, put_lr, t):
     put_lr(build_tr_konzola(t), "SM_Pv_tr_konzola_" + t["key"])
     put(build_tr_naraznik(t))
     put(build_tr_obrysove(t))
-    put(build_tr_naprava(t["track"], "SM_" + ax_key(t["track"])))
+    put(build_tr_naprava(t["track"], "SM_" + ax_key(t["track"], t.get("dual", 0.0)), t.get("dual", 0.0)))
     if t.get("fender") == "wing":
         put_lr(build_tr_wing(t["R"], t["wing"][0], t["wing"][1]), "SM_Pv_tr_kridlo_" + t["key"])
 
@@ -1885,7 +1893,8 @@ def tr_rig(coll, tr, parts, mats, ball_src, x_pos, y_pos, delay_m):
         ball_src.hide_render = False
     xs = tr["axles"]
     alloy = tr.get("wheel") == "alloy"
-    rk = "%d%s" % (round(R * 100), "a" if alloy else "")
+    dual = tr.get("dual", 0.0)
+    rk = tr_wheel_code(R, alloy, bool(dual))
     terrains, axles, wheels = [], [], []
     k = PK_R / R
     for i, x in enumerate(xs):
@@ -1893,17 +1902,18 @@ def tr_rig(coll, tr, parts, mats, ball_src, x_pos, y_pos, delay_m):
         t.empty_display_type = "PLAIN_AXES"
         t.empty_display_size = 0.2
         terrains.append(t)
-        sock, objs = mount(coll, name, "naprava_%d" % (i + 1), root, (x, 0.0, R), [("naprava_%d" % (i + 1), parts[ax_key(tr["track"])])])
+        sock, objs = mount(coll, name, "naprava_%d" % (i + 1), root, (x, 0.0, R), [("naprava_%d" % (i + 1), parts[ax_key(tr["track"], dual)])])
         tv = [("t", "TRANSFORM", (t, "LOC_Z")), ("tr", "TRANSFORM", (t, "ROT_X"))]
         driver(sock, "location", 2, "t", tv)
         driver(sock, "rotation_euler", 0, "tr", tv)
         axles.append(sock)
         for s, side in ((1.0, "L"), (-1.0, "P")):
             mount(coll, name, "pero_%d_%s" % (i + 1, side), sock, (0.0, s * tr["sy"], 0.0), [("pero_%d_%s" % (i + 1, side), parts["Pv_tr_pero"])])
-            hub, hobjs = mount(coll, name, "koleso_%d_%s" % (i + 1, side), sock, (0.0, s * tr["track"], 0.0),
-                               [("pneu_%d_%s" % (i + 1, side), parts["Pv_tr_pneu_" + rk]), ("disk_%d_%s" % (i + 1, side), parts["Pv_tr_disk_%s_%s" % (rk, side)])])
-            driver(hub, "rotation_euler", 1, "r * %.6f * %.4f" % (D2R, k), [prop("r", "Koleso_otocenie")])
-            wheels.append(hub)
+            for tag, yy in ((("_vnut", s * (tr["track"] - dual)), ("_von", s * (tr["track"] + dual))) if dual else (("", s * tr["track"]),)):
+                hub, hobjs = mount(coll, name, "koleso_%d_%s%s" % (i + 1, side, tag), sock, (0.0, yy, 0.0),
+                                   [("pneu_%d_%s%s" % (i + 1, side, tag), parts["Pv_tr_pneu_" + rk]), ("disk_%d_%s%s" % (i + 1, side, tag), parts["Pv_tr_disk_%s_%s" % (rk, side)])])
+                driver(hub, "rotation_euler", 1, "r * %.6f * %.4f" % (D2R, k), [prop("r", "Koleso_otocenie")])
+                wheels.append(hub)
     body = new_object(coll, name + "_telo", None, (0.0, 0.0, PK_BALL_Z), root)
     body.empty_display_type = "ARROWS"
     body.empty_display_size = 0.3
@@ -1925,7 +1935,7 @@ def tr_rig(coll, tr, parts, mats, ball_src, x_pos, y_pos, delay_m):
     # zadne svetla na naraznik, znacka v strede
     b = tr["bump"]
     for s, side in ((1.0, "L"), (-1.0, "P")):
-        mount(coll, name, "svetlo_" + side, body, tl((b["x"] - 0.03, s * (b["w"] * 0.5 - 0.12), b["z"] + 0.10)), [("svetlo_" + side, parts["Pv_tr_svetlo"])])
+        mount(coll, name, "svetlo_" + side, body, tl((b["x"] - 0.025, s * (b["w"] * 0.5 - 0.20), b["z"])), [("svetlo_" + side, parts["Pv_tr_svetlo_" + side])])
     mount(coll, name, "spz", body, tl((b["x"] - 0.012, 0.0, b["z"] + 0.0)), [("spz", parts["Pv_tr_spz"])])
     # blatniky a ich konzoly
     kind = tr.get("fender", "arc")
@@ -1965,8 +1975,8 @@ TR_FENDER_W = 0.24
 TRAILERS = {}              # typ -> (slovnik variantov, funkcia riggu); registruju moduly vozik / podval / ...
 
 
-def ax_key(track):
-    return "Pv_tr_naprava_%d" % int(round(track * 100 + 1e-6))
+def ax_key(track, dual=0.0):
+    return "Pv_tr_naprava_%d%s" % (int(round(track * 100 + 1e-6)), "d" if dual else "")
 
 
 def tr_parts(put, put_lr):
@@ -1977,7 +1987,7 @@ def tr_parts(put, put_lr):
     put(build_tr_retaze())
     put(build_tr_zastrcka())
     put(build_tr_pero())
-    put(build_tr_svetlo())
+    put_lr(build_tr_svetlo(), "SM_Pv_tr_svetlo")
     put(build_tr_spz())
     for r in (0.28, 0.30, 0.31):
         put(build_tr_pneu(r))
@@ -1985,6 +1995,8 @@ def tr_parts(put, put_lr):
         put_lr(build_tr_fender(r, TR_FENDER_W), "SM_Pv_tr_blatnik_%d" % round(r * 100))
     put(build_tr_pneu(0.30, True))
     put_lr(build_tr_disk(0.30, True), "SM_Pv_tr_disk_30a")
+    put(build_tr_pneu(0.30, True, True))
+    put_lr(build_tr_disk(0.30, True, True), "SM_Pv_tr_disk_30ad")
 
 
 def _tr_doc():
@@ -2002,7 +2014,7 @@ def _tr_doc():
 
 DOC_EXTRA.extend(_tr_doc())
 PART_MAKERS.append(tr_parts)
-CATALOG_EXTRA.append(("PRIVESY - SPOLOCNE", ["Pv_tr_spojka", "Pv_tr_spojka_paka", "Pv_tr_opierne_koleso", "Pv_tr_objimka", "Pv_tr_retaze", "Pv_tr_zastrcka", "Pv_tr_pero", "Pv_tr_svetlo", "Pv_tr_spz",
+CATALOG_EXTRA.append(("PRIVESY - SPOLOCNE", ["Pv_tr_spojka", "Pv_tr_spojka_paka", "Pv_tr_opierne_koleso", "Pv_tr_objimka", "Pv_tr_retaze", "Pv_tr_zastrcka", "Pv_tr_pero", "Pv_tr_svetlo_L", "Pv_tr_spz",
                                               "Pv_tr_pneu_28", "Pv_tr_pneu_30", "Pv_tr_pneu_30a", "Pv_tr_pneu_31",
                                               "Pv_tr_disk_28_L", "Pv_tr_disk_30_L", "Pv_tr_disk_30a_L", "Pv_tr_disk_31_L",
                                               "Pv_tr_blatnik_28_L", "Pv_tr_blatnik_30_L", "Pv_tr_blatnik_31_L"]))
@@ -2167,11 +2179,11 @@ CATALOG_EXTRA.append(("MALY VOZIK", ["Pv_vz_%s_%s" % (p, v) for v in VOZIKY for 
 
 PD_XF = -1.50         # predna hrana paluby
 PD_ZB, PD_ZT = 0.59, 0.68        # spodok a vrch paluby
-PD_HALF = 0.98        # polsirka paluby (vonkajsi okraj bocneho nosnika)
+PD_HALF = 0.93        # polsirka paluby (vonkajsi okraj bocneho nosnika)
 PD_HR = 0.45          # vyska celnej steny
 PD_TRACK, PD_SY = 1.14, 0.28     # y stredu kolies, y podlzniku ramu
-PD_RY = 0.65          # y stredu najazdu
-PD_RW = 0.50          # sirka najazdu
+PD_RY = 0.63          # y stredu najazdu
+PD_RW = 0.46          # sirka najazdu
 PD_RT = 0.06          # hrubka najazdu
 PODVALY = {
     "4_0": dict(key="4_0", name="Podval_auto_4_0", Lb=4.00, Lr=2.40, R=0.30, axles=[-3.70]),
@@ -2195,10 +2207,10 @@ def pd_tr(p):
     xw = sum(xs) / len(xs)
     g = pd_geo(p)
     zt = PD_ZT
-    return dict(name=p["name"], key="pd_" + p["key"], R=p["R"], axles=xs, track=PD_TRACK, sy=PD_SY, wheel="alloy", fender="wing", wing=((max(xs) - min(xs)) + 1.05, 0.28),
+    return dict(name=p["name"], key="pd_" + p["key"], R=p["R"], axles=xs, track=PD_TRACK, sy=PD_SY, wheel="alloy", dual=0.09, fender="wing", wing=((max(xs) - min(xs)) + 0.70, 0.36),
                 oje=dict(xf=PD_XF, hw=PD_SY, z=0.515, z0=0.53), hang=dict(z=0.43, h=0.07),
-                kons=dict(y0=PD_SY - 0.01, y1=1.07, zb=0.43, zt=0.64, yr=1.03), kons_mat=PAINT_BLUE,
-                bump=dict(x=g["xr"] - 0.08, w=2.24, z=0.50, gap=(0.34, 0.93)),
+                kons=dict(y0=PD_SY - 0.01, y1=1.00, zb=0.43, zt=0.64, yr=0.97), kons_mat=PAINT_BLUE,
+                bump=dict(x=g["xr"] - 0.08, w=2.62, z=0.50, gap=(0.34, 0.90)),
                 markers=[(PD_XF - 0.9, k * (PD_HALF + 0.006), PD_ZB + 0.06, "or") for k in SIDES_LR] + [(g["xr"] + g["lip"] + 0.2, k * (PD_HALF + 0.006), PD_ZB + 0.06, "or") for k in SIDES_LR] +
                         [(g["xr"] + 0.12, k * (PD_HALF + 0.006), PD_ZB + 0.05, "red") for k in SIDES_LR])
 
@@ -2230,23 +2242,23 @@ def build_pd_deck(p):
     side = [(xr, zb), (xf, zb), (xf, zt + 0.035), (xr + lip, zt + 0.035), (xr, zb + 0.04)]
     inner = [(xr + lip, zb), (xf, zb), (xf, zt - 0.022), (xr + lip, zt - 0.022)]
     for s in SIDES_LR:
-        ya, yb = side_y(s, 0.92, PD_HALF)
+        ya, yb = side_y(s, PD_HALF - 0.05, PD_HALF)
         add_extruded(bm, side, ya, yb, "XZ", PAINT_BLUE, bev=0.025)
         yc, yd = side_y(s, 0.38, 0.44)
         add_extruded(bm, inner, yc, yd, "XZ", PAINT_BLUE, bev=0.012)
         ye, yf = side_y(s, 0.64, 0.68)
         add_extruded(bm, inner, ye, yf, "XZ", PAINT_BLUE, bev=0.01)
-        yg, yh = side_y(s, 0.40, 0.92)
+        yg, yh = side_y(s, 0.40, PD_HALF - 0.05)
         add_extruded(bm, [(xr, zb), (xr + lip, zb), (xr + lip, zt), (xr, g["zh"])], yg, yh, "XZ", PAINT_BLUE, bev=0.01)
     x = xr + lip + 0.06
     while x < xf - 0.08:
         for s in SIDES_LR:
-            add_box(bm, (0.05, 0.50, 0.022), (x, s * 0.66, zt - 0.011), PAINT_BLUE, bev=0.008)
+            add_box(bm, (0.05, 0.48, 0.022), (x, s * 0.64, zt - 0.011), PAINT_BLUE, bev=0.008)
         x += 0.088
     add_box(bm, (1.45, 0.76, 0.022), (xf - 0.775, 0.0, zt - 0.011), PAINT_BLUE, bev=0.01)
     xs = xr + 0.55
     while xs < xf - 0.1:
-        add_box(bm, (0.06, 1.90, 0.05), (xs, 0.0, zb + 0.025), PAINT_BLUE, bev=0.01)
+        add_box(bm, (0.06, 2 * PD_HALF - 0.06, 0.05), (xs, 0.0, zb + 0.025), PAINT_BLUE, bev=0.01)
         xs += 0.62
     for s in SIDES_LR:
         for k in range(3):
@@ -2500,7 +2512,8 @@ def _pd_doc():
              "    (poloha X = (dlzka najazdu - 0.05) x (1 - Najazd_vysun): 0 = zasunuty pod palubou, 1 = vysunuty dozadu); diel Pv_pd_najazd_<kluc> (pivot na hornom konci, v osi najazdu, na hornom povrchu, siaha do -X). Najazd sa najprv vysunie a potom sklopi, koniec sa dotkne zeme.",
              "  Hak ma Copy Location 'Na_aute' na tazne oko auta (vplyv = Hak_k_autu); lano mieri na hak (mierka Z = vzdialenost). Auto (Pv_auto_<kluc>) a 4 kolesa su deti korena; polohu, sklon, otacanie kolies a viditelnost nesu kluce (auto sa objavi v snimku %d, vytiahnutie 590 az 720)." % PD_TL["show"],
              "  Vlastnosti: Najazd_vysun, Najazd_sklon, Hak_k_autu (0 az 1), Opierne_koleso, Spojka, Koleso_otocenie. Animacia: jazda 1 az 300, opierne koleso 420 az 445, vysun najazdov 450 az 500, sklopenie 500 az 550, hak 560 az 590, vytiahnutie 590 az 720, nazad 740 az 840, opierne koleso hore 880 az 910, spojka 920 az 990.",
-             "  Zadne svetla su na zadnom naraznik (rozdelenom: stredny dielec a dva koncove, aby sa najazdy mali kde sklopit); krdlove blatniky (kridlo_L / _P) a ostatne spolocne diely ako pri ostatnych privesoch."]
+             "  Zadne svetla su na zadnom naraznik (rozdelenom: stredny dielec a dva koncove, aby sa najazdy mali kde sklopit); krdlove blatniky (kridlo_L / _P, uzke, len nad kolesami) a ostatne spolocne diely ako pri ostatnych privesoch.",
+             "  Kolesa su v DVOJMONTAZI (dve pneumatiky vedla seba na kazdej strane): uchyty koleso_N_L_vnut / _von a koleso_N_P_vnut / _von (pneu + disk, uzsie 0.16 m), kazda naprava ma vnutorne a vonkajsie hlavy; rezerva je jedno siroke koleso."]
     for p in PODVALY.values():
         g = pd_geo(p)
         c = PV_CARS[p["key"]]
@@ -2551,7 +2564,7 @@ def pa_tr(p):
     return dict(name=p["name"], key="pa_" + p["key"], R=p["R"], axles=p["axles"], track=PA_TRACK, sy=PA_SY,
                 oje=dict(xf=PA_XF, hw=0.45, z=0.515, z0=0.68), hang=dict(z=0.55, h=0.16),
                 kons=dict(y0=0.425, y1=0.925, zb=0.72), kons_mat=FRAME,
-                bump=dict(x=xr - 0.07, w=PA_WD + 0.40, z=0.70),
+                bump=dict(x=xr - 0.07, w=PA_WD + 0.40, z=0.64),
                 markers=[(PA_XF - Ld * 0.5, k * (PA_WD * 0.5 + 0.007), PA_ZF - 0.05, "or") for k in SIDES_LR] +
                         [(PA_XF - 0.02, k * (PA_WD * 0.5 - 0.03), PA_ZF - 0.05, "white") for k in SIDES_LR] +
                         [(xr + 0.02, k * (PA_WD * 0.5 - 0.03), PA_ZF - 0.05, "red") for k in SIDES_LR])
@@ -2733,26 +2746,43 @@ CATALOG_EXTRA.append(("VOZIK NA PALETY", ["Pv_pa_%s_%s" % (pp, k) for k in PALET
 
 
 # ---------------------------------------------------------------------------
-# Cisternovy vozik (maly privesny vozik s nadrzou na vodu / hnojivo / palivo): jedna naprava s oblukovymi blatnikmi, zaoblena nadrz s cervenym vrchom a bielym spodkom,
-# poklop na pante, skrinka s dvomi dverami vzadu vlavo, vypustny ventil, naraznik so svetlami, oje s opiernym kolesom a spojkou.
-# Dve velkosti: Vozik_cisterna_1_5 (asi 1.5 m3) a Vozik_cisterna_3_0 (asi 3 m3).
+# Cisternovy vozik (privesny vozik s cisternou na vodu / hnojivo / palivo) v tvare cisternoveho navesu: oval nadrze (zaoblena elipsa) s klenbami a obruceami medzi komorami,
+# poklopy na kominoch (otvaraju sa), ochranne trubky, ADR tabulky, skrinka s ventilmi vzadu s dvomi dverami (otvaraju sa) a armaturou (zberne potrubie, tri ventily,
+# vypust s hadicovou spojkou) v ROVNAKOM ROZMERE ako na cisternovom naves. Zadny naraznik so svetlami, oje s opiernym kolesom a spojkou, jedna naprava.
+# Dve velkosti: Vozik_cisterna_1_5 (jedna komora, asi 1.5 m3) a Vozik_cisterna_3_0 (dve komory, asi 3 m3).
 # ---------------------------------------------------------------------------
 
-CISTERNY = {
-    "1_5": dict(key="1_5", name="Vozik_cisterna_1_5", Lt=1.70, Wt=1.15, Ht=0.85, R=0.30),
-    "3_0": dict(key="3_0", name="Vozik_cisterna_3_0", Lt=2.50, Wt=1.35, Ht=1.05, R=0.30),
-}
 CS_XF = -1.10          # predna hrana ramu
-CS_ZB = 0.76           # spodok nadrze
+CS_ZB = 0.78           # spodok nadrze
+CS_EXP, CS_N = 2.5, 20          # tvar prierezu nadrze (zaoblena elipsa), pocet bodov prierezu
+CS_HEAD = ((0.0, 1.0), (0.30, 0.955), (0.60, 0.84), (0.83, 0.66), (1.0, 0.42))    # klenba: (podiel dlzky klenby od valca, mierka prierezu)
+CS_RING_S, CS_RING_W = 1.04, 0.035   # obruce medzi komorami
+CS_MH_R, CS_MH_H = 0.22, 0.12        # poklop: polomer, vyska komina
+CS_CAB_D, CS_CAB_H = 0.44, 0.58      # skrinka s ventilmi: hlbka a vyska (rovnako ako na naves)
+CS_CAB_Z0 = 0.68
+CS_DOOR_OPEN, CS_LID_OPEN = 1.75, 1.85
+CISTERNY = {
+    "1_5": dict(key="1_5", name="Vozik_cisterna_1_5", Lb=1.60, Wt=1.15, Ht=0.85, R=0.30, comps=1, head=0.22, mat=PAINT_WHITE),
+    "3_0": dict(key="3_0", name="Vozik_cisterna_3_0", Lb=2.40, Wt=1.35, Ht=1.05, R=0.30, comps=2, head=0.26, mat=PAINT_RED),
+}
 
 
 def cs_geo(c):
     xt0 = CS_XF - 0.10
-    xt1 = xt0 - c["Lt"]
-    xr = xt1 - 0.55
-    xax = xt0 - 0.55 * c["Lt"]
+    xb0 = xt0 - c["head"]
+    xb1 = xb0 - c["Lb"]
+    xt1 = xb1 - c["head"]
+    xr = xt1 - 0.62
+    xax = (xb0 + xb1) * 0.5 - 0.10
     track = c["Wt"] * 0.5 + 0.165
-    return dict(xt0=xt0, xt1=xt1, xr=xr, xax=xax, track=track, sy=0.45, zt=CS_ZB + c["Ht"], hx=xt0 - 0.30 * c["Lt"])
+    top = CS_ZB + c["Ht"]
+    xcab = xt1 - 0.50                      # zadna rovina skrinky (dvere)
+    hw = min(0.60, c["Wt"] * 0.5)
+    comp_len = c["Lb"] / c["comps"]
+    mh = [xb0 - comp_len * (i + 0.5) for i in range(c["comps"])]
+    rings = [xb0 - comp_len * i for i in range(1, c["comps"])]
+    return dict(xt0=xt0, xb0=xb0, xb1=xb1, xt1=xt1, xr=xr, xax=xax, track=track, sy=0.45, top=top, xcab=xcab, hw=hw, mh=mh, rings=rings,
+                zc=CS_ZB + c["Ht"] * 0.5)
 
 
 def cs_tr(c):
@@ -2761,9 +2791,28 @@ def cs_tr(c):
     return dict(name=c["name"], key="cs_" + c["key"], R=c["R"], axles=[g["xax"]], track=g["track"], sy=g["sy"],
                 oje=dict(xf=CS_XF, hw=0.45, z=0.515, z0=0.55), hang=dict(z=0.43, h=0.14),
                 kons=dict(y0=0.42, y1=g["track"] - 0.09, zb=0.70), kons_mat=FRAME,
-                bump=dict(x=g["xr"] - 0.10, w=Wt + 0.46, z=0.58),
-                markers=[(g["xt0"] - 0.05, k * 0.49, 0.55, "or") for k in SIDES_LR] + [(g["xax"] - 0.90, k * 0.49, 0.55, "or") for k in SIDES_LR] +
+                bump=dict(x=g["xr"] - 0.10, w=2 * g["hw"] + 0.44, z=0.56),
+                markers=[(g["xb0"] - 0.05, k * 0.49, 0.55, "or") for k in SIDES_LR] + [(g["xax"] - 0.90, k * 0.49, 0.55, "or") for k in SIDES_LR] +
                         [(g["xr"] + 0.30, k * 0.49, 0.55, "red") for k in SIDES_LR])
+
+
+def cs_ring(c, sy, sz=None):
+    # prierez nadrze (y, z) v mierke sy, sz okolo osi nadrze: zaoblena elipsa |y|^e + |z|^e = 1
+    g = cs_geo(c)
+    sz = sy if sz is None else sz
+    hw, hh = c["Wt"] * 0.5, c["Ht"] * 0.5
+    pts = []
+    for k in range(CS_N):
+        a = 2.0 * math.pi * k / CS_N
+        co, si = math.cos(a), math.sin(a)
+        pts.append((hw * sy * math.copysign(abs(co) ** (2.0 / CS_EXP), co), g["zc"] + hh * sz * math.copysign(abs(si) ** (2.0 / CS_EXP), si)))
+    return pts
+
+
+def cs_tank_z(c, y):
+    # vyska povrchu nadrze (hore) v danom y
+    t = min(abs(y) / (c["Wt"] * 0.5), 1.0) ** CS_EXP
+    return cs_geo(c)["zc"] + c["Ht"] * 0.5 * (1.0 - t) ** (1.0 / CS_EXP)
 
 
 def build_cs_frame(c):
@@ -2780,132 +2829,193 @@ def build_cs_frame(c):
 
 
 def build_cs_platform(c):
-    # plosina za nadrzou (pod skrinkou)
+    # plosina za nadrzou pod skrinkou
     g = cs_geo(c)
     bm = bmesh.new()
-    add_box(bm, (0.55, 1.10, 0.04), (g["xt1"] - 0.275, 0.0, 0.62), GRAY, bev=0.012)
+    x0, x1 = g["xr"], g["xt1"] + 0.15
+    add_box(bm, (x1 - x0, 2 * g["hw"], 0.04), ((x0 + x1) * 0.5, 0.0, CS_CAB_Z0 - 0.02), GRAY, bev=0.012)
     return finish_mesh(bm, "SM_Pv_cs_plosina_" + c["key"])
 
 
 def build_cs_saddle(c):
-    # nosne siedlo nadrze (siva doska)
+    # dve nosne kolebky nadrze (siva doska s lemom)
     g = cs_geo(c)
     bm = bmesh.new()
-    add_box(bm, (c["Lt"] * 0.85, c["Wt"] * 0.70, 0.10), ((g["xt0"] + g["xt1"]) * 0.5, 0.0, CS_ZB - 0.07), GRAY, bev=0.02)
+    for x in (g["xb0"] - 0.30, g["xb1"] + 0.30):
+        add_box(bm, (0.16, c["Wt"] * 0.66, CS_ZB - 0.66), (x, 0.0, (CS_ZB + 0.66) * 0.5 - 0.0), GRAY, bev=0.02)
     return finish_mesh(bm, "SM_Pv_cs_sedlo_" + c["key"])
 
 
-def cs_section(c, scale):
-    Wt, Ht = c["Wt"], c["Ht"]
-    rad = min(0.30 * Ht, 0.28)
-    w, h = Wt * 0.5 * scale, Ht * 0.5 * scale
-    zc = CS_ZB + Ht * 0.5
-    return rounded_rect(-w, w, zc - h, zc + h, rad * scale, 4)
+def cs_loft(bm, c, stations):
+    # prierez pretiahnuty pozdlz X; stanica (x, mierka y, mierka z, material pasu po dalsiu stanicu); na koncoch ploche steny
+    rings = [[bm.verts.new((x, p[0], p[1])) for p in cs_ring(c, sy, sz)] for x, sy, sz, _ in stations]
+    faces = [bm.faces.new(rings[0]), bm.faces.new(rings[-1][::-1])]
+    mats = [None, None]
+    for k in range(len(stations) - 1):
+        for i in range(CS_N):
+            j = (i + 1) % CS_N
+            faces.append(bm.faces.new((rings[k][i], rings[k][j], rings[k + 1][j], rings[k + 1][i])))
+            mats.append(stations[k][3])
+    bmesh.ops.recalc_face_normals(bm, faces=faces)
+    for f, m in zip(faces, mats):
+        f.material_index = c["mat"] if m is None else m
 
 
 def build_cs_tank(c):
-    # nadrz: zaoblena (rez YZ so zaoblenymi rohmi), skosene dosky na koncoch, horna polovica cervena, dolna biela
+    # nadrz: predna klenba, valec s obruceami medzi komorami, zadna klenba
     g = cs_geo(c)
-    Ht, Lt = c["Ht"], c["Lt"]
+    hl = c["head"]
     bm = bmesh.new()
-    zsplit = CS_ZB + Ht * 0.52
-    x0, x1 = g["xt0"], g["xt1"]
-    sections = [(x0, cs_section(c, 0.72)), (x0 - 0.06, cs_section(c, 0.90)), (x0 - 0.22, cs_section(c, 1.0)), (x1 + 0.22, cs_section(c, 1.0)),
-                (x1 + 0.06, cs_section(c, 0.90)), (x1, cs_section(c, 0.72))]
-    loft_yz(bm, sections, PAINT_RED, lambda c_: PAINT_RED if c_.z > zsplit else PAINT_WHITE)
+    st = [(g["xb0"] + d * hl, s, s, c["mat"]) for d, s in reversed(CS_HEAD)]
+    marks = [g["xb0"] - 0.05] + g["rings"] + [g["xb1"] + 0.05]
+    for xc in marks:
+        st += [(xc + CS_RING_W, 1.0, 1.0, ALU), (xc + CS_RING_W, CS_RING_S, CS_RING_S, ALU), (xc - CS_RING_W, CS_RING_S, CS_RING_S, ALU), (xc - CS_RING_W, 1.0, 1.0, c["mat"])]
+    st += [(g["xb1"] - d * hl, s, s, c["mat"]) for d, s in CS_HEAD]
+    cs_loft(bm, c, st)
     return finish_mesh(bm, "SM_Pv_cs_nadrz_" + c["key"])
 
 
-def build_cs_bands(c):
-    # dva dopinacie pasy okolo nadrze
+def build_cs_komin(c, i):
+    # komin poklopu s prirubou, skrutkami, uchami a odvetranim (ventil s hlavicou) za nim; i = poradie komory od predku
     g = cs_geo(c)
+    mx = g["mh"][i]
+    top = g["top"]
     bm = bmesh.new()
-    for fx in (0.25, 0.75):
-        xb = g["xt0"] - c["Lt"] * fx
-        loft_yz(bm, [(xb + 0.03, cs_section(c, 1.012)), (xb - 0.03, cs_section(c, 1.012))], DARK)
-    return finish_mesh(bm, "SM_Pv_cs_pasy_" + c["key"])
-
-
-def build_cs_ring(c):
-    # kruh poklopa (pevna cast) a drziaky na nadrzi
-    g = cs_geo(c)
-    zt = g["zt"]
-    bm = bmesh.new()
-    add_cylinder(bm, 0.25, 0.05, along_z((g["hx"], 0.0, zt + 0.01)), DARK, segments=20, bev=0.01)
-    add_cylinder(bm, 0.20, 0.03, along_z((g["hx"], 0.0, zt + 0.045)), STEEL, segments=20)
+    add_cylinder(bm, CS_MH_R, CS_MH_H + 0.08, along_z((mx, 0.0, top + (CS_MH_H - 0.08) * 0.5)), STEEL, segments=16, bev=0.006)
+    add_cylinder(bm, CS_MH_R + 0.03, 0.04, along_z((mx, 0.0, top + CS_MH_H - 0.02)), STEEL, segments=16, bev=0.004)
+    for k in range(8):
+        a = 2.0 * math.pi * (k + 0.5) / 8.0
+        add_box(bm, (0.035, 0.035, 0.03), (mx + (CS_MH_R + 0.015) * math.cos(a), (CS_MH_R + 0.015) * math.sin(a), top + CS_MH_H + 0.01), DARK, bev=0.004)
     for s in SIDES_LR:
-        add_box(bm, (0.05, 0.05, 0.05), (g["hx"] + 0.24, s * 0.06, zt + 0.045), DARK, bev=0.01)
-    return finish_mesh(bm, "SM_Pv_cs_prstenec_" + c["key"])
-
-
-def build_cs_vent(c):
-    # odvzdusnovacia trubka na streche nadrze
-    g = cs_geo(c)
-    bm = bmesh.new()
-    add_cylinder(bm, 0.025, 0.12, along_z((g["xt1"] + 0.50, -c["Wt"] * 0.5 * 0.55, g["zt"] + 0.06)), STEEL, segments=10)
-    return finish_mesh(bm, "SM_Pv_cs_odvzdusnenie_" + c["key"])
-
-
-def build_cs_drain(c):
-    # vypust (zadok nadrze, dole): rura, ventil s cervenou paku, zatka
-    g = cs_geo(c)
-    x1 = g["xt1"]
-    bm = bmesh.new()
-    add_rod(bm, (x1, 0.0, CS_ZB + 0.16), (x1 - 0.22, 0.0, CS_ZB + 0.16), 0.045, GRAY, segments=14)
-    add_box(bm, (0.09, 0.09, 0.10), (x1 - 0.11, 0.0, CS_ZB + 0.16), STEEL, bev=0.015)
-    add_rod(bm, (x1 - 0.11, 0.0, CS_ZB + 0.21), (x1 - 0.11, 0.12, CS_ZB + 0.34), 0.012, RED, segments=6)
-    add_cylinder(bm, 0.052, 0.04, along_x((x1 - 0.24, 0.0, CS_ZB + 0.16)), STEEL, segments=14)
-    return finish_mesh(bm, "SM_Pv_cs_vypust_" + c["key"])
-
-
-def build_cs_plate(c):
-    # stitok na prednej strane nadrze
-    g = cs_geo(c)
-    bm = bmesh.new()
-    add_box(bm, (0.012, 0.50, 0.14), (g["xt0"] - 0.005, 0.0, CS_ZB + c["Ht"] * 0.56), WHITE, bev=0.004)
-    return finish_mesh(bm, "SM_Pv_cs_stitok_" + c["key"])
+        add_box(bm, (0.06, 0.05, 0.09), (mx + CS_MH_R + 0.04, s * 0.11, top + CS_MH_H + 0.04), STEEL, bev=0.006)
+    add_cylinder(bm, 0.04, 0.14, along_z((mx - 0.36, 0.0, top + 0.04)), STEEL, segments=10, bev=0.004)
+    add_cylinder(bm, 0.062, 0.035, along_z((mx - 0.36, 0.0, top + 0.125)), DARK, segments=10, bev=0.004)
+    return finish_mesh(bm, "SM_Pv_cs_komin_%s_%d" % (c["key"], i + 1))
 
 
 def build_cs_lid():
-    # poklop nadrze: pivot na zadnom pante (x = -0.20 od stredu poklopa), poklop sa otvara nahor; dve rukovati
+    # poklop: pivot v osi pantu na zadnom okraji komina (os Y); poklop lezi pred pivotom (-X je zadok, preto poklop smeruje do -X)
     bm = bmesh.new()
-    add_cylinder(bm, 0.215, 0.05, along_z((0.20, 0.0, 0.025)), DARK, segments=20, bev=0.012)
-    add_cylinder(bm, 0.12, 0.03, along_z((0.20, 0.0, 0.065)), STEEL, segments=14, bev=0.006)
+    r = CS_MH_R + 0.03
+    add_cylinder(bm, r, 0.05, along_z((-r, 0.0, 0.005)), STEEL, segments=16, bev=0.006)
+    add_cylinder(bm, 0.065, 0.04, along_z((-r, 0.0, 0.045)), ALU, segments=10, bev=0.004)
+    add_box(bm, (0.18, 0.04, 0.03), (-r, 0.0, 0.075), ALU, bev=0.006)
     for s in SIDES_LR:
-        add_box(bm, (0.05, 0.04, 0.05), (0.20, s * 0.14, 0.075), DARK, bev=0.01)
-    add_cylinder(bm, 0.018, 0.09, along_y((0.0, 0.0, 0.0)), STEEL, segments=8)
+        add_box(bm, (0.04, 0.04, 0.04), (-r - 0.08 * s, 0.0, 0.055), ALU, bev=0.004)
+        add_box(bm, (0.05, 0.06, 0.06), (-2.0 * r + 0.01, s * 0.10, 0.0), DARK, bev=0.006)
+        add_box(bm, (0.05, 0.05, 0.05), (0.0, s * 0.11, 0.0), STEEL, bev=0.006)
+    add_cylinder(bm, 0.02, 0.26, along_y((0.0, 0.0, 0.0)), CHROME, segments=8)
     return finish_mesh(bm, "SM_Pv_cs_poklop")
 
 
-def build_cs_cabinet():
-    # skrinka na prislusenstvo za nadrzou vlavo: pevne telo (tmava, zaoblene hrany, strecha so sklonom), pivot v strede dna zadnej steny
+def build_cs_guard(c):
+    # ochranne trubky nad nadrzou (proti prevrateniu): dve trubky po stranach poklopov na stojkach
+    g = cs_geo(c)
+    top = g["top"]
+    zr = top + 0.26
+    ry = c["Wt"] * 0.5 * 0.55
+    x0, x1 = g["xb0"] - 0.12, g["xb1"] + 0.12
     bm = bmesh.new()
-    add_box(bm, (0.42, 0.60, 0.80), (0.21, 0.0, 0.40), PLAST, bev=0.035)
-    add_box(bm, (0.44, 0.62, 0.03), (0.21, 0.0, 0.805), GRAY, bev=0.012)
-    add_box(bm, (0.012, 0.012, 0.74), (-0.004, 0.0, 0.40), DARK)                 # stredna medzera dveri
+    zs = cs_tank_z(c, ry) - 0.03
+    xs = [x0 - 0.12, x1 + 0.12] + g["rings"]
     for s in SIDES_LR:
-        add_box(bm, (0.04, 0.04, 0.05), (-0.01, s * 0.30, 0.10), STEEL, bev=0.008)  # zaves dole
-    return finish_mesh(bm, "SM_Pv_cs_skrinka")
+        y = s * ry
+        add_rod(bm, (x0, y, zr), (x1, y, zr), 0.022, ALU, segments=8)
+        for x in xs:
+            add_rod(bm, (x, y, zr), (x, y, zs), 0.022, ALU, segments=8)
+            add_box(bm, (0.09, 0.09, 0.025), (x, y, zs - 0.008), STEEL, bev=0.004)
+    for x in (x0, x1):
+        add_rod(bm, (x, -ry, zr), (x, ry, zr), 0.022, ALU, segments=8)
+    return finish_mesh(bm, "SM_Pv_cs_obrubnik_" + c["key"])
 
 
-def build_cs_door():
-    # dvere skrinky (lava; prava je zrkadlo): pivot na zavese pri vonkajsej hrane, plech siaha do stredu (-Y), zadna strana skrinky je v -X
+def build_cs_adr():
+    # oranzova tabulka (ADR) s cernym okrajom: pivot v strede, plocha smeruje do -X
     bm = bmesh.new()
-    add_box(bm, (0.03, 0.29, 0.74), (-0.015, -0.145, 0.0), PLAST, bev=0.015)
-    add_box(bm, (0.012, 0.25, 0.68), (-0.032, -0.145, 0.0), GRAY, bev=0.008)
-    add_box(bm, (0.04, 0.025, 0.20), (-0.04, -0.27, 0.0), CHROME, bev=0.008)       # rukovat
-    add_cylinder(bm, 0.012, 0.76, along_z((0.0, 0.0, 0.0)), STEEL, segments=6)
+    add_box(bm, (0.02, 0.34, 0.25), (-0.01, 0.0, 0.0), DARK, bev=0.004)
+    add_box(bm, (0.012, 0.31, 0.22), (-0.026, 0.0, 0.0), ADR_MAT, bev=0.003)
+    add_box(bm, (0.014, 0.31, 0.010), (-0.028, 0.0, 0.0), DARK)
+    return finish_mesh(bm, "SM_Pv_cs_adr")
+
+
+def build_cs_side_lights(c):
+    # bocne obrysove svetla na obruciach nadrze
+    g = cs_geo(c)
+    bm = bmesh.new()
+    for x in [g["xb0"] - 0.05] + g["rings"] + [g["xb1"] + 0.05]:
+        for s in SIDES_LR:
+            add_box(bm, (0.12, 0.02, 0.05), (x, s * (c["Wt"] * 0.5 * CS_RING_S + 0.009), g["zc"]), LAMP_OR, bev=0.004)
+    return finish_mesh(bm, "SM_Pv_cs_bocne_svetla_" + c["key"])
+
+
+def build_cs_cabinet(c):
+    # skrinka s ventilmi vzadu (rovnaky tvar a rozmer ako na naves): podlaha, strop, predna stena, bocnice; zadna strana je otvor pre dvere
+    g = cs_geo(c)
+    xb = g["xcab"]
+    xf = xb + CS_CAB_D
+    xm = (xb + xf) * 0.5
+    z0, z1 = CS_CAB_Z0, CS_CAB_Z0 + CS_CAB_H
+    zm = (z0 + z1) * 0.5
+    hw = g["hw"]
+    bm = bmesh.new()
+    add_box(bm, (CS_CAB_D, 2.0 * hw, 0.03), (xm, 0.0, z0 + 0.015), FRAME, bev=0.008)
+    add_box(bm, (CS_CAB_D + 0.02, 2.0 * hw + 0.02, 0.03), (xm - 0.01, 0.0, z1 - 0.015), c["mat"], bev=0.012)
+    add_box(bm, (0.03, 2.0 * hw, CS_CAB_H), (xf - 0.015, 0.0, zm), DARK, bev=0.008)
+    for s in SIDES_LR:
+        add_box(bm, (CS_CAB_D, 0.03, CS_CAB_H), (xm, s * (hw - 0.015), zm), c["mat"], bev=0.008)
+        add_box(bm, (0.04, 0.05, CS_CAB_H), (xb + 0.02, s * (hw - 0.025), zm), ALU, bev=0.008)
+    return finish_mesh(bm, "SM_Pv_cs_skrinka_" + c["key"])
+
+
+def build_cs_fittings(c):
+    # armatura v skrinke (rovnaky rozmer ako na naves): zberne potrubie, tri ventily s cervenymi kolieskami, dve potrubia k nadrzi, vypust s hadicovou spojkou
+    g = cs_geo(c)
+    xb = g["xcab"]
+    zp, xp = CS_CAB_Z0 + 0.20, xb + 0.22
+    hw = g["hw"]
+    bm = bmesh.new()
+    add_cylinder(bm, 0.055, 2.0 * hw - 0.14, along_y((xp, 0.0, zp)), STEEL, segments=12)
+    for y in (-0.34, 0.0, 0.34):
+        add_box(bm, (0.14, 0.13, 0.15), (xp, y, zp), STEEL, bev=0.015)
+        add_cylinder(bm, 0.018, 0.14, along_z((xp, y, zp + 0.14)), CHROME, segments=8)
+        add_cylinder(bm, 0.075, 0.018, along_z((xp, y, zp + 0.22)), PAINT_RED, segments=14, bev=0.003)
+    x_end = g["xt1"] + 0.22
+    for s in SIDES_LR:
+        add_cylinder(bm, 0.045, x_end - xp, along_x(((xp + x_end) * 0.5, s * 0.22, zp)), STEEL, segments=10)
+    add_cylinder(bm, 0.05, xp - xb - 0.02, along_x((xb + 0.02 + (xp - xb - 0.02) * 0.5, 0.0, zp)), STEEL, segments=12)
+    add_cylinder(bm, 0.075, 0.05, along_x((xb + 0.045, 0.0, zp)), CHROME, segments=14, bev=0.006)
+    add_cylinder(bm, 0.06, 0.02, along_x((xb + 0.015, 0.0, zp)), DARK, segments=12)
+    return finish_mesh(bm, "SM_Pv_cs_armatura_" + c["key"])
+
+
+def build_cs_door(c):
+    # dvere skrinky (lave; prave je zrkadlo): pivot na zaves vonku (zadna rovina skrinky, y = polsirka, z = spodok dveri), dvere siahaju do -Y a su pred zavesom (-X)
+    dw = cs_geo(c)["hw"] - 0.012
+    h = CS_CAB_H - 0.02
+    bm = bmesh.new()
+    add_box(bm, (0.03, dw, h), (-0.015, -dw * 0.5, h * 0.5), c["mat"], bev=0.012)
+    add_box(bm, (0.012, dw - 0.10, h - 0.10), (-0.036, -dw * 0.5, h * 0.5), ALU, bev=0.006)
+    add_box(bm, (0.014, dw - 0.14, h - 0.14), (-0.040, -dw * 0.5, h * 0.5), c["mat"], bev=0.006)
+    for z in (0.10, h - 0.10):
+        add_box(bm, (0.05, 0.05, 0.09), (-0.02, 0.0, z), STEEL, bev=0.01)
+    add_box(bm, (0.04, 0.03, 0.15), (-0.05, -dw + 0.07, h * 0.5), DARK, bev=0.01)
+    add_box(bm, (0.016, 0.10, 0.03), (-0.045, -dw + 0.07, h - 0.06), RED, bev=0.003)
     return bm
+
+
+CS_TAGS = ("ram", "plosina", "sedlo", "nadrz", "obrubnik", "bocne_svetla", "skrinka", "armatura")
 
 
 def cs_parts(put, put_lr):
     put(build_cs_lid())
-    put(build_cs_cabinet())
-    put_lr(build_cs_door(), "SM_Pv_cs_dvere")
+    put(build_cs_adr())
     for c in CISTERNY.values():
         tr_type_parts(put, put_lr, cs_tr(c))
-        for fn in (build_cs_frame, build_cs_platform, build_cs_saddle, build_cs_tank, build_cs_bands, build_cs_ring, build_cs_vent, build_cs_drain, build_cs_plate):
+        for fn in (build_cs_frame, build_cs_platform, build_cs_saddle, build_cs_tank, build_cs_guard, build_cs_side_lights, build_cs_cabinet, build_cs_fittings):
             put(fn(c))
+        for i in range(c["comps"]):
+            put(build_cs_komin(c, i))
+        put_lr(build_cs_door(c), "SM_Pv_cs_dvere_" + c["key"])
 
 
 def cs_rig(coll, c, parts, mats, ball_src, x_pos, y_pos, delay_m):
@@ -2914,35 +3024,40 @@ def cs_rig(coll, c, parts, mats, ball_src, x_pos, y_pos, delay_m):
     tr = cs_tr(c)
     r = tr_rig(coll, tr, parts, mats, ball_src, x_pos, y_pos, delay_m)
     root, body, prop = r["root"], r["body"], r["prop"]
-    set_prop(root, "Poklop", 0.0, 0.0, 1.0, "Poklop nadrze: 0 = zatvoreny, 1 = otvoreny (110 st.)")
-    set_prop(root, "Skrinka", 0.0, 0.0, 1.0, "Dvere skrinky: 0 = zatvorene, 1 = otvorene (110 st.)")
+    n = c["comps"]
+    set_prop(root, "Poklopy", 0.0, 0.0, 1.0, "Poklopy komor: 0 = zatvorene, 1 = otvorene (106 st., postupne od zadneho)")
+    set_prop(root, "Dvere_skrinky", 0.0, 0.0, 1.0, "Dvere skrinky s ventilmi: 0 = zatvorene, 1 = otvorene dozadu (100 st.)")
     o0 = tl((0.0, 0.0, 0.0))
-    for tag in ("ram", "plosina", "sedlo", "nadrz", "pasy", "prstenec", "odvzdusnenie", "vypust", "stitok"):
+    for tag in CS_TAGS:
         mount(coll, name, tag, body, o0, [(tag, parts["Pv_cs_%s_%s" % (tag, key_)])])
-    lid, _ = mount(coll, name, "poklop", body, tl((g["hx"] - 0.20, 0.0, g["zt"] + 0.035)), [("poklop", parts["Pv_cs_poklop"])])
-    driver(lid, "rotation_euler", 1, "-p * 1.92", [prop("p", "Poklop")])
-    cab_x = g["xt1"] - 0.08
-    cab_y = 0.35
-    mount(coll, name, "skrinka", body, tl((cab_x - 0.42, cab_y, 0.64)), [("skrinka", parts["Pv_cs_skrinka"])])
+    for i in range(n):
+        mount(coll, name, "komin_%d" % (i + 1), body, o0, [("komin_%d" % (i + 1), parts["Pv_cs_komin_%s_%d" % (key_, i + 1)])])
+        lid, _ = mount(coll, name, "poklop_%d" % (i + 1), body, tl((g["mh"][i] + CS_MH_R + 0.03, 0.0, g["top"] + CS_MH_H + 0.0)), [("poklop_%d" % (i + 1), parts["Pv_cs_poklop"])])
+        # zadny poklop (najvyssie i) sa otvara prvy, ostatne postupne za nim
+        driver(lid, "rotation_euler", 1, "-min(max(p * %.3f - %.2f, 0), 1) * %.2f" % (1.0 + 0.5 * (n - 1), 0.5 * (n - 1 - i), CS_LID_OPEN), [prop("p", "Poklopy")])
+    mount(coll, name, "adr_pred", body, tl((g["xt0"] + 0.01, 0.0, g["zc"])), [("adr_pred", parts["Pv_cs_adr"])])
     for s, side in ((1.0, "L"), (-1.0, "P")):
-        d, _ = mount(coll, name, "skrinka_dvere_" + side, body, tl((cab_x - 0.42, cab_y + s * 0.30, 0.64 + 0.40)), [("skrinka_dvere_" + side, parts["Pv_cs_dvere_" + side])])
-        driver(d, "rotation_euler", 2, "%.0f * p * 1.92" % -s, [prop("p", "Skrinka")])
+        d, _ = mount(coll, name, "dvere_skrinky_" + side, body, tl((g["xcab"], s * g["hw"], CS_CAB_Z0 + 0.01)), [("dvere_skrinky_" + side, parts["Pv_cs_dvere_%s_%s" % (key_, side)])])
+        driver(d, "rotation_euler", 2, "%.0f * p * %.2f" % (-s, CS_DOOR_OPEN), [prop("p", "Dvere_skrinky")])
+        if side == "L":
+            mount(coll, name, "adr_zad", d, (-0.05, -0.25, 0.38), [("adr_zad", parts["Pv_cs_adr"])])
     tr_animate(tr, r, delay_m)
-    tr_keys(root, "Poklop", [(1, 0.0), (330, 0.0), (360, 1.0), (430, 1.0), (460, 0.0)])
-    tr_keys(root, "Skrinka", [(1, 0.0), (480, 0.0), (510, 1.0), (580, 1.0), (610, 0.0)])
+    tr_keys(root, "Poklopy", [(1, 0.0), (330, 0.0), (390, 1.0), (460, 1.0), (520, 0.0)])
+    tr_keys(root, "Dvere_skrinky", [(1, 0.0), (540, 0.0), (580, 1.0), (650, 1.0), (690, 0.0)])
     return r
 
 
 def _cs_doc():
-    lines = ["", "CISTERNOVY VOZIK (Vozik_cisterna_1_5, Vozik_cisterna_3_0: privesny vozik s nadrzou, jedna naprava; pociatok = zem pod stredom gule, predok +X, vozik ide do -X):"]
+    lines = ["", "CISTERNOVY VOZIK (Vozik_cisterna_1_5, Vozik_cisterna_3_0: privesny vozik s cisternou v tvare cisternoveho navesu, jedna naprava; pociatok = zem pod stredom gule, predok +X, vozik ide do -X):"]
     for c in CISTERNY.values():
         g = cs_geo(c)
-        lines.append("  %s: nadrz %.2f x %.2f x %.2f m (spodok vo vyske %.2f m, asi %.1f m3), nadrz od x = %.2f po %.2f, naprava x = %.2f, rozchod %.2f m (kolesa R %.2f), poklop v x = %.2f" % (
-            c["name"], c["Lt"], c["Wt"], c["Ht"], CS_ZB, c["Lt"] * c["Wt"] * c["Ht"] * 0.85, g["xt0"], g["xt1"], g["xax"], g["track"] * 2.0, c["R"], g["hx"]))
+        lines.append("  %s: nadrz %.2f x %.2f x %.2f m (valec %.2f m + dve klenby po %.2f m, %d komory, spodok vo vyske %.2f m), naprava x = %.2f, rozchod %.2f m (kolesa R %.2f), skrinka s ventilmi: zadna rovina x = %.2f, hlbka %.2f m, vyska %.2f m, sirka %.2f m" % (
+            c["name"], c["Lb"] + 2 * c["head"], c["Wt"], c["Ht"], c["Lb"], c["head"], c["comps"], CS_ZB, g["xax"], g["track"] * 2.0, c["R"], g["xcab"], CS_CAB_D, CS_CAB_H, 2 * g["hw"]))
     lines += [
-        "  Typove diely (uchyt <Vozik>_uchyt_<diel>): ram, plosina (za nadrzou), sedlo (podlozka nadrze), nadrz (jeden zaobleny diel: cerveny vrch, biely spodok), pasy, prstenec (kruh poklopa), odvzdusnenie, vypust (ventil s pakou), stitok,",
-        "    poklop (pivot na zadnom pante, rotacia Y o -Poklop x 110 st.), skrinka (pivot v strede dna zadnej steny, telo smeruje do +X) a dvere skrinky skrinka_dvere_L / _P (pivot na zavese pri vonkajsej hrane, rotacia Z o -/+ Skrinka x 110 st.).",
-        "  Spolocne diela (oje, naprava, pero, kolesa, blatniky, naraznik so svetlami ...) ako pri malom vozikoch. Vlastnosti: Poklop, Skrinka (0 az 1) + spolocne.",
+        "  Typove diely (uchyt <Vozik>_uchyt_<diel>): ram, plosina (za nadrzou), sedlo (dve kolebky), nadrz (oval s klenbami a obruceami), komin_N (komin poklopu s odvetranim), poklop_N (pivot v osi pantu na zadnom okraji komina, rotacia Y o -Poklopy x 106 st., postupne od zadneho),",
+        "    obrubnik (ochranne trubky), bocne_svetla, adr_pred (tabulka ADR vpredu), skrinka (pevne telo), armatura (zberne potrubie s tromi ventilmi, dve potrubia k nadrzi, vypust s hadicovou spojkou - rovnaky rozmer ako na cisternovom naves),",
+        "    dvere_skrinky_L / _P (pivot na zavese pri vonkajsej hrane, rotacia Z o -/+ Dvere_skrinky x 100 st.; na lavych dverach je tabulka ADR zadu).",
+        "  Spolocne diely (oje, naprava, pero, kolesa, blatniky, naraznik so svetlami ...) ako pri malom vozikoch. Vlastnosti: Poklopy, Dvere_skrinky (0 az 1) + spolocne.",
     ]
     return lines
 
@@ -2950,8 +3065,8 @@ def _cs_doc():
 TRAILERS["cisterna"] = (CISTERNY, cs_rig)
 PART_MAKERS.append(cs_parts)
 DOC_EXTRA.extend(_cs_doc())
-CATALOG_EXTRA.append(("CISTERNOVY VOZIK", ["Pv_cs_%s_%s" % (pp, k) for k in CISTERNY for pp in ("ram", "plosina", "sedlo", "nadrz", "pasy", "prstenec", "odvzdusnenie", "vypust", "stitok")] +
-                      ["Pv_cs_poklop", "Pv_cs_skrinka", "Pv_cs_dvere_L", "Pv_cs_dvere_P"] + ["Pv_tr_oje_cs_%s" % k for k in CISTERNY] + ["Pv_tr_naraznik_cs_%s" % k for k in CISTERNY] +
+CATALOG_EXTRA.append(("CISTERNOVY VOZIK", ["Pv_cs_%s_%s" % (pp, k) for k in CISTERNY for pp in CS_TAGS] + ["Pv_cs_komin_%s_%d" % (k, i + 1) for k in CISTERNY for i in range(CISTERNY[k]["comps"])] +
+                      ["Pv_cs_poklop", "Pv_cs_adr"] + ["Pv_cs_dvere_%s_L" % k for k in CISTERNY] + ["Pv_tr_oje_cs_%s" % k for k in CISTERNY] + ["Pv_tr_naraznik_cs_%s" % k for k in CISTERNY] +
                       [ax_key(cs_geo(c)["track"]) for c in CISTERNY.values()]))
 
 
@@ -3155,7 +3270,7 @@ def sk_tr(s):
     return dict(name=s["name"], key="sk_" + s["key"], R=s["R"], axles=g["axles"], track=g["track"], sy=g["sy"],
                 oje=dict(xf=SK_XF, hw=g["sy"], z=0.515, z0=0.54), hang=dict(z=0.46, h=0.14),
                 kons=dict(y0=g["sy"] - 0.02, y1=g["track"] - 0.08, zb=0.63, zt=0.69, yr=g["track"] - 0.10), kons_mat=FRAME,
-                bump=dict(x=g["xr"] - 0.10, w=Wb + 0.40, z=0.48),
+                bump=dict(x=g["xr"] - 0.10, w=Wb + 0.40, z=0.44),
                 markers=[(g["xc"], k * (Wb * 0.5 + 0.007), SK_ZF + 0.24, "or") for k in SIDES_LR] + [(SK_XF, k * (Wb * 0.5 - 0.04), top, "white") for k in SIDES_LR])
 
 

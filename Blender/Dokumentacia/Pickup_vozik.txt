@@ -95,8 +95,8 @@ Pv_tr_objimka                            0.27 x 0.21 x 0.16
 Pv_tr_retaze                             0.46 x 0.27 x 0.06
 Pv_tr_zastrcka                           0.29 x 0.09 x 0.12
 Pv_tr_pero                               0.87 x 0.10 x 0.13
-Pv_tr_svetlo                             0.06 x 0.13 x 0.31
-Pv_tr_spz                                0.03 x 0.44 x 0.17
+Pv_tr_svetlo_L                           0.06 x 0.34 x 0.12
+Pv_tr_spz                                0.03 x 0.44 x 0.19
 Pv_tr_pneu_28                            0.55 x 0.19 x 0.55
 Pv_tr_pneu_30                            0.59 x 0.19 x 0.59
 Pv_tr_pneu_30a                           0.59 x 0.20 x 0.59
@@ -105,9 +105,9 @@ Pv_tr_disk_28_L                          0.35 x 0.05 x 0.35
 Pv_tr_disk_30_L                          0.37 x 0.05 x 0.37
 Pv_tr_disk_30a_L                         0.42 x 0.09 x 0.42
 Pv_tr_disk_31_L                          0.38 x 0.05 x 0.38
-Pv_tr_blatnik_28_L                       0.80 x 0.27 x 0.38
-Pv_tr_blatnik_30_L                       0.84 x 0.27 x 0.40
-Pv_tr_blatnik_31_L                       0.86 x 0.27 x 0.41
+Pv_tr_blatnik_28_L                       0.68 x 0.27 x 0.22
+Pv_tr_blatnik_30_L                       0.72 x 0.27 x 0.23
+Pv_tr_blatnik_31_L                       0.74 x 0.27 x 0.23
 
 == MALY VOZIK ==
 Pv_vz_ram_2_0                            2.08 x 1.16 x 0.11
@@ -128,8 +128,8 @@ Pv_tr_zaves_vz_2_0                       0.92 x 1.17 x 0.07
 Pv_tr_zaves_vz_2_6                       0.92 x 1.37 x 0.07
 Pv_tr_konzola_vz_2_0_L                   0.20 x 0.03 x 0.05
 Pv_tr_konzola_vz_2_6_L                   0.20 x 0.03 x 0.05
-Pv_tr_naraznik_vz_2_0                    0.43 x 1.70 x 0.10
-Pv_tr_naraznik_vz_2_6                    0.43 x 1.90 x 0.10
+Pv_tr_naraznik_vz_2_0                    0.50 x 1.70 x 0.18
+Pv_tr_naraznik_vz_2_6                    0.50 x 1.90 x 0.18
 Pv_tr_obrysove_vz_2_0                    1.08 x 1.30 x 0.43
 Pv_tr_obrysove_vz_2_6                    1.38 x 1.50 x 0.48
 Pv_tr_naprava_77                         0.17 x 1.42 x 0.17
@@ -137,16 +137,16 @@ Pv_tr_naprava_87                         0.17 x 1.62 x 0.17
 
 == PODVAL NA AUTO ==
 Pv_pd_ram_4_0                            3.93 x 0.63 x 0.13
-Pv_pd_paluba_4_0                         4.00 x 2.01 x 0.13
-Pv_pd_vedenie_4_0                        2.47 x 1.86 x 0.05
-Pv_pd_najazd_4_0                         2.40 x 0.50 x 0.08
+Pv_pd_paluba_4_0                         4.00 x 1.91 x 0.13
+Pv_pd_vedenie_4_0                        2.47 x 1.78 x 0.05
+Pv_pd_najazd_4_0                         2.40 x 0.46 x 0.08
 Pv_pd_ram_5_2                            5.13 x 0.63 x 0.13
-Pv_pd_paluba_5_2                         5.20 x 2.01 x 0.13
-Pv_pd_vedenie_5_2                        2.67 x 1.86 x 0.05
-Pv_pd_najazd_5_2                         2.60 x 0.50 x 0.07
+Pv_pd_paluba_5_2                         5.20 x 1.91 x 0.13
+Pv_pd_vedenie_5_2                        2.67 x 1.78 x 0.05
+Pv_pd_najazd_5_2                         2.60 x 0.46 x 0.07
 Pv_pd_zabradlie_4_0_L                    1.40 x 0.07 x 0.35
 Pv_pd_zabradlie_5_2_L                    1.40 x 0.07 x 0.35
-Pv_pd_celna_stena                        0.44 x 1.95 x 0.52
+Pv_pd_celna_stena                        0.44 x 1.85 x 0.52
 Pv_pd_drziak_rezervy                     0.13 x 0.40 x 0.40
 Pv_navijak                               0.43 x 0.60 x 0.28
 Pv_navijak_buben                         0.22 x 0.37 x 0.22
@@ -154,15 +154,14 @@ Pv_hak                                   0.30 x 0.10 x 0.66
 Pv_lano                                  0.02 x 0.03 x 1.00
 Pv_tr_oje_pd_4_0                         1.50 x 0.61 x 0.15
 Pv_tr_oje_pd_5_2                         1.50 x 0.61 x 0.15
-Pv_tr_naraznik_pd_4_0                    0.43 x 2.24 x 0.10
-Pv_tr_naraznik_pd_5_2                    0.43 x 2.24 x 0.10
-Pv_tr_kridlo_pd_4_0_L                    1.05 x 0.29 x 0.26
-Pv_tr_kridlo_pd_5_2_L                    2.15 x 0.29 x 0.26
+Pv_tr_naraznik_pd_4_0                    0.50 x 2.62 x 0.18
+Pv_tr_naraznik_pd_5_2                    0.50 x 2.62 x 0.18
+Pv_tr_kridlo_pd_4_0_L                    0.70 x 0.37 x 0.16
+Pv_tr_kridlo_pd_5_2_L                    1.80 x 0.37 x 0.16
 Pv_auto_4_0                              3.60 x 1.74 x 1.49
 Pv_auto_5_2                              4.60 x 1.90 x 1.50
 Pv_auto_koleso_4_0                       0.51 x 0.23 x 0.52
 Pv_auto_koleso_5_2                       0.58 x 0.23 x 0.60
-Pv_tr_naprava_114                        0.17 x 2.17 x 0.17
 
 == VOZIK NA PALETY ==
 Pv_pa_ram_3_0                            3.17 x 1.82 x 0.12
@@ -181,37 +180,38 @@ Pv_pa_paleta_karton                      1.21 x 0.80 x 1.04
 Pv_pa_paleta_vrecia                      1.20 x 1.17 x 1.14
 Pv_tr_oje_pa_3_0                         1.31 x 0.95 x 0.30
 Pv_tr_oje_pa_4_2                         1.31 x 0.95 x 0.30
-Pv_tr_naraznik_pa_3_0                    0.43 x 2.20 x 0.10
-Pv_tr_naraznik_pa_4_2                    0.43 x 2.20 x 0.10
+Pv_tr_naraznik_pa_3_0                    0.50 x 2.20 x 0.18
+Pv_tr_naraznik_pa_4_2                    0.50 x 2.20 x 0.18
 Pv_tr_naprava_78                         0.17 x 1.45 x 0.17
 
 == CISTERNOVY VOZIK ==
-Pv_cs_ram_1_5                            2.41 x 0.97 x 0.16
-Pv_cs_plosina_1_5                        0.55 x 1.10 x 0.04
-Pv_cs_sedlo_1_5                          1.45 x 0.81 x 0.10
-Pv_cs_nadrz_1_5                          1.70 x 1.15 x 0.85
-Pv_cs_pasy_1_5                           0.91 x 1.16 x 0.86
-Pv_cs_prstenec_1_5                       0.51 x 0.50 x 0.08
-Pv_cs_odvzdusnenie_1_5                   0.05 x 0.05 x 0.12
-Pv_cs_vypust_1_5                         0.26 x 0.18 x 0.24
-Pv_cs_stitok_1_5                         0.01 x 0.50 x 0.14
-Pv_cs_ram_3_0                            3.21 x 0.97 x 0.16
-Pv_cs_plosina_3_0                        0.55 x 1.10 x 0.04
-Pv_cs_sedlo_3_0                          2.12 x 0.94 x 0.10
-Pv_cs_nadrz_3_0                          2.50 x 1.35 x 1.05
-Pv_cs_pasy_3_0                           1.31 x 1.37 x 1.06
-Pv_cs_prstenec_3_0                       0.51 x 0.50 x 0.08
-Pv_cs_odvzdusnenie_3_0                   0.05 x 0.05 x 0.12
-Pv_cs_vypust_3_0                         0.26 x 0.18 x 0.24
-Pv_cs_stitok_3_0                         0.01 x 0.50 x 0.14
-Pv_cs_poklop                             0.43 x 0.43 x 0.12
-Pv_cs_skrinka                            0.46 x 0.64 x 0.82
-Pv_cs_dvere_L                            0.07 x 0.30 x 0.76
-Pv_cs_dvere_P                            0.07 x 0.30 x 0.76
+Pv_cs_ram_1_5                            2.91 x 0.97 x 0.16
+Pv_cs_plosina_1_5                        0.77 x 1.15 x 0.04
+Pv_cs_sedlo_1_5                          1.16 x 0.76 x 0.12
+Pv_cs_nadrz_1_5                          2.04 x 1.20 x 0.88
+Pv_cs_obrubnik_1_5                       1.40 x 0.72 x 0.37
+Pv_cs_bocne_svetla_1_5                   1.62 x 1.23 x 0.05
+Pv_cs_skrinka_1_5                        0.46 x 1.17 x 0.58
+Pv_cs_armatura_1_5                       0.71 x 1.01 x 0.30
+Pv_cs_ram_3_0                            3.70 x 0.97 x 0.16
+Pv_cs_plosina_3_0                        0.77 x 1.20 x 0.04
+Pv_cs_sedlo_3_0                          1.96 x 0.89 x 0.12
+Pv_cs_nadrz_3_0                          2.92 x 1.40 x 1.09
+Pv_cs_obrubnik_3_0                       2.20 x 0.83 x 0.38
+Pv_cs_bocne_svetla_3_0                   2.42 x 1.44 x 0.05
+Pv_cs_skrinka_3_0                        0.46 x 1.22 x 0.58
+Pv_cs_armatura_3_0                       0.72 x 1.06 x 0.30
+Pv_cs_komin_1_5_1                        0.71 x 0.50 x 0.28
+Pv_cs_komin_3_0_1                        0.71 x 0.50 x 0.29
+Pv_cs_komin_3_0_2                        0.71 x 0.50 x 0.29
+Pv_cs_poklop                             0.54 x 0.50 x 0.12
+Pv_cs_adr                                0.04 x 0.34 x 0.25
+Pv_cs_dvere_1_5_L                        0.08 x 0.59 x 0.56
+Pv_cs_dvere_3_0_L                        0.08 x 0.61 x 0.56
 Pv_tr_oje_cs_1_5                         1.11 x 0.94 x 0.17
 Pv_tr_oje_cs_3_0                         1.11 x 0.94 x 0.17
-Pv_tr_naraznik_cs_1_5                    0.43 x 1.61 x 0.10
-Pv_tr_naraznik_cs_3_0                    0.43 x 1.81 x 0.10
+Pv_tr_naraznik_cs_1_5                    0.50 x 1.59 x 0.18
+Pv_tr_naraznik_cs_3_0                    0.50 x 1.64 x 0.18
 Pv_tr_naprava_74                         0.17 x 1.37 x 0.17
 Pv_tr_naprava_84                         0.17 x 1.57 x 0.17
 
@@ -230,8 +230,8 @@ Pv_dr_koliky_6_0_L                       3.90 x 0.10 x 1.14
 Pv_dr_koliky_6_0_P                       3.90 x 0.10 x 1.14
 Pv_tr_oje_dr_4_0                         1.41 x 0.69 x 0.22
 Pv_tr_oje_dr_6_0                         1.41 x 0.69 x 0.22
-Pv_tr_naraznik_dr_4_0                    0.43 x 2.14 x 0.10
-Pv_tr_naraznik_dr_6_0                    0.43 x 2.14 x 0.10
+Pv_tr_naraznik_dr_4_0                    0.50 x 2.14 x 0.18
+Pv_tr_naraznik_dr_6_0                    0.50 x 2.14 x 0.18
 Pv_tr_naprava_112                        0.17 x 2.12 x 0.17
 Pv_tr_naprava_112                        0.17 x 2.12 x 0.17
 
@@ -262,8 +262,8 @@ Pv_sk_rampa_3_6                          0.08 x 1.68 x 1.55
 Pv_sk_dvere_3_6                          0.81 x 0.08 x 1.43
 Pv_tr_oje_sk_2_5                         1.21 x 1.04 x 0.16
 Pv_tr_oje_sk_3_6                         1.21 x 1.33 x 0.16
-Pv_tr_naraznik_sk_2_5                    0.43 x 1.80 x 0.10
-Pv_tr_naraznik_sk_3_6                    0.43 x 2.10 x 0.10
+Pv_tr_naraznik_sk_2_5                    0.50 x 1.80 x 0.18
+Pv_tr_naraznik_sk_3_6                    0.50 x 2.10 x 0.18
 Pv_tr_naprava_87                         0.17 x 1.62 x 0.17
 Pv_tr_naprava_102                        0.17 x 1.92 x 0.17
 
@@ -306,7 +306,8 @@ PODVAL NA AUTO (Podval_auto_4_0, Podval_auto_5_2: privesny podvalnik s pevnou ri
     (poloha X = (dlzka najazdu - 0.05) x (1 - Najazd_vysun): 0 = zasunuty pod palubou, 1 = vysunuty dozadu); diel Pv_pd_najazd_<kluc> (pivot na hornom konci, v osi najazdu, na hornom povrchu, siaha do -X). Najazd sa najprv vysunie a potom sklopi, koniec sa dotkne zeme.
   Hak ma Copy Location 'Na_aute' na tazne oko auta (vplyv = Hak_k_autu); lano mieri na hak (mierka Z = vzdialenost). Auto (Pv_auto_<kluc>) a 4 kolesa su deti korena; polohu, sklon, otacanie kolies a viditelnost nesu kluce (auto sa objavi v snimku 440, vytiahnutie 590 az 720).
   Vlastnosti: Najazd_vysun, Najazd_sklon, Hak_k_autu (0 az 1), Opierne_koleso, Spojka, Koleso_otocenie. Animacia: jazda 1 az 300, opierne koleso 420 az 445, vysun najazdov 450 az 500, sklopenie 500 az 550, hak 560 az 590, vytiahnutie 590 az 720, nazad 740 az 840, opierne koleso hore 880 az 910, spojka 920 az 990.
-  Zadne svetla su na zadnom naraznik (rozdelenom: stredny dielec a dva koncove, aby sa najazdy mali kde sklopit); krdlove blatniky (kridlo_L / _P) a ostatne spolocne diely ako pri ostatnych privesoch.
+  Zadne svetla su na zadnom naraznik (rozdelenom: stredny dielec a dva koncove, aby sa najazdy mali kde sklopit); krdlove blatniky (kridlo_L / _P, uzke, len nad kolesami) a ostatne spolocne diely ako pri ostatnych privesoch.
+  Kolesa su v DVOJMONTAZI (dve pneumatiky vedla seba na kazdej strane): uchyty koleso_N_L_vnut / _von a koleso_N_P_vnut / _von (pneu + disk, uzsie 0.16 m), kazda naprava ma vnutorne a vonkajsie hlavy; rezerva je jedno siroke koleso.
   Podval_auto_4_0: paluba 4.00 m vo vyske 0.59 az 0.68 m, najazdy 2.40 m (sklon 12.7 st.), naprav 1 (x = -3.70), auto 3.45 m, rozvor 2.30 m
   Podval_auto_5_2: paluba 5.20 m vo vyske 0.59 az 0.68 m, najazdy 2.60 m (sklon 11.7 st.), naprav 2 (x = -4.15, -5.25), auto 4.45 m, rozvor 2.65 m
 
@@ -317,12 +318,13 @@ VOZIK NA PALETY (Vozik_palety_3_0, Vozik_palety_4_2: plochy privesny vozik s boc
   EUR paleta (Pv_pa_paleta_karton: 18 kartonov s paskou a foliou, Pv_pa_paleta_vrecia: 20 vriec s popruhom): pivot v strede spodku palety, 1.20 x 0.80 m; vlastnost Naklad = pocet nalozenych paliet (palety miznu od zadnej).
   Spolocne diela (oje, naprava, pera, kolesa, blatniky, naraznik so svetlami ...) ako pri malom vozikoch.
 
-CISTERNOVY VOZIK (Vozik_cisterna_1_5, Vozik_cisterna_3_0: privesny vozik s nadrzou, jedna naprava; pociatok = zem pod stredom gule, predok +X, vozik ide do -X):
-  Vozik_cisterna_1_5: nadrz 1.70 x 1.15 x 0.85 m (spodok vo vyske 0.76 m, asi 1.4 m3), nadrz od x = -1.20 po -2.90, naprava x = -2.14, rozchod 1.48 m (kolesa R 0.30), poklop v x = -1.71
-  Vozik_cisterna_3_0: nadrz 2.50 x 1.35 x 1.05 m (spodok vo vyske 0.76 m, asi 3.0 m3), nadrz od x = -1.20 po -3.70, naprava x = -2.58, rozchod 1.68 m (kolesa R 0.30), poklop v x = -1.95
-  Typove diely (uchyt <Vozik>_uchyt_<diel>): ram, plosina (za nadrzou), sedlo (podlozka nadrze), nadrz (jeden zaobleny diel: cerveny vrch, biely spodok), pasy, prstenec (kruh poklopa), odvzdusnenie, vypust (ventil s pakou), stitok,
-    poklop (pivot na zadnom pante, rotacia Y o -Poklop x 110 st.), skrinka (pivot v strede dna zadnej steny, telo smeruje do +X) a dvere skrinky skrinka_dvere_L / _P (pivot na zavese pri vonkajsej hrane, rotacia Z o -/+ Skrinka x 110 st.).
-  Spolocne diela (oje, naprava, pero, kolesa, blatniky, naraznik so svetlami ...) ako pri malom vozikoch. Vlastnosti: Poklop, Skrinka (0 az 1) + spolocne.
+CISTERNOVY VOZIK (Vozik_cisterna_1_5, Vozik_cisterna_3_0: privesny vozik s cisternou v tvare cisternoveho navesu, jedna naprava; pociatok = zem pod stredom gule, predok +X, vozik ide do -X):
+  Vozik_cisterna_1_5: nadrz 2.04 x 1.15 x 0.85 m (valec 1.60 m + dve klenby po 0.22 m, 1 komory, spodok vo vyske 0.78 m), naprava x = -2.32, rozchod 1.48 m (kolesa R 0.30), skrinka s ventilmi: zadna rovina x = -3.74, hlbka 0.44 m, vyska 0.58 m, sirka 1.15 m
+  Vozik_cisterna_3_0: nadrz 2.92 x 1.35 x 1.05 m (valec 2.40 m + dve klenby po 0.26 m, 2 komory, spodok vo vyske 0.78 m), naprava x = -2.76, rozchod 1.68 m (kolesa R 0.30), skrinka s ventilmi: zadna rovina x = -4.62, hlbka 0.44 m, vyska 0.58 m, sirka 1.20 m
+  Typove diely (uchyt <Vozik>_uchyt_<diel>): ram, plosina (za nadrzou), sedlo (dve kolebky), nadrz (oval s klenbami a obruceami), komin_N (komin poklopu s odvetranim), poklop_N (pivot v osi pantu na zadnom okraji komina, rotacia Y o -Poklopy x 106 st., postupne od zadneho),
+    obrubnik (ochranne trubky), bocne_svetla, adr_pred (tabulka ADR vpredu), skrinka (pevne telo), armatura (zberne potrubie s tromi ventilmi, dve potrubia k nadrzi, vypust s hadicovou spojkou - rovnaky rozmer ako na cisternovom naves),
+    dvere_skrinky_L / _P (pivot na zavese pri vonkajsej hrane, rotacia Z o -/+ Dvere_skrinky x 100 st.; na lavych dverach je tabulka ADR zadu).
+  Spolocne diely (oje, naprava, pero, kolesa, blatniky, naraznik so svetlami ...) ako pri malom vozikoch. Vlastnosti: Poklopy, Dvere_skrinky (0 az 1) + spolocne.
 
 VOZIK NA DREVO (Vozik_drevo_4_0, Vozik_drevo_6_0: privesny vozik na kmene; pociatok = zem pod stredom gule, predok +X, vozik ide do -X):
   Vozik_drevo_4_0: rozpetie podlozok 2.40 m (x = -1.80 a -4.20), naprav 1 (x = -3.10), rozchod 2.23 m (kolesa R 0.31), 12 kmenov dlhych asi 3.4 m
