@@ -3,101 +3,175 @@ Pickup a voziky - diely (rozmery X x Y x Z v metroch). Predok = +X, lava = +Y.
 == PICKUP - SPOLOCNE ==
 Pv_pk_volant                             0.38 x 0.05 x 0.37
 Pv_pk_naprava_predna                     0.46 x 1.36 x 0.39
-Pv_pk_naprava_zadna                      1.10 x 1.50 x 0.32
-Pv_pk_koleso                             0.82 x 0.36 x 0.82
+Pv_pk_naprava_zadna                      0.26 x 1.50 x 0.31
+Pv_pk_pero                               1.10 x 0.10 x 0.19
+Pv_pk_pneu                               0.82 x 0.30 x 0.82
+Pv_pk_disk_L                             0.57 x 0.36 x 0.56
 Pv_pk_tlmic_valec                        0.06 x 0.06 x 0.24
 Pv_pk_tlmic_piestnica                    0.07 x 0.07 x 0.24
 
-== PICKUP DVOJKABINA ==
-Pv_pk_ram_dvojkabina                     5.21 x 0.94 x 0.58
-Pv_pk_predok_dvojkabina                  1.42 x 1.93 x 0.74
-Pv_pk_kapota_dvojkabina                  1.12 x 1.60 x 0.20
-Pv_pk_kabina_dvojkabina                  2.27 x 1.83 x 1.58
-Pv_pk_interier_dvojkabina                2.13 x 1.62 x 0.86
-Pv_pk_korba_dvojkabina                   1.92 x 1.93 x 0.79
-Pv_pk_zadne_celo_dvojkabina              0.10 x 1.62 x 0.45
-Pv_pk_zadok_dvojkabina                   1.23 x 1.98 x 0.87
-Pv_pk_schodiky_dvojkabina                1.58 x 2.08 x 0.15
+== PICKUP DVOJKABINA - KAROSERIA ==
+Pv_pk_ram_dvojkabina                     5.15 x 0.94 x 0.32
+Pv_pk_pohon_dvojkabina                   3.22 x 0.46 x 0.34
+Pv_pk_nadrz_dvojkabina                   0.80 x 0.52 x 0.24
+Pv_pk_vyfuk_dvojkabina                   3.81 x 0.14 x 0.14
+Pv_pk_kryt_dvojkabina                    0.40 x 0.84 x 0.05
+Pv_pk_celny_panel_dvojkabina             0.06 x 1.24 x 0.54
+Pv_pk_mriezka_dvojkabina                 0.08 x 1.06 x 0.40
+Pv_pk_naraznik_predny_dvojkabina         0.50 x 1.92 x 0.31
+Pv_pk_bullbar_dvojkabina                 0.19 x 1.08 x 0.61
+Pv_pk_motor_dvojkabina                   0.75 x 1.12 x 0.56
+Pv_pk_stierace_dvojkabina                0.18 x 1.66 x 0.10
+Pv_pk_kabina_dvojkabina                  2.27 x 1.83 x 1.33
+Pv_pk_strecha_dvojkabina                 1.87 x 1.76 x 0.09
+Pv_pk_sklo_predne_dvojkabina             0.38 x 1.52 x 0.69
+Pv_pk_sklo_zadne_dvojkabina              0.02 x 1.26 x 0.38
+Pv_pk_lista_dvojkabina                   0.18 x 1.12 x 0.25
+Pv_pk_palubka_dvojkabina                 0.36 x 1.62 x 0.39
+Pv_pk_sedadla_dvojkabina                 1.83 x 1.50 x 0.86
+Pv_pk_podlaha_dvojkabina                 1.89 x 1.62 x 0.12
+Pv_pk_celo_dvojkabina                    0.09 x 1.70 x 0.48
+Pv_pk_naraznik_zadny_dvojkabina          0.29 x 1.88 x 0.31
+Pv_pk_tazne_dvojkabina                   0.92 x 0.41 x 0.30
 Pv_pk_rollbar_dvojkabina                 1.26 x 1.88 x 1.19
-Pv_pk_dvere_pred_dvojkabina_L            0.98 x 0.36 x 1.34
-Pv_pk_dvere_pred_dvojkabina_P            0.98 x 0.36 x 1.34
-Pv_pk_dvere_zad_dvojkabina_L             1.10 x 0.12 x 1.28
-Pv_pk_dvere_zad_dvojkabina_P             1.10 x 0.12 x 1.28
+Pv_pk_kapota_dvojkabina                  1.12 x 1.60 x 0.20
+Pv_pk_zadne_celo_dvojkabina              0.10 x 1.62 x 0.45
 
-== PICKUP JEDNOKABINA ==
-Pv_pk_ram_jednokabina                    5.09 x 0.94 x 0.58
-Pv_pk_predok_jednokabina                 1.42 x 1.93 x 0.74
-Pv_pk_kapota_jednokabina                 1.12 x 1.60 x 0.20
-Pv_pk_kabina_jednokabina                 1.40 x 1.83 x 1.58
-Pv_pk_interier_jednokabina               1.33 x 1.62 x 0.86
-Pv_pk_korba_jednokabina                  2.59 x 1.93 x 0.79
-Pv_pk_zadne_celo_jednokabina             0.10 x 1.62 x 0.45
-Pv_pk_zadok_jednokabina                  1.24 x 1.98 x 0.87
-Pv_pk_schodiky_jednokabina               0.71 x 2.08 x 0.15
+== PICKUP DVOJKABINA - STRANY A DVERE ==
+Pv_pk_blatnik_dvojkabina_L               1.18 x 0.49 x 0.60
+Pv_pk_svetlomet_dvojkabina_L             0.07 x 0.38 x 0.38
+Pv_pk_bok_dvojkabina_L                   1.81 x 0.18 x 0.79
+Pv_pk_naboj_dvojkabina_L                 0.86 x 0.26 x 0.26
+Pv_pk_svetlo_zadne_dvojkabina_L          0.05 x 0.13 x 0.38
+Pv_pk_zachytavac_dvojkabina_L            0.03 x 0.26 x 0.30
+Pv_pk_schodiky_dvojkabina_L              1.58 x 0.20 x 0.15
+Pv_pk_zrkadlo_dvojkabina_L               0.14 x 0.28 x 0.22
+Pv_pk_dvere_pred_dvojkabina_L            0.98 x 0.13 x 1.34
+Pv_pk_dvere_zad_dvojkabina_L             1.10 x 0.12 x 1.28
+
+== PICKUP JEDNOKABINA - KAROSERIA ==
+Pv_pk_ram_jednokabina                    4.95 x 0.94 x 0.32
+Pv_pk_pohon_jednokabina                  3.10 x 0.46 x 0.34
+Pv_pk_nadrz_jednokabina                  0.80 x 0.52 x 0.24
+Pv_pk_vyfuk_jednokabina                  3.69 x 0.14 x 0.14
+Pv_pk_kryt_jednokabina                   0.40 x 0.84 x 0.05
+Pv_pk_celny_panel_jednokabina            0.06 x 1.24 x 0.54
+Pv_pk_mriezka_jednokabina                0.08 x 1.06 x 0.40
+Pv_pk_naraznik_predny_jednokabina        0.50 x 1.92 x 0.31
+Pv_pk_bullbar_jednokabina                0.19 x 1.08 x 0.61
+Pv_pk_motor_jednokabina                  0.75 x 1.12 x 0.56
+Pv_pk_stierace_jednokabina               0.18 x 1.66 x 0.10
+Pv_pk_kabina_jednokabina                 1.40 x 1.83 x 1.32
+Pv_pk_strecha_jednokabina                1.00 x 1.76 x 0.09
+Pv_pk_sklo_predne_jednokabina            0.38 x 1.52 x 0.69
+Pv_pk_sklo_zadne_jednokabina             0.02 x 1.26 x 0.38
+Pv_pk_lista_jednokabina                  0.18 x 1.12 x 0.25
+Pv_pk_palubka_jednokabina                0.36 x 1.62 x 0.39
+Pv_pk_sedadla_jednokabina                1.03 x 1.50 x 0.86
+Pv_pk_podlaha_jednokabina                2.56 x 1.62 x 0.12
+Pv_pk_celo_jednokabina                   0.08 x 1.70 x 0.48
+Pv_pk_naraznik_zadny_jednokabina         0.29 x 1.88 x 0.31
+Pv_pk_tazne_jednokabina                  0.92 x 0.41 x 0.30
 Pv_pk_rollbar_jednokabina                1.26 x 1.88 x 1.19
-Pv_pk_dvere_pred_jednokabina_L           1.23 x 0.36 x 1.34
-Pv_pk_dvere_pred_jednokabina_P           1.23 x 0.36 x 1.34
+Pv_pk_kapota_jednokabina                 1.12 x 1.60 x 0.20
+Pv_pk_zadne_celo_jednokabina             0.10 x 1.62 x 0.45
+
+== PICKUP JEDNOKABINA - STRANY A DVERE ==
+Pv_pk_blatnik_jednokabina_L              1.18 x 0.49 x 0.60
+Pv_pk_svetlomet_jednokabina_L            0.07 x 0.38 x 0.38
+Pv_pk_bok_jednokabina_L                  2.56 x 0.18 x 0.79
+Pv_pk_naboj_jednokabina_L                0.86 x 0.26 x 0.26
+Pv_pk_svetlo_zadne_jednokabina_L         0.05 x 0.13 x 0.38
+Pv_pk_zachytavac_jednokabina_L           0.03 x 0.26 x 0.30
+Pv_pk_schodiky_jednokabina_L             0.71 x 0.20 x 0.15
+Pv_pk_zrkadlo_jednokabina_L              0.14 x 0.28 x 0.22
+Pv_pk_dvere_pred_jednokabina_L           1.23 x 0.13 x 1.34
 
 == PRIVESY - SPOLOCNE ==
 Pv_tr_spojka                             0.38 x 0.20 x 0.21
 Pv_tr_spojka_paka                        0.29 x 0.08 x 0.05
 Pv_tr_opierne_koleso                     0.20 x 0.10 x 0.60
-Pv_tr_koleso_28                          0.55 x 0.21 x 0.55
-Pv_tr_koleso_30                          0.59 x 0.21 x 0.59
-Pv_tr_koleso_30a                         0.59 x 0.24 x 0.59
-Pv_tr_koleso_31                          0.61 x 0.21 x 0.61
-Pv_tr_blatnik_28                         0.73 x 0.27 x 0.54
-Pv_tr_blatnik_30                         0.77 x 0.27 x 0.57
-Pv_tr_blatnik_31                         0.79 x 0.27 x 0.58
+Pv_tr_objimka                            0.27 x 0.21 x 0.16
+Pv_tr_retaze                             0.46 x 0.27 x 0.06
+Pv_tr_zastrcka                           0.29 x 0.09 x 0.12
+Pv_tr_pero                               0.87 x 0.10 x 0.13
+Pv_tr_svetlo                             0.06 x 0.13 x 0.31
+Pv_tr_spz                                0.03 x 0.44 x 0.17
+Pv_tr_pneu_28                            0.55 x 0.19 x 0.55
+Pv_tr_pneu_30                            0.59 x 0.19 x 0.59
+Pv_tr_pneu_30a                           0.59 x 0.20 x 0.59
+Pv_tr_pneu_31                            0.61 x 0.19 x 0.61
+Pv_tr_disk_28_L                          0.35 x 0.05 x 0.35
+Pv_tr_disk_30_L                          0.37 x 0.05 x 0.37
+Pv_tr_disk_30a_L                         0.42 x 0.09 x 0.42
+Pv_tr_disk_31_L                          0.38 x 0.05 x 0.38
+Pv_tr_blatnik_28_L                       0.80 x 0.27 x 0.38
+Pv_tr_blatnik_30_L                       0.84 x 0.27 x 0.40
+Pv_tr_blatnik_31_L                       0.86 x 0.27 x 0.41
 
 == MALY VOZIK ==
-Pv_vz_ram_2_0                            3.19 x 1.52 x 0.50
-Pv_vz_korba_2_0                          2.08 x 1.33 x 0.56
+Pv_vz_ram_2_0                            2.08 x 1.16 x 0.11
+Pv_vz_podlaha_2_0                        2.00 x 1.20 x 0.04
+Pv_vz_celna_2_0                          0.06 x 1.30 x 0.53
 Pv_vz_zadne_celo_2_0                     0.07 x 1.26 x 0.43
-Pv_vz_ram_2_6                            3.79 x 1.72 x 0.50
-Pv_vz_korba_2_6                          2.68 x 1.53 x 0.61
+Pv_vz_ram_2_6                            2.68 x 1.36 x 0.11
+Pv_vz_podlaha_2_6                        2.60 x 1.40 x 0.04
+Pv_vz_celna_2_6                          0.06 x 1.50 x 0.58
 Pv_vz_zadne_celo_2_6                     0.07 x 1.46 x 0.48
-Pv_tr_naprava_77_54                      0.87 x 1.42 x 0.19
-Pv_tr_naprava_87_64                      0.87 x 1.62 x 0.19
+Pv_vz_bocnica_2_0_L                      2.06 x 0.05 x 0.44
+Pv_vz_bocnica_2_0_P                      2.06 x 0.05 x 0.44
+Pv_vz_bocnica_2_6_L                      2.66 x 0.05 x 0.49
+Pv_vz_bocnica_2_6_P                      2.66 x 0.05 x 0.49
+Pv_tr_oje_vz_2_0                         1.04 x 1.11 x 0.14
+Pv_tr_oje_vz_2_6                         1.04 x 1.31 x 0.14
+Pv_tr_zaves_vz_2_0                       0.92 x 1.17 x 0.07
+Pv_tr_zaves_vz_2_6                       0.92 x 1.37 x 0.07
+Pv_tr_konzola_vz_2_0_L                   0.20 x 0.03 x 0.05
+Pv_tr_konzola_vz_2_6_L                   0.20 x 0.03 x 0.05
+Pv_tr_naraznik_vz_2_0                    0.43 x 1.70 x 0.10
+Pv_tr_naraznik_vz_2_6                    0.43 x 1.90 x 0.10
+Pv_tr_obrysove_vz_2_0                    1.08 x 1.30 x 0.43
+Pv_tr_obrysove_vz_2_6                    1.38 x 1.50 x 0.48
+Pv_tr_naprava_77                         0.17 x 1.42 x 0.17
+Pv_tr_naprava_87                         0.17 x 1.62 x 0.17
 
 == PODVAL NA AUTO ==
-Pv_pd_ram_4_0                            5.46 x 2.25 x 0.44
-Pv_pd_ram_5_2                            6.66 x 2.25 x 0.44
-Pv_pd_podram_4_0                         3.93 x 1.07 x 0.20
-Pv_pd_podram_5_2                         5.13 x 1.07 x 0.20
-Pv_pd_plosina_4_0                        3.99 x 2.10 x 0.65
-Pv_pd_plosina_5_2                        5.19 x 2.10 x 0.65
-Pv_pd_kridlo_4_0                         1.05 x 0.29 x 0.26
-Pv_pd_kridlo_5_2                         2.15 x 0.29 x 0.26
-Pv_pd_celna_stena                        0.47 x 1.93 x 0.52
+Pv_pd_ram_4_0                            3.93 x 0.63 x 0.13
+Pv_pd_paluba_4_0                         4.00 x 2.01 x 0.13
+Pv_pd_vedenie_4_0                        2.47 x 1.86 x 0.05
+Pv_pd_najazd_4_0                         2.40 x 0.50 x 0.08
+Pv_pd_ram_5_2                            5.13 x 0.63 x 0.13
+Pv_pd_paluba_5_2                         5.20 x 2.01 x 0.13
+Pv_pd_vedenie_5_2                        2.67 x 1.86 x 0.05
+Pv_pd_najazd_5_2                         2.60 x 0.50 x 0.07
+Pv_pd_zabradlie_4_0_L                    1.40 x 0.07 x 0.35
+Pv_pd_zabradlie_5_2_L                    1.40 x 0.07 x 0.35
+Pv_pd_celna_stena                        0.44 x 1.95 x 0.52
+Pv_pd_drziak_rezervy                     0.13 x 0.40 x 0.40
 Pv_navijak                               0.43 x 0.60 x 0.28
 Pv_navijak_buben                         0.22 x 0.37 x 0.22
 Pv_hak                                   0.30 x 0.10 x 0.66
 Pv_lano                                  0.02 x 0.03 x 1.00
+Pv_tr_oje_pd_4_0                         1.50 x 0.61 x 0.15
+Pv_tr_oje_pd_5_2                         1.50 x 0.61 x 0.15
+Pv_tr_naraznik_pd_4_0                    0.43 x 2.24 x 0.10
+Pv_tr_naraznik_pd_5_2                    0.43 x 2.24 x 0.10
+Pv_tr_kridlo_pd_4_0_L                    1.05 x 0.29 x 0.26
+Pv_tr_kridlo_pd_5_2_L                    2.15 x 0.29 x 0.26
 Pv_auto_4_0                              3.60 x 1.74 x 1.49
 Pv_auto_5_2                              4.60 x 1.90 x 1.50
 Pv_auto_koleso_4_0                       0.51 x 0.23 x 0.52
 Pv_auto_koleso_5_2                       0.58 x 0.23 x 0.60
-Pv_tr_naprava_113_50                     0.87 x 2.15 x 0.19
-Pv_valec_pt4_0_0                         0.08 x 0.10 x 0.49
-Pv_valec_pt4_0_1                         0.08 x 0.10 x 0.50
-Pv_valec_ps4_0_0                         0.10 x 0.13 x 1.63
-Pv_valec_ps4_0_1                         0.08 x 0.08 x 1.58
-Pv_valec_ps4_0_2                         0.06 x 0.07 x 1.58
-Pv_valec_ps4_0_3                         0.06 x 0.08 x 1.63
-Pv_valec_pt5_2_0                         0.08 x 0.10 x 0.49
-Pv_valec_pt5_2_1                         0.08 x 0.10 x 0.50
-Pv_valec_ps5_2_0                         0.10 x 0.13 x 2.11
-Pv_valec_ps5_2_1                         0.08 x 0.08 x 2.05
-Pv_valec_ps5_2_2                         0.06 x 0.07 x 2.05
-Pv_valec_ps5_2_3                         0.06 x 0.08 x 2.10
+Pv_tr_naprava_114                        0.17 x 2.17 x 0.17
 
 == VOZIK NA PALETY ==
-Pv_pa_ram_3_0                            4.51 x 1.86 x 0.46
-Pv_pa_korba_3_0                          3.07 x 1.92 x 0.98
+Pv_pa_ram_3_0                            3.17 x 1.82 x 0.12
+Pv_pa_podlaha_3_0                        3.00 x 1.92 x 0.12
+Pv_pa_celna_3_0                          0.08 x 1.88 x 0.87
 Pv_pa_zadne_celo_3_0                     0.06 x 1.82 x 0.43
-Pv_pa_ram_4_2                            5.71 x 1.86 x 0.46
-Pv_pa_korba_4_2                          4.27 x 1.92 x 0.98
+Pv_pa_ram_4_2                            4.37 x 1.82 x 0.12
+Pv_pa_podlaha_4_2                        4.20 x 1.92 x 0.12
+Pv_pa_celna_4_2                          0.08 x 1.88 x 0.87
 Pv_pa_zadne_celo_4_2                     0.06 x 1.82 x 0.43
 Pv_pa_bocnica_3_0_L                      2.99 x 0.05 x 0.42
 Pv_pa_bocnica_3_0_P                      2.99 x 0.05 x 0.42
@@ -105,105 +179,162 @@ Pv_pa_bocnica_4_2_L                      4.19 x 0.05 x 0.42
 Pv_pa_bocnica_4_2_P                      4.19 x 0.05 x 0.42
 Pv_pa_paleta_karton                      1.21 x 0.80 x 1.04
 Pv_pa_paleta_vrecia                      1.20 x 1.17 x 1.14
-Pv_tr_naprava_78_45                      0.87 x 1.45 x 0.19
+Pv_tr_oje_pa_3_0                         1.31 x 0.95 x 0.30
+Pv_tr_oje_pa_4_2                         1.31 x 0.95 x 0.30
+Pv_tr_naraznik_pa_3_0                    0.43 x 2.20 x 0.10
+Pv_tr_naraznik_pa_4_2                    0.43 x 2.20 x 0.10
+Pv_tr_naprava_78                         0.17 x 1.45 x 0.17
 
 == CISTERNOVY VOZIK ==
-Pv_cs_ram_1_5                            3.65 x 1.74 x 0.45
-Pv_cs_nadrz_1_5                          1.96 x 1.16 x 0.98
-Pv_cs_ram_3_0                            4.46 x 1.94 x 0.45
-Pv_cs_nadrz_3_0                          2.76 x 1.37 x 1.18
+Pv_cs_ram_1_5                            2.41 x 0.97 x 0.16
+Pv_cs_plosina_1_5                        0.55 x 1.10 x 0.04
+Pv_cs_sedlo_1_5                          1.45 x 0.81 x 0.10
+Pv_cs_nadrz_1_5                          1.70 x 1.15 x 0.85
+Pv_cs_pasy_1_5                           0.91 x 1.16 x 0.86
+Pv_cs_prstenec_1_5                       0.51 x 0.50 x 0.08
+Pv_cs_odvzdusnenie_1_5                   0.05 x 0.05 x 0.12
+Pv_cs_vypust_1_5                         0.26 x 0.18 x 0.24
+Pv_cs_stitok_1_5                         0.01 x 0.50 x 0.14
+Pv_cs_ram_3_0                            3.21 x 0.97 x 0.16
+Pv_cs_plosina_3_0                        0.55 x 1.10 x 0.04
+Pv_cs_sedlo_3_0                          2.12 x 0.94 x 0.10
+Pv_cs_nadrz_3_0                          2.50 x 1.35 x 1.05
+Pv_cs_pasy_3_0                           1.31 x 1.37 x 1.06
+Pv_cs_prstenec_3_0                       0.51 x 0.50 x 0.08
+Pv_cs_odvzdusnenie_3_0                   0.05 x 0.05 x 0.12
+Pv_cs_vypust_3_0                         0.26 x 0.18 x 0.24
+Pv_cs_stitok_3_0                         0.01 x 0.50 x 0.14
 Pv_cs_poklop                             0.43 x 0.43 x 0.12
 Pv_cs_skrinka                            0.46 x 0.64 x 0.82
 Pv_cs_dvere_L                            0.07 x 0.30 x 0.76
 Pv_cs_dvere_P                            0.07 x 0.30 x 0.76
-Pv_tr_naprava_74_45                      0.87 x 1.37 x 0.19
-Pv_tr_naprava_84_45                      0.87 x 1.57 x 0.19
+Pv_tr_oje_cs_1_5                         1.11 x 0.94 x 0.17
+Pv_tr_oje_cs_3_0                         1.11 x 0.94 x 0.17
+Pv_tr_naraznik_cs_1_5                    0.43 x 1.61 x 0.10
+Pv_tr_naraznik_cs_3_0                    0.43 x 1.81 x 0.10
+Pv_tr_naprava_74                         0.17 x 1.37 x 0.17
+Pv_tr_naprava_84                         0.17 x 1.57 x 0.17
 
 == VOZIK NA DREVO ==
-Pv_dr_ram_4_0                            4.81 x 2.07 x 0.44
+Pv_dr_ram_4_0                            3.28 x 0.72 x 0.12
 Pv_dr_naklad_4_0                         3.76 x 1.80 x 1.11
-Pv_dr_ram_6_0                            6.21 x 2.07 x 0.44
+Pv_dr_ram_6_0                            4.68 x 0.72 x 0.12
 Pv_dr_naklad_6_0                         5.16 x 1.80 x 1.11
+Pv_dr_podlozka_4_0_1                     0.18 x 1.94 x 0.16
+Pv_dr_podlozka_4_0_2                     0.18 x 1.94 x 0.16
+Pv_dr_podlozka_6_0_1                     0.18 x 1.94 x 0.16
+Pv_dr_podlozka_6_0_2                     0.18 x 1.94 x 0.16
 Pv_dr_koliky_4_0_L                       2.50 x 0.10 x 1.14
 Pv_dr_koliky_4_0_P                       2.50 x 0.10 x 1.14
 Pv_dr_koliky_6_0_L                       3.90 x 0.10 x 1.14
 Pv_dr_koliky_6_0_P                       3.90 x 0.10 x 1.14
-Pv_tr_naprava_112_32                     0.87 x 2.12 x 0.19
-Pv_tr_naprava_112_32                     0.87 x 2.12 x 0.19
+Pv_tr_oje_dr_4_0                         1.41 x 0.69 x 0.22
+Pv_tr_oje_dr_6_0                         1.41 x 0.69 x 0.22
+Pv_tr_naraznik_dr_4_0                    0.43 x 2.14 x 0.10
+Pv_tr_naraznik_dr_6_0                    0.43 x 2.14 x 0.10
+Pv_tr_naprava_112                        0.17 x 2.12 x 0.17
+Pv_tr_naprava_112                        0.17 x 2.12 x 0.17
 
 == SKRINOVY VOZIK ==
-Pv_sk_ram_2_5                            3.89 x 1.57 x 0.64
-Pv_sk_korba_2_5                          2.56 x 1.44 x 1.60
+Pv_sk_ram_2_5                            2.60 x 1.07 x 0.12
+Pv_sk_podlaha_2_5                        2.50 x 1.40 x 0.07
+Pv_sk_stena_L_2_5                        2.52 x 0.06 x 1.45
+Pv_sk_stena_P_pred_2_5                   0.57 x 0.06 x 1.45
+Pv_sk_stena_P_zad_2_5                    1.17 x 0.06 x 1.45
+Pv_sk_nadvlak_2_5                        0.80 x 0.04 x 0.20
+Pv_sk_predna_2_5                         0.04 x 1.40 x 1.45
+Pv_sk_strecha_2_5                        2.55 x 1.44 x 0.12
+Pv_sk_vetrak_2_5                         0.50 x 0.40 x 0.06
+Pv_sk_listy_2_5                          2.54 x 1.44 x 1.48
 Pv_sk_rampa_2_5                          0.08 x 1.38 x 1.35
 Pv_sk_dvere_2_5                          0.81 x 0.08 x 1.23
-Pv_sk_ram_3_6                            4.99 x 1.87 x 0.64
-Pv_sk_korba_3_6                          3.66 x 1.74 x 1.80
+Pv_sk_ram_3_6                            3.70 x 1.37 x 0.12
+Pv_sk_podlaha_3_6                        3.60 x 1.70 x 0.07
+Pv_sk_stena_L_3_6                        3.62 x 0.06 x 1.65
+Pv_sk_stena_P_pred_3_6                   0.57 x 0.06 x 1.65
+Pv_sk_stena_P_zad_3_6                    2.27 x 0.06 x 1.65
+Pv_sk_nadvlak_3_6                        0.80 x 0.04 x 0.20
+Pv_sk_predna_3_6                         0.04 x 1.70 x 1.65
+Pv_sk_strecha_3_6                        3.65 x 1.74 x 0.12
+Pv_sk_vetrak_3_6                         0.50 x 0.40 x 0.06
+Pv_sk_listy_3_6                          3.64 x 1.74 x 1.68
 Pv_sk_rampa_3_6                          0.08 x 1.68 x 1.55
 Pv_sk_dvere_3_6                          0.81 x 0.08 x 1.43
-Pv_tr_naprava_87_50                      0.87 x 1.62 x 0.19
-Pv_tr_naprava_102_65                     0.87 x 1.92 x 0.19
+Pv_tr_oje_sk_2_5                         1.21 x 1.04 x 0.16
+Pv_tr_oje_sk_3_6                         1.21 x 1.33 x 0.16
+Pv_tr_naraznik_sk_2_5                    0.43 x 1.80 x 0.10
+Pv_tr_naraznik_sk_3_6                    0.43 x 2.10 x 0.10
+Pv_tr_naprava_87                         0.17 x 1.62 x 0.17
+Pv_tr_naprava_102                        0.17 x 1.92 x 0.17
 
 
 PICKUP (Pickup_dvojkabina: 4 dvere, kratka korba; Pickup_jednokabina: 2 dvere, dlha korba; pociatok = zem pod prednou napravou, predok +X, lava strana +Y):
   Pickup_dvojkabina: rozvor 3.22 m, dlzka od predneho narazniku (x = 0.96) po zadny naraznik (x = -4.60) 5.56 m, sirka 1.98 m, vyska strechy 1.80 m, kabina po x = -2.42, korba -1.81 m, gula tazneho zariadenia v (-4.82, 0, 0.45), rozchod 1.52 m, kolesa R 0.41
   Pickup_jednokabina: rozvor 3.10 m, dlzka od predneho narazniku (x = 0.96) po zadny naraznik (x = -4.48) 5.44 m, sirka 1.98 m, vyska strechy 1.80 m, kabina po x = -1.55, korba -2.56 m, gula tazneho zariadenia v (-4.70, 0, 0.45), rozchod 1.52 m, kolesa R 0.41
-  Kostra: root (<Pickup>) -> prazdny objekt <Pickup>_karoseria (nasleduje teren: nakloni sa podla predneho a zadneho terenneho objektu a podla ich vysky, PK_FOLLOW 0.6) -> ram, predok, kabina, interier, korba, zadok, schodiky.
-  Naprava predna / zadna (<Pickup>_naprava_predna / _zadna) sa hybe podla terennych prazdnych objektov <Pickup>_teren_predna / _zadna; tlmice (valec + piestnica) mieria na seba medzi naprava a karoseriou.
-  Kolesa: predne su deti prazdneho objektu <Pickup>_cap_riadenia_L / _P (otacanie o Riadenie, os Z), vsetky sa tocia okolo Y podla Koleso_otocenie (pravy bok je otoceny o 180 st., preto opacne znamienko).
-  Volant: prazdny objekt <Pickup>_stlpik_riadenia (os stlpika), volant sa toci o trojnasobok Riadenia. Kapota: pivot na zadnej hrane (-0.18, 0, 1.06), rotacia Y o -Kapota x 55 st.
-  Dvere (dvere_pred_L/P, dvere_zad_L/P): pivot na zavese (predne -0.30, zadne -1.30), rotacia Z o -/+ Dvere_xxx x 72 st. Zadne celo korby: pivot na spodnom pante (x = zadna hrana korby, z = 0.88), rotacia Y o -Zadne_celo x 90 st.
+  Kostra: root (<Pickup>) -> prazdny objekt <Pickup>_karoseria (nasleduje teren: nakloni sa podla predneho a zadneho terenneho objektu a podla ich vysky, PK_FOLLOW 0.6) -> uchyty dielov.
+  DEMONTAZ: kazdy diel je samostatny objekt <Pickup>_<diel> na UCHYTE <Pickup>_uchyt_<diel> (prazdny objekt v pivote dielu); animacia je na uchyte. Vymena / oprava: zmaz objekt dielu a novy diel (rovnaky pivot) daj ako dieta uchytu s nulovou polohou.
+    Pevne diely karoserie (pivot v pociatku pickupu): ram, pohon (prevodovka, kardany), nadrz, vyfuk, kryt (spodny kryt motora), celny_panel, mriezka, naraznik_predny, bullbar, motor, stierace, kabina (schranka s podlahou a stlpikmi), strecha, sklo_predne, sklo_zadne, lista (svetelna),
+    palubka, sedadla, podlaha (korby), celo (celna stena korby), naraznik_zadny, tazne (gula, drziak, zasuvka), rollbar; po stranach (_L / _P): blatnik, svetlomet, bok (bok korby), naboj (naboj kolesa v korbe), svetlo_zadne, zachytavac (blata), schodiky.
+  Pohyblive diely: kapota (pivot na zadnej hrane (-0.18, 0, 1.06), rotacia Y o -Kapota x 55 st.), zadne_celo (pivot na spodnom pante, rotacia Y o -Zadne_celo x 90 st.), dvere_pred_L / _P a dvere_zad_L / _P (pivot na zavese, predne -0.30, zadne -1.30, rotacia Z o -/+ Dvere_xxx x 72 st.),
+    zrkadlo_L / _P (dieta uchytu dveri, pohybuje sa s nimi), volant (uchyt na stlpiku riadenia, toci sa o trojnasobok Riadenia).
+  Naprava predna / zadna (uchyt <Pickup>_uchyt_naprava_predna / _zadna) sa hybe podla terennych prazdnych objektov <Pickup>_teren_predna / _zadna; zadne pera (pero_zadne_L / _P) su deti zadnej napravy; tlmice (valec + piestnica) mieria na seba medzi naprava a karoseriou.
+  Kolesa: uchyt koleso_predne_L / _P je dieta prazdneho objektu <Pickup>_cap_riadenia_L / _P (otacanie o Riadenie, os Z), uchyt koleso_zadne_L / _P je dieta zadnej napravy; kazdy nesie pneu (pneumatika) a disk (L / _P je zrkadlo) a toci sa okolo Y podla Koleso_otocenie.
   Prazdny objekt <Pickup>_gula (na karoserii, vo vyske gule tazneho zariadenia): privesy ho citaju vo svetovych suradniciach (driver) a naklonaju sa okolo gule.
   Vlastnosti na koreni: Riadenie (-35 az 35), Koleso_otocenie (kumulativne stupne), Kapota, Zadne_celo, Dvere_pred_L, Dvere_pred_P, Dvere_zad_L, Dvere_zad_P (0 az 1). Animacia 1 az 610: jazda s nerovnostami, riadenie, kapota, dvere, zadne celo.
 
-PRIVESY - SPOLOCNY ZAKLAD (vozik, podval na auto, vozik na palety):
+PRIVESY - SPOLOCNY ZAKLAD A DEMONTAZ (vozik, podval na auto, vozik na palety, cisterna, drevo, skrina):
   Pociatok privesu = zem pod stredom gule (x = 0), predok +X, privesok ide do -X, gula je vo vyske 0.45 m. Koren (<Privesok>) nesie vlastnosti Koleso_otocenie, Opierne_koleso, Spojka (+ vlastnosti typu).
   Telo (<Privesok>_telo, prazdny objekt vo vyske gule) sa otaca okolo gule (os Y): jeho vyska = svetova vyska gule (pri zapriahnuti objekt <Pickup>_gula, inak staticka gula) a sklon = atan((priemerna vyska naprav - polomer - (vyska gule - 0.45)) / vzdialenost naprav od gule).
-    Vsetky diela privesu (ram, korba, plosina, bocnice, blatniky, spojka, palety ...) su deti tela, ich poloha = poloha v suradniciach privesu minus 0.45 m vo vyske.
-  Naprava (<Privesok>_naprava_N) sa hybe podla terenneho prazdneho objektu <Privesok>_teren_N (kluce nerovnosti, oneskorene podla vzdialenosti od gule); kolesa su jej deti (os Y, pravy bok otoceny o 180 st.).
-  Kolesa sa tocia o Koleso_otocenie x (polomer kolesa pickupu / polomer kolesa privesu), takze pri rovnakej jazde ujdu rovnaku drahu. Blatniky (Pv_tr_blatnik_<R>) su deti tela, priruba na strane k telu.
-  Spojka: pevna hlava (Pv_tr_spojka, puzdro pre gulu v povodni) a paka (Pv_tr_spojka_paka, pivot na zadnom konci, rotacia Y o -Spojka x 55 st.). Opierne koleso: trubka s kolesom (Pv_tr_opierne_koleso) sa posuva o -0.23 x Opierne_koleso po Z v objimke na oji.
-  Oje (A-rama) je sucastou ramu: dva sikme nosniky do jazyka, objimka opierneho kolesa, bezpecnostne retaze a zastrcka svetiel.
+  DEMONTAZ: kazdy diel je samostatny objekt <Privesok>_<diel> a je detom UCHYTU <Privesok>_uchyt_<diel> (prazdny objekt v pivote dielu). Animacia (otacanie, posun, sklapanie) je na UCHYTE, nie na dieli.
+    Vymena / oprava: zmaz objekt dielu (uchyt nechaj), novy diel (mesh s rovnakym pivotom) daj ako dieta uchytu s nulovou polohou - animacia a poloha ostanu. Pevne diela maju pivot v pociatku privesu (zem pod gulou), pohyblive v klbe / osi.
+    Spolocne diela kazdeho privesu: oje, objimka, retaze, zastrcka, spojka, spojka_paka, opierne_koleso, zaves (uchytenia per), naprava_N, pero_N_L / _P, koleso_N_L / _P (= pneu + disk), blatnik_N_L / _P (alebo kridlo_L / _P),
+    konzola_L / _P (nosnik blatnika), naraznik, svetlo_L / _P (zadne svetla su na naraznik), spz, obrysove. Typove diela (ram, podlaha, bocnice, ...) su popisane pri kazdom privesu.
+  Naprava (uchyt <Privesok>_uchyt_naprava_N) sa hybe podla terenneho prazdneho objektu <Privesok>_teren_N (kluce nerovnosti, oneskorene podla vzdialenosti od gule); pera a kolesa su deti naprav.
+  Koleso: uchyt koleso_N_L / _P (os Y, otacanie podla Koleso_otocenie x pomer polomerov pickupu a privesu) nesie dva diely: pneu (pneumatika) a disk (disk L / _P je zrkadlo). Blatniky kryju kolesa len nad osou (najviac po polovicu kolesa).
+  Spojka: pevna hlava (Pv_tr_spojka, puzdro pre gulu v povodni) a paka (pivot na zadnom konci, rotacia Y o -Spojka x 55 st.). Opierne koleso: trubka s kolesom sa posuva o -0.23 x Opierne_koleso po Z v objimke na oji.
 
 MALY VOZIK (Vozik_2_0, Vozik_2_6; privesny vozik s jednou napravou, pociatok = zem pod stredom gule, predok +X, vozik ide do -X):
   Vozik_2_0: podlaha 2.00 x 1.20 m, bocnice 0.40 m, prednak podlahy x = -1.02, zadna hrana x = -3.02, naprava x = -2.06, rozchod 1.53 m (kolesa R 0.28)
   Vozik_2_6: podlaha 2.60 x 1.40 m, bocnice 0.45 m, prednak podlahy x = -1.02, zadna hrana x = -3.62, naprava x = -2.37, rozchod 1.73 m (kolesa R 0.28)
-  Telo (objekt <Vozik>_telo, vo vyske gule) sa otaca okolo gule (os Y) a nasleduje polohu gule a naprav; ram, korba, zadne celo, blatniky, spojka a opierne koleso su jeho deti.
-  Naprava (<Vozik>_naprava_1) sa hybe podla terenneho prazdneho objektu <Vozik>_teren_1; kolesa su jej deti (otacanie = Koleso_otocenie, nasobene pomerom polomerov).
-  Zadne celo: pivot na spodnom pante (rotacia Y o -g x 90 st.), spojka: paka sa zdvihne o 55 st. (Spojka 0 az 1), opierne koleso sa spusti o 0.23 m (Opierne_koleso 0 az 1).
+  Typove diely (uchyt <Vozik>_uchyt_<diel>, objekt <Vozik>_<diel>): ram, podlaha, celna (celna stena), bocnica_L / _P, zadne_celo (pivot na spodnom pante, rotacia Y o -Zadne_celo x 90 st.).
+  Spolocne diely: oje, objimka, retaze, zastrcka, spojka, spojka_paka, opierne_koleso, zaves, naprava_1, pero_1_L / _P, koleso_1_L / _P (pneu + disk), blatnik_1_L / _P, konzola_L / _P, naraznik, svetlo_L / _P (na naraznik), spz, obrysove.
 
-PODVAL NA AUTO (Podval_auto_4_0, Podval_auto_5_2: sklopny a odsuvny privesny podvalnik, pociatok = zem pod stredom gule, predok +X, privesok ide do -X):
-  Fixny podvozok (Pv_pd_ram_<kluc>: dva podlzniky, priecniky, klb, konzoly valcov, oje) nesie nahodne napravy (rozchod 2.26 m, kolesa R 0.30, blatniky na nosnikoch).
-  Sklopny podram: prazdny objekt <Podval>_plosina_klb (os klbu vzadu na podvozku, Y, rotacia -Plosina_sklon x uhol, zadok dole). Jeho deti: podram (Pv_pd_podram_<kluc>)
-    a plosina (Pv_pd_plosina_<kluc>, pohyb v X o -Plosina_odsun x odsun) so skosenym koncom, ktoreho spicka sa po odsune dotkne zeme.
-  Dieta plosiny: celna stena (pivot na prednej hrane na hornej strane), maly navijak (na polici celnej steny), jeho buben, vodiaca (vystup lana) a hak_drziak; lano mieri na hak (mierka Z = vzdialenost),
-    hak ma Copy Location 'Na_aute' na tazne oko auta (vplyv = Hak_k_autu). Valce: naklapacie (2x, zaklad na podvozku, ciel na podrame), odsunu (zaklad na podrame, ciel na plosine); teleskop ako pri odtahovkach.
-  Auto (Pv_auto_<kluc>) a jeho 4 kolesa su deti korena; polohu, sklon, otacanie kolies a viditelnost nesu kluce po snimkach (auto sa objavi v snimku 440, vytiahnutie 620 az 740).
-  Vlastnosti: Plosina_sklon, Plosina_odsun, Hak_k_autu (0 az 1), Opierne_koleso, Spojka, Koleso_otocenie. Animacia: jazda 1 az 300, opierne koleso 420 az 445, sklon 450 az 500, odsun 500 az 590, hak 590 az 620, vytiahnutie 620 az 740, spat 740 az 850, opierne koleso hore 880 az 910, spojka 920 az 990.
-  Podval_auto_4_0: plosina 4.00 m, klb v (-5.20, 0, 0.52), odsun 2.70 m, sklon 11.3 st., skosenie 0.80 m, naprav 1 (x = -3.70); valec naklapania 2 stupnov po 0.44 m (0.45 az 0.58 m), odsunu 4 stupnov po 1.58 m (1.60 az 4.30 m); auto 3.45 m, rozvor 2.30 m
-  Podval_auto_5_2: plosina 5.20 m, klb v (-6.40, 0, 0.52), odsun 3.90 m, sklon 8.1 st., skosenie 1.00 m, naprav 2 (x = -4.15, -5.25); valec naklapania 2 stupnov po 0.44 m (0.45 az 0.57 m), odsunu 4 stupnov po 2.05 m (2.08 az 5.98 m); auto 4.45 m, rozvor 2.65 m
+PODVAL NA AUTO (Podval_auto_4_0, Podval_auto_5_2: privesny podvalnik s pevnou riesetkovou palubou a dvoma vysuvnymi najazdami, pociatok = zem pod stredom gule, predok +X, privesok ide do -X):
+  Pevne diely (uchyt <Podval>_uchyt_<diel>, pivot v pociatku privesu): ram (modry, dva podlzniky), paluba (modra riesetka z priecnych latiek, bocne nosniky, stredny plech vpredu, zadny nabeh 0.30 m), vedenie (koleje najazdov pod palubou),
+    zabradlie_L / _P (rurove), celna_stena (nizka s mriezkou, pivot v strede prednej hrany paluby na vrchu) s drziakom rezervneho kolesa a rezervou (pneu + disk), navijak (maly, na polici celnej steny), buben, hak, lano, vodiaca a hak_drziak (prazdne objekty).
+  Najazdy: pre kazdu stranu klb <Podval>_uchyt_najazd_klb_L / _P (na zadnej hrane paluby, kde sa najazd dotyka paluby; rotacia Y o -Najazd_sklon x uhol, zadok dole) a v nom posuvny uchyt <Podval>_uchyt_najazd_L / _P
+    (poloha X = (dlzka najazdu - 0.05) x (1 - Najazd_vysun): 0 = zasunuty pod palubou, 1 = vysunuty dozadu); diel Pv_pd_najazd_<kluc> (pivot na hornom konci, v osi najazdu, na hornom povrchu, siaha do -X). Najazd sa najprv vysunie a potom sklopi, koniec sa dotkne zeme.
+  Hak ma Copy Location 'Na_aute' na tazne oko auta (vplyv = Hak_k_autu); lano mieri na hak (mierka Z = vzdialenost). Auto (Pv_auto_<kluc>) a 4 kolesa su deti korena; polohu, sklon, otacanie kolies a viditelnost nesu kluce (auto sa objavi v snimku 440, vytiahnutie 590 az 720).
+  Vlastnosti: Najazd_vysun, Najazd_sklon, Hak_k_autu (0 az 1), Opierne_koleso, Spojka, Koleso_otocenie. Animacia: jazda 1 az 300, opierne koleso 420 az 445, vysun najazdov 450 az 500, sklopenie 500 az 550, hak 560 az 590, vytiahnutie 590 az 720, nazad 740 az 840, opierne koleso hore 880 az 910, spojka 920 az 990.
+  Zadne svetla su na zadnom naraznik (rozdelenom: stredny dielec a dva koncove, aby sa najazdy mali kde sklopit); krdlove blatniky (kridlo_L / _P) a ostatne spolocne diely ako pri ostatnych privesoch.
+  Podval_auto_4_0: paluba 4.00 m vo vyske 0.59 az 0.68 m, najazdy 2.40 m (sklon 12.7 st.), naprav 1 (x = -3.70), auto 3.45 m, rozvor 2.30 m
+  Podval_auto_5_2: paluba 5.20 m vo vyske 0.59 az 0.68 m, najazdy 2.60 m (sklon 11.7 st.), naprav 2 (x = -4.15, -5.25), auto 4.45 m, rozvor 2.65 m
 
 VOZIK NA PALETY (Vozik_palety_3_0, Vozik_palety_4_2: plochy privesny vozik s bocnicami a EUR paletami; pociatok = zem pod stredom gule, predok +X, vozik ide do -X):
-  Vozik_palety_3_0: podlaha 3.00 x 1.80 m vo vyske 0.78 m, bocnice 0.40 m, 4 palety v 2 radoch, naprav 1 (x = -2.80), rozchod 1.56 m (kolesa R 0.31, blatniky pod podlahou)
-  Vozik_palety_4_2: podlaha 4.20 x 1.80 m vo vyske 0.78 m, bocnice 0.40 m, 6 palety v 3 radoch, naprav 2 (x = -3.40, -4.50), rozchod 1.56 m (kolesa R 0.31, blatniky pod podlahou)
-  Bocnice (<Vozik>_bocnica_L / _P): pivot na spodnej hrane vonkajsej steny v strede dlzky, rotacia X o -/+ Bocnice x 90 st. (sklopia sa von ako predlzenie podlahy). Zadne celo: pivot na spodnom pante, rotacia Y o -Zadne_celo x 90 st.
+  Vozik_palety_3_0: podlaha 3.00 x 1.80 m vo vyske 0.78 m, bocnice 0.40 m, 4 palety v 2 radoch, naprav 1 (x = -2.80), rozchod 1.56 m (kolesa R 0.31, blatniky len nad osou)
+  Vozik_palety_4_2: podlaha 4.20 x 1.80 m vo vyske 0.78 m, bocnice 0.40 m, 6 palety v 3 radoch, naprav 2 (x = -3.40, -4.50), rozchod 1.56 m (kolesa R 0.31, blatniky len nad osou)
+  Typove diely (uchyt <Vozik>_uchyt_<diel>): ram, podlaha, celna (celna stena), bocnica_L / _P (pivot na spodnej hrane vonkajsej steny, rotacia X o -/+ Bocnice x 90 st.), zadne_celo (rotacia Y o -Zadne_celo x 90 st.), paleta_N.
   EUR paleta (Pv_pa_paleta_karton: 18 kartonov s paskou a foliou, Pv_pa_paleta_vrecia: 20 vriec s popruhom): pivot v strede spodku palety, 1.20 x 0.80 m; vlastnost Naklad = pocet nalozenych paliet (palety miznu od zadnej).
-  Telo, naprava, kolesa, spojka a opierne koleso rovnako ako pri malom vozikoch (Koleso_otocenie, Opierne_koleso, Spojka).
+  Spolocne diela (oje, naprava, pera, kolesa, blatniky, naraznik so svetlami ...) ako pri malom vozikoch.
 
 CISTERNOVY VOZIK (Vozik_cisterna_1_5, Vozik_cisterna_3_0: privesny vozik s nadrzou, jedna naprava; pociatok = zem pod stredom gule, predok +X, vozik ide do -X):
   Vozik_cisterna_1_5: nadrz 1.70 x 1.15 x 0.85 m (spodok vo vyske 0.76 m, asi 1.4 m3), nadrz od x = -1.20 po -2.90, naprava x = -2.14, rozchod 1.48 m (kolesa R 0.30), poklop v x = -1.71
   Vozik_cisterna_3_0: nadrz 2.50 x 1.35 x 1.05 m (spodok vo vyske 0.76 m, asi 3.0 m3), nadrz od x = -1.20 po -3.70, naprava x = -2.58, rozchod 1.68 m (kolesa R 0.30), poklop v x = -1.95
-  Nadrz (Pv_cs_nadrz_<kluc>) je jeden diel: zaoblene skosene konce, horna cast cervena, dolna biela, pasy, kruh poklopa, vypust s ventilom. Poklop (Pv_cs_poklop): pivot na zadnom pante, rotacia Y o -Poklop x 110 st.
-  Skrinka (Pv_cs_skrinka, pivot v strede dna zadnej steny, telo smeruje do +X) je pevna, dvere (Pv_cs_dvere_L / _P: pivot na zavese pri vonkajsej hrane) sa otvaraju rotaciou Z o -/+ Skrinka x 110 st. Vlastnosti: Poklop, Skrinka (0 az 1) + spolocne.
+  Typove diely (uchyt <Vozik>_uchyt_<diel>): ram, plosina (za nadrzou), sedlo (podlozka nadrze), nadrz (jeden zaobleny diel: cerveny vrch, biely spodok), pasy, prstenec (kruh poklopa), odvzdusnenie, vypust (ventil s pakou), stitok,
+    poklop (pivot na zadnom pante, rotacia Y o -Poklop x 110 st.), skrinka (pivot v strede dna zadnej steny, telo smeruje do +X) a dvere skrinky skrinka_dvere_L / _P (pivot na zavese pri vonkajsej hrane, rotacia Z o -/+ Skrinka x 110 st.).
+  Spolocne diela (oje, naprava, pero, kolesa, blatniky, naraznik so svetlami ...) ako pri malom vozikoch. Vlastnosti: Poklop, Skrinka (0 az 1) + spolocne.
 
 VOZIK NA DREVO (Vozik_drevo_4_0, Vozik_drevo_6_0: privesny vozik na kmene; pociatok = zem pod stredom gule, predok +X, vozik ide do -X):
   Vozik_drevo_4_0: rozpetie podlozok 2.40 m (x = -1.80 a -4.20), naprav 1 (x = -3.10), rozchod 2.23 m (kolesa R 0.31), 12 kmenov dlhych asi 3.4 m
   Vozik_drevo_6_0: rozpetie podlozok 3.80 m (x = -1.80 a -5.60), naprav 2 (x = -3.25, -4.35), rozchod 2.23 m (kolesa R 0.31), 12 kmenov dlhych asi 4.8 m
-  Koliky (Pv_dr_koliky_<kluc>_L / _P, 2 koliky na strane): pivot v osi X nad okrajom podlozky (y = +-0.92, z = 0.74), rotacia X o -/+ Koliky x 95 st. (sklopia sa von).
+  Typove diely (uchyt <Vozik>_uchyt_<diel>): ram, podlozka_1 / _2 (loze kmenov pri prednej a zadnej podlozke), koliky_L / _P (2 koliky na strane, pivot v osi X nad okrajom podlozky y = +-0.92, z = 0.74, rotacia X o -/+ Koliky x 95 st.), naklad.
   Naklad (Pv_dr_naklad_<kluc>): 12 kmenov v troch vrstvach s retazovymi popruhmi; viditelnost riadi vlastnost Naklad (1 / 0). Vlastnosti: Koliky, Naklad + spolocne (Koleso_otocenie, Opierne_koleso, Spojka).
+  Spolocne diela (oje, naprava, pera, kolesa, blatniky, naraznik so svetlami ...) ako pri malom vozikoch.
 
 SKRINOVY VOZIK (Vozik_skrina_2_5, Vozik_skrina_3_6: zatvoreny privesny vozik; pociatok = zem pod stredom gule, predok +X, vozik ide do -X):
   Vozik_skrina_2_5: skrina 2.50 x 1.40 x 1.45 m (podlaha vo vyske 0.66 m), naprav 1 (x = -2.55), rozchod 1.73 m (kolesa R 0.30), bocne dvere v x = -1.75 az -2.55
   Vozik_skrina_3_6: skrina 3.60 x 1.70 x 1.65 m (podlaha vo vyske 0.66 m), naprav 2 (x = -2.55, -3.65), rozchod 2.03 m (kolesa R 0.31), bocne dvere v x = -1.75 az -2.55
-  Zadna rampa (Pv_sk_rampa_<kluc>): pivot na spodnom pante (x = zadna hrana, z = podlaha), rotacia Y o -Rampa x 116 st. (lezi na zemi, vnutorna strana s protismykovymi listami je hore).
-  Bocne dvere (Pv_sk_dvere_<kluc>, vpravo): pivot na zavese pri prednej hrane otvoru, rotacia Z o +Dvere x 100 st. Vlastnosti: Rampa, Dvere (0 az 1) + spolocne.
+  Typove diely (uchyt <Vozik>_uchyt_<diel>): ram, podlaha, stena_L, stena_P_pred, stena_P_zad, nadvlak (nad dverami), predna_stena, strecha, vetrak, listy (rohove listy), rampa, dvere.
+  Zadna rampa: pivot na spodnom pante (x = zadna hrana, z = podlaha), rotacia Y o -Rampa x 116 st. (lezi na zemi, vnutorna strana s protismykovymi listami je hore).
+  Bocne dvere (vpravo): pivot na zavese pri prednej hrane otvoru, rotacia Z o +Dvere x 100 st. Vlastnosti: Rampa, Dvere (0 az 1) + spolocne. Spolocne diela (oje, naprava, pero, kolesa, blatniky, naraznik so svetlami ...) ako pri malom vozikoch.
 V Unreali: kazdy par 'mieri na' urob cez Find Look at Rotation (alebo Look At v Control Rig / Animation Blueprinte).
