@@ -19,7 +19,7 @@ Bez okna: `blender --background --python skript.py`. Do FBX sa exportuje každý
 | `naves_podval_low_poly.py` | podvalníky 12 / 14 / 16 m (2 až 4 nápravy, nízka plošina v jednej výške s krkom, malé dvojité kolesá, sklopné rampy, bez rezerv) |
 | `naves_cisterna_low_poly.py` | cisterny 9,5 / 11,5 / 13,6 m (2 až 3 nápravy, iba stredový rám, oválna nádrž s 3 až 5 komorami, poklopy na pántoch, ochranné trubky, rebrík, ADR tabuľky, skrinka s ventilmi a dvierkami vzadu) |
 | `domiesavac_low_poly.py` | domiešavače betónu 4x2 / 6x2 / 8x2 (bubon 4,4 / 5,4 / 6,4 m, asi 7 / 9 / 11 m³): šikmý rotujúci bubon s vonkajšími lopatkami, nasýpka, žľab s predĺžením (odložený pod bubnom alebo pracovná poloha), nádrž na vodu, rebrík |
-| `odtahovky_low_poly.py` | odťahovky na pevnom podvozku, každá v európskom aj americkom štýle: plošinová 4x2 / 6x2 (sklopný podrám, plošina zjazdí šikmo na zem, navijak s hákom vytiahne auto) a ťažká 6x2 / 8x2 (otočný žeriav s hákom, podjazdové rameno, podpery, skrine s dvierkami) |
+| `odtahovky_low_poly.py` | odťahovky na pevnom podvozku, každá v európskom aj americkom štýle: plošinová 4x2 / 6x2 / 8x2 (sklopný podrám, plošina zjazdí šikmo na zem, navijak s hákom vytiahne auto) a ťažká 6x2 / 8x2 (otočný žeriav s hákom, podjazdové rameno, podpery, skrine s dvierkami) |
 | `podvozok_low_poly.py`, `nadrz_tocna_low_poly.py` | podvozok kamióna, nádrže a otočná |
 | `motory_low_poly.py`, `prevodovky_low_poly.py` | motory R4 / R6 / V8 a prevodovky |
 | `sklopka_low_poly.py`, `sklopka_v2_low_poly.py`, `vozik_low_poly.py` | sklopka (malý nákladiak) a vyklápací vozík |

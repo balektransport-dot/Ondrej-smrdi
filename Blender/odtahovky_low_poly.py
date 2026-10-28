@@ -1,6 +1,6 @@
 # Stylizovane low poly odtahovky na pevnom podvozku (4x2, 6x2, 8x2) pre Blender 3.0 a novsi: kabina 3, kolesa s dezenom, nadrze, blatniky a
 # svetla ako pri tahacoch (bez tocne). Dva druhy odtahoviek, kazdy v europskom (eu) a americkom (us) style:
-#   Plosinova (4x2, 6x2): podram sa sklopi zadkom dole, plosina po nom zjazdi sikmo dole az na zem, navijak s lanom vytiahne odtahovane auto
+#   Plosinova (4x2, 6x2, 8x2): podram sa sklopi zadkom dole, plosina po nom zjazdi sikmo dole az na zem, navijak s lanom vytiahne odtahovane auto
 #     (auto je v scene a po snimkach sa vytiahne a odveze; kolesa sa otacaju).
 #   Tazka (6x2, 8x2): vyprostovacia odtahovka na kamiony.
 # Ovladanie vlastnostami na objekte auta (panel N -> Item) a animacia (snimky 450 az 900).
@@ -123,7 +123,7 @@ CONFIGS = [
      "tank_x": -3.13, "motor": 3},
 ]
 # (kluc, nazov v scene, akcentova farba, podvozky)
-VARIANTS = [("ploso_eu", "Plosinova_EU", ACC_YELLOW, ("4x2", "6x2")), ("ploso_us", "Plosinova_US", ACC_RED, ("4x2", "6x2")),
+VARIANTS = [("ploso_eu", "Plosinova_EU", ACC_YELLOW, ("4x2", "6x2", "8x2")), ("ploso_us", "Plosinova_US", ACC_RED, ("4x2", "6x2", "8x2")),
             ("tazka_eu", "Tazka_EU", ACC_ORANGE, ("6x2", "8x2")), ("tazka_us", "Tazka_US", ACC_BLUE, ("6x2", "8x2"))]
 TRUCKS = []
 for _i, (_variant, _vname, _accent, _cfgs) in enumerate(VARIANTS):
@@ -2922,7 +2922,7 @@ def od_shared_parts(put, put_lr):
 PART_MAKERS.append(od_shared_parts)
 
 # ---------------------------------------------------------------------------
-# Plosinova odtahovka (rollback): sklopny podram s odsuvnou plosinou (cap vzadu na rame), navijak s lanom a hakom,
+# Plosinova odtahovka (rollback) na podvozkoch 4x2, 6x2 a 8x2: sklopny podram s odsuvnou plosinou (cap vzadu na rame), navijak s lanom a hakom,
 # odtahovane auto. Najprv sa podram sklopi (zadok dolu), potom plosina zjazdi po podrame sikmo dole az na zem a navijak vytiahne auto.
 # Dva styly: eu (nizky tlakovy ram, oranzovy/zlty) a us (vysoky rebrik z chromovych rur, kominy, bull bar, cervena).
 # ---------------------------------------------------------------------------
@@ -2932,7 +2932,8 @@ PL_ZP, PL_BOT, PL_THICK = 1.22, 1.36, 0.20     # os klbu naklapania, spodok plos
 PL_KEEP = 0.90                       # kolko plosiny ostane na podrame po odsune (menej = plosina vyjde dalej = mensi sklon)
 PL_WEDGE = 1.25                      # dlzka skoseneho konca plosiny
 PL_CARS = {"4x2": dict(L=3.40, wb=2.15, fo=0.55, w=1.62, h=1.42, rw=0.28, paint=PAINT_BLUE),
-           "6x2": dict(L=4.50, wb=2.70, fo=0.85, w=1.78, h=1.45, rw=0.31, paint=PAINT_RED)}
+           "6x2": dict(L=4.50, wb=2.70, fo=0.85, w=1.78, h=1.45, rw=0.31, paint=PAINT_RED),
+           "8x2": dict(L=5.10, wb=3.00, fo=0.95, w=1.86, h=1.55, rw=0.33, paint=PAINT_TEAL)}
 
 
 def pl_geo(cfg):
@@ -3432,7 +3433,7 @@ PART_MAKERS.append(pl_parts)
 def _pl_doc():
     lines = [
         "",
-        "PLOSINOVA ODTAHOVKA (Plosinova_EU_xxx a Plosinova_US_xxx na podvozkoch 4x2 a 6x2; us = vysoka celna stena z chromovych rur, kominy za kabinou, bull bar, svetelna lista, cervena farba):",
+        "PLOSINOVA ODTAHOVKA (Plosinova_EU_xxx a Plosinova_US_xxx na podvozkoch 4x2, 6x2 a 8x2; us = vysoka celna stena z chromovych rur, kominy za kabinou, bull bar, svetelna lista, cervena farba):",
         "  Sklopny podram: prazdny objekt <Auto>_plosina_klb (pivot v osi klbu vzadu na rame, os Y, otaca sa o -Plosina_sklon x uhol, zadok ide dole). Jeho deti:",
         "    podram (diel Odt_od_podram_<podvozok>: dva nosniky s valcekmi, priecniky, cap), plosina (Odt_od_plosina_<styl>_<podvozok>, pohyb v X o -Plosina_odsun x odsun),",
         "    valce odsunu (zaklad na podrame vpredu). Plosina ma na zadnom konci skosenie (%.2f m) a spicka sa po odsune dotkne zeme." % PL_WEDGE,
