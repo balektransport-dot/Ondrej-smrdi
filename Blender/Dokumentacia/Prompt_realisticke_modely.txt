@@ -1,0 +1,28 @@
+PROMPT NA REALISTICKEJSIE MODELY (vloz na zaciatok zadania)
+
+Vytvor realisticky stylizovany low poly model <NAZOV> pre Blender (skript .py, ASCII, Blender 3.0+, vystup FBX po dieloch) do hry v Unreal Engine 5.
+
+ZAKLAD
+- Predok +X, lava +Y, jednotky metre, pociatok na zemi. Realne rozmery a pomery (napis ich, ak mam k dispozicii foto / vykres, porovnaj s nim).
+- Ak posielam referencne fotky, najprv popis, co na nich vidis (tvary, farby, detaily, pomery), a podla toho modeluj.
+
+TVARY A HRANY
+- Ziadne holé kvadre. Velke plochy a karoserie rob z plynulych zaoblenych teles (rezy / loft, bevel), nie z ostrych krabic. Ostre hrany len tam, kde su na skutocnom stroji.
+- Diel, ktory lezi na inom (vetrak na streche, kabina na ráme, svetlo na naraznik, doska na ploseni), ma dosadaciu plochu ROVNU a nezaoblenu; zaoblene su len viditelne hrany. Ziadne medzery ani prekryvy medzi dielmi.
+- Premysli, ako sa diely realne spajaju (zvary, skrutky, panty, konzoly) a daj im tam viditelne detaily.
+
+DETAILY (aby to nevyzeralo detsky)
+- Panelove spary, dvierka s kľukami a pantami, mriezky s lamelami, hadice a vedenia, skrutky, madla, stupne s ryhovanim, zrkadla, stierace, svetla s krytmi, gumove zastierky, znacky, vystrazne pasy.
+- Sklo tmave a lesklé, guma matna cierna, kov v rozlicnych odtienoch, nie jedna farba na vsetko. Materialy pomenuj a pouzi vsade rovnako.
+- Pneumatiky: otoceny prierez s vypuklou bocnicou, hruby dezen so zaoblenymi blokmi, ventilok, disk s prirubou.
+
+STAVBA A ANIMACIA
+- Kazdy diel samostatny objekt s pivotom v mieste otacania / posunu, na prazdnom uchyte <Model>_uchyt_<diel> (demontovatelne a vymenitelne). Animacia na uchytoch, ovladanie vlastnostami na hlavnom objekte (0 az 1).
+- Pohyblive casti musia mat realne ulozenie (zavesy, valce, rameno s teleskopmi, kolesa sa otacaju a riadia, hak visi dole).
+
+KONTROLA (povinne pred odovzdanim)
+- Nic nelevituje, nic sa neprenika, kolesa stoja na zemi, pohyblive diely sa nezrazia v ziadnej polohe animacie.
+- Vyrenderuj aspon 6 pohladov (spredu, zboku, zozadu, zhora, detail kabiny / kritickych dielov, pracovna poloha), pozri si ich a oprav chyby. Skript spust dvakrat (musi dat rovnaky pocet objektov), over drivery.
+- Pridaj dokumentaciu (zoznam dielov, uchytov, vlastnosti, rozmery) a nahlady, ulozit do repozitara a odoslat subory.
+
+Odpovedaj kratko po slovensky, postav len to, o co prosim.
