@@ -3331,7 +3331,7 @@ def pl_rig(coll, truck, parts, body, root, prop, mats):
     fair = empty(coll, name + "_navijak_vodiaca", (-0.28, 0.0, 0.12), winch)
     holder = empty(coll, name + "_hak_drziak", (xf - 0.31 - 0.26, -0.20, zt + zw + 0.48), bed)
     hook = new_object(coll, name + "_hak", parts["Odt_od_hak"], (0.0, 0.0, 0.0), holder)
-    hook.scale = (0.6, 0.6, 0.6)
+    hook.scale = (0.32, 0.32, 0.32)
     con = hook.constraints.new("COPY_LOCATION")
     con.name = "Na_aute"
     cable = new_object(coll, name + "_lano", parts["Odt_od_lano"], (0.0, 0.0, 0.0), fair)
@@ -3965,9 +3965,9 @@ def tz_rig(coll, truck, parts, body, root, prop, mats):
     driver(ext, "location", 0, "%.4f + t * %.4f" % (b["lb"] - b["li"] + 0.35, b["ext"]), [prop("t", pl)])
     hang = empty(coll, name + "_hak_zaves", (b["li"] + 0.14, 0.0, -0.34 if eu else -0.36), ext)
     driver(hang, "rotation_euler", 1, "v * %.6f" % D2R, [prop("v", pe)])
-    hooks = [("", "Hak_spustenie" if eu else "Hak1_spustenie", 0.0, TZ_DROP, 1.30 if eu else 1.40)]
+    hooks = [("", "Hak_spustenie" if eu else "Hak1_spustenie", 0.0, TZ_DROP, 0.65 if eu else 0.72)]
     if not eu:
-        hooks.append(("2", "Hak2_spustenie", 0.28, TZ_DROP - 0.4, 1.10))
+        hooks.append(("2", "Hak2_spustenie", 0.22, TZ_DROP - 0.4, 0.58))
     for suffix, pname, dy, drop, sc in hooks:
         hang2 = empty(coll, "%s_hak_zaves%s" % (name, suffix or "1"), (0.0, dy if not eu else 0.0, 0.0), hang)
         hook = new_object(coll, "%s_hak%s" % (name, suffix or "1"), parts["Odt_tz_hak"], (0.0, 0.0, 0.0), hang2)
