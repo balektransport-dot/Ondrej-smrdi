@@ -1,0 +1,115 @@
+Domiesavace - diely (rozmery X x Y x Z v metroch). Predok = +X, lava = +Y.
+
+== KABINA ==
+Dom_kabina                         2.31 x 3.15 x 3.19
+Dom_interier                       2.14 x 2.28 x 2.33
+Dom_volant                         0.53 x 0.53 x 0.18
+Dom_rucicka_velka                  0.02 x 0.08 x 0.00
+Dom_rucicka_mala                   0.01 x 0.03 x 0.00
+Dom_nasavanie                      0.41 x 0.04 x 0.67
+Dom_perovanie_kabiny_mech          0.12 x 0.12 x 0.19
+Dom_perovanie_kabiny_piest         0.06 x 0.06 x 0.24
+
+== RAMY A PREDOK ==
+Dom_4x2_ram                        7.25 x 1.28 x 0.52
+Dom_6x2_ram                        8.35 x 1.28 x 0.52
+Dom_8x2_ram                        9.45 x 1.28 x 0.52
+Dom_naraznik                       0.44 x 2.40 x 0.46
+Dom_chladic                        0.25 x 0.72 x 0.70
+
+== PRISLUSENSTVO ==
+Dom_nadrz_nafta                    1.20 x 0.67 x 0.70
+Dom_nadrz_adblue                   0.40 x 0.49 x 0.52
+Dom_baterie                        0.62 x 0.55 x 0.39
+Dom_vzduchojemy                    0.62 x 0.32 x 0.56
+Dom_vyfuk                          0.49 x 0.93 x 0.40
+
+== BLATNIKY ==
+Dom_blatnik_zadny_L                1.35 x 0.86 x 1.08
+Dom_blatnik_zadny_P                1.35 x 0.86 x 1.08
+Dom_blatnik_zadny_svetla_L         1.41 x 0.86 x 1.08
+Dom_blatnik_zadny_svetla_P         1.41 x 0.86 x 1.08
+Dom_blatnik_vleceny_L              1.41 x 0.67 x 1.08
+Dom_blatnik_vleceny_P              1.41 x 0.67 x 1.08
+Dom_blatnik_predny_L               1.19 x 0.73 x 0.98
+Dom_blatnik_predny_P               1.19 x 0.73 x 0.98
+
+== NAPRAVY A PEROVANIE ==
+Dom_naprava_predna                 0.33 x 1.83 x 0.23
+Dom_naprava_hnacia                 0.60 x 1.45 x 0.40
+Dom_naprava_vlecena                0.24 x 1.45 x 0.28
+Dom_koleso_predne                  1.05 x 0.36 x 1.04
+Dom_koleso_zadne                   1.05 x 0.57 x 1.05
+Dom_pero_predna_cast               0.74 x 0.10 x 0.08
+Dom_pero_zadna_cast                0.74 x 0.10 x 0.08
+Dom_tlmic_valec                    0.07 x 0.07 x 0.35
+Dom_tlmic_piestnica                0.08 x 0.08 x 0.37
+Dom_rameno                         1.12 x 0.16 x 0.29
+Dom_vankus                         0.30 x 0.30 x 0.30
+
+== KARDANY ==
+Dom_4x2_kardan_predny              2.07 x 0.13 x 0.12
+Dom_6x2_kardan_predny              2.17 x 0.13 x 0.12
+Dom_8x2_kardan_predny              3.27 x 0.13 x 0.12
+Dom_kardan_zadny                   1.00 x 0.13 x 0.14
+
+== SPOLOCNE NA NADSTAVBY ==
+Dom_zadny_naraznik                 0.37 x 2.30 x 0.58
+Dom_naradie_skrinka                0.80 x 0.49 x 0.40
+
+== DOMIESAVAC ==
+Dom_domies_bubon_4x2               4.45 x 2.28 x 2.28
+Dom_domies_bubon_6x2               5.45 x 2.28 x 2.28
+Dom_domies_bubon_8x2               6.45 x 2.28 x 2.28
+Dom_domies_bubon_nosne_4x2         3.84 x 1.57 x 1.65
+Dom_domies_bubon_nosne_6x2         4.84 x 1.50 x 1.61
+Dom_domies_bubon_nosne_8x2         5.84 x 1.46 x 1.58
+Dom_domies_pedestaly_4x2           4.59 x 1.55 x 0.95
+Dom_domies_pedestaly_6x2           5.58 x 1.48 x 0.79
+Dom_domies_pedestaly_8x2           6.56 x 1.44 x 0.83
+Dom_domies_rebrik_panel_4x2        0.61 x 1.97 x 1.20
+Dom_domies_rebrik_panel_6x2        0.61 x 1.97 x 1.20
+Dom_domies_rebrik_panel_8x2        0.61 x 1.97 x 1.20
+Dom_domies_nasypka                 1.15 x 0.89 x 1.96
+Dom_domies_smyk_hlavny             2.03 x 0.68 x 0.32
+Dom_domies_smyk_predlzenie         1.43 x 0.68 x 0.31
+Dom_domies_smyk_lozisko            0.49 x 0.65 x 0.22
+Dom_domies_nadrz_voda              1.26 x 0.64 x 0.70
+
+MOTORY: nase R4 / R6 / V8 s prevodovkami (diely su v skripte Motory). Koniec vystupneho hriadela kazdej
+  prevodovky je na rame v (-1.300, 0.000, 0.900), takze kazdy motor sedi na ten isty kardan. Vlastnost Motor = 1 / 2 / 3.
+  Motor R4: pivot motora na rame v (-0.258, 0.000, 0.670)
+  Motor R6: pivot motora na rame v (0.062, 0.000, 0.660)
+  Motor V8: pivot motora na rame v (-0.008, 0.000, 0.640)
+
+AKO JE TO POSKLADANE (kolekcie Domiesavac_4x2 ... Domiesavac_8x2, suradnice od pociatku auta = zem pod prvou prednou napravou):
+  <Auto>_xxx (prazdny objekt) - posuvaj nim cele auto, vlastnosti = ovladanie (popis na zaciatku skriptu).
+  Napravy: pivot v osi kolies (z = 0.525). Predne kolesa su na capoch riadenia (y = +-0.86), zadne na koncoch naprav.
+  <Auto>_ram (odpruzena cast): z = 0.6 x pohyb prvej napravy, sklon podla hnacej napravy + vyska vankusov. Nadstavba je dieta ramu.
+  Predne pera, zadne ramena, vankuse, tlmice, kardan, kabina (vyklapanie, perovanie), volant a budiky - ako pri tahacoch.
+  Kabina: pivot = predny cap vyklapania (1.030, 0.000, 0.910) (na rame). Vyklopenie = otocenie okolo Y o 55 st.
+  Blatniky: pivot v osi kolesa; zadne svetla su priamo na poslednom zadnom blatniku. Vyfuk je pod autom vpravo.
+  Prave diely _P su zrkadlove, kolesa vpravo otoc o 180 st. okolo Z.
+  Pevny ram: bubon lezi na dvoch pedestaloch na rame (vrch ramu z = 1.08), nadstavba je siroka najviac 2.50 m.
+  Zadny naraznik (ochrana proti podbehnutiu) na konci ramu, bocna ochrana medzi napravami, skrinka na naradie vlavo, nadrz na vodu vpravo.
+
+DOMIESAVAC (Domiesavac_xxx): sikmy bubon, zadny otvor hore (sklon osi 9 st., pri 8x2 7.5 st.). Os bubna: prazdny objekt os_bubna na rame v (-1.75, 0, 2.23),
+  otoceny o (0, -sklon, 180) st.: lokalne +X mieri ku otvoru (dozadu a hore), lokalne +Y = -Y auta, lokalne +Z = hore. Vsetky diela v osi (bubon,
+  nasypka, nosne diely prevodovky a valcekov) su deti objektu os_bubna.
+  Bubon (Dom_domies_bubon_<podvozok>, pivot v strede predneho dna) sa otaca okolo svojej lokalnej X o 360 x Boben_otacky (+ miesanie, - vyprazdnovanie);
+    dlzka po osi 4.4 / 5.4 / 6.4 m (4x2 / 6x2 / 8x2), najvacsi polomer 1.10 m, otvor 0.52 m, dve zvarene lopatky su vonku ako biele pasy.
+  Nosne diela v osi (Dom_domies_bubon_nosne_<podvozok>): prevodovka s hydromotorom na prednom dne a dve valcekove ulozenia pod valivym kruhom.
+  Nasypka (Dom_domies_nasypka): pivot v strede otvoru (x = dlzka bubna), plniaca nasypka hore a vypustna pod otvorom, dieta osi bubna.
+  Pedestaly a diel rebrik_panel (rebrik vlavo pri zadnom pedestale, ovladaci panel vpravo) su pevne na rame. Nadrz na vodu je vpravo medzi napravami (pivot v strede, lezi).
+  Smyk: otocne lozisko smyku (objekt smyk_otocenie, pivot pod nasypkou, os Z) -> prazdny objekt smyk_sklon (os Y) -> hlavny zlab (2.0 m) -> predlzenie (1.4 m, pivot na konci
+    hlavneho zlabu na hornej hrane, os Y). Zlab ma pivot na zaciatku a mieri osou +X; v pracovnej polohe je lozisko otocene o 180 st. (zlab mieri dozadu).
+  Vlastnosti: Boben_otacky, Smyk_odlozeny (1 = smyk lezi dopredu pod bubnom na opore, 0 = pracovna poloha), Smyk_otocenie (-1 az 1 = +-100 st.),
+    Smyk_sklon (0 az 1 = 5 az 25 st. dolu), Smyk_predlzenie (0 = zlozene, 1 = rozlozene; zlozene o 180 st. lezi na hlavnom zlabe).
+  Animacia (snimky 450 az 900): miesanie, smyk sa spusti a rozlozi, otaca sa, bubon sa otaca opacne (vyprazdnovanie), smyk sa zlozi a ulozi spat.
+  4x2: dlzka bubna 4.4 m, geometricky objem 10.8 m3 (uzitocny asi 7 m3), stred otvoru (-6.1, -0.0, 2.92)
+  6x2: dlzka bubna 5.4 m, geometricky objem 13.6 m3 (uzitocny asi 9 m3), stred otvoru (-7.08, -0.0, 3.07)
+  8x2: dlzka bubna 6.4 m, geometricky objem 16.4 m3 (uzitocny asi 11 m3), stred otvoru (-8.1, -0.0, 3.07)
+V Unreali: kazdy par 'mieri na' urob cez Find Look at Rotation (alebo Look At v Control Rig / Animation Blueprinte).
+Podvozok 4x2: napravy x = 0.00, -4.50, koniec ramu x = -6.20
+Podvozok 6x2: napravy x = 0.00, -4.60, -5.95, koniec ramu x = -7.30
+Podvozok 8x2: napravy x = 0.00, -1.95, -5.70, -7.05, koniec ramu x = -8.40
