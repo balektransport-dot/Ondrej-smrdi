@@ -549,6 +549,12 @@ def main():
         scene.collection.children.link(coll)
     clear_collection(coll)
     mats = [get_material(*m) for m in MATERIALS]
+    bsdf = mats[TIRE].node_tree.nodes.get("Principled BSDF") if mats[TIRE].node_tree else None
+    if bsdf:
+        for sock in ("Specular IOR Level", "Specular"):
+            if sock in bsdf.inputs:
+                bsdf.inputs[sock].default_value = 0.08          # matna guma bez kovoveho lesku
+                break
     parts = build_parts(mats)
     roots = []
     for builder in SCENE_BUILDERS:
@@ -729,6 +735,70 @@ def slab(bm, pts, t, mat, bev=0.0):
         j = (i + 1) % 4
         faces.append(bm.faces.new((top[i], top[j], bot[j], bot[i])))
     finish_shape(bm, faces, mat, bev)
+
+
+def rrect4(y0, y1, z0, z1, r_t, r_b, n=3, r_l=None, r_r=None):
+    # obdlznik v YZ s ROZNYMI polomermi hornych (r_t) a spodnych (r_b) rohov; pri r <= 0.004 je roh prakticky ostry (rovna plocha pre dosadnutie)
+    pts = []
+    for cy_s, cz_s, a0, rr in ((1, 1, 0.0, r_t), (-1, 1, 90.0, r_t), (-1, -1, 180.0, r_b), (1, -1, 270.0, r_b)):
+        rr = max(min(rr, (y1 - y0) * 0.5, (z1 - z0) * 0.5), 0.004)
+        cy = (y1 - rr) if cy_s > 0 else (y0 + rr)
+        cz = (z1 - rr) if cz_s > 0 else (z0 + rr)
+        for k in range(n + 1):
+            a = math.radians(a0 + 90.0 * k / n)
+            pts.append((cy + rr * math.cos(a), cz + rr * math.sin(a)))
+    return pts
+
+
+def loft_rr(bm, stations, mat, n=3, flat=""):
+    # hladke teleso z priecnych rezov (zaoblenych obdlznikov): stations = [(x, y0, y1, z0, z1, r), ...] od zadu dopredu; konce sa uzavru;
+    # flat: "b" = spodne hrany ostre (spodna plocha lezi na inom diele), "t" = horne hrany ostre
+    secs = []
+    for st in stations:
+        r = max(st[5], 0.004)
+        secs.append((st[0], rrect4(st[1], st[2], st[3], st[4], 0.004 if "t" in flat else r, 0.004 if "b" in flat else r, n)))
+    return loft_yz(bm, secs, mat)
+
+
+def pillow(bm, x0, x1, y0, y1, z0, z1, r, mat, n=3, steps=3, flat=""):
+    # zaoblene teleso (kvader so zaoblenymi hranami polomeru r, hladke tienovanie); flat = plochy, ktore ostanu ROVNE a ostre (dosadaju na iny diel):
+    # "b" spodok, "t" vrch, "l" strana -Y, "r" strana +Y, "a" zadok (-X), "f" predok (+X); zaoblia sa len hrany medzi ostatnymi plochami
+    r = min(r, (x1 - x0) * 0.5 - 0.001, (y1 - y0) * 0.5 - 0.001, (z1 - z0) * 0.5 - 0.001)
+    ph = [math.pi * 0.5 * k / steps for k in range(steps + 1)]
+    ends = [(r * (1.0 - math.cos(p)), r * (1.0 - math.sin(p))) for p in ph]       # (vzdialenost od steny, zmensenie)
+    back = [(0.0, 0.0)] if "a" in flat else ends
+    front = [(0.0, 0.0)] if "f" in flat else ends
+    stations = []
+    for t, d in back:
+        stations.append((x0 + t, d))
+    for t, d in front[::-1]:
+        stations.append((x1 - t, d))
+    out = []
+    for x, d in stations:
+        yy0 = y0 if "l" in flat else y0 + d
+        yy1 = y1 if "r" in flat else y1 - d
+        zz0 = z0 if "b" in flat else z0 + d
+        zz1 = z1 if "t" in flat else z1 - d
+        rr = max(r - d, 0.004)
+        r_t = 0.004 if ("t" in flat or "l" in flat or "r" in flat) else rr
+        r_b = 0.004 if ("b" in flat or "l" in flat or "r" in flat) else rr
+        out.append((x, rrect4(yy0, yy1, zz0, zz1, r_t, r_b, n)))
+    return loft_yz(bm, out, mat)
+
+
+def win_frame(bm, plane, c0, c1, zc, w, h, t, d, off, mat, bev=0.004):
+    # ramik okna (styri listy): plane "Y" = okno v rovine XZ (c0 = stred x, c1 = y polohy), plane "X" = okno v rovine YZ (c0 = stred y, c1 = x polohy);
+    # w, h = rozmery otvoru, t = sirka listy, d = hlbka (po normale), off = posun stredu hlbky od c1
+    if plane == "Y":
+        for z in (zc - h * 0.5 - t * 0.5, zc + h * 0.5 + t * 0.5):
+            add_box(bm, (w + 2 * t, d, t), (c0, c1 + off, z), mat, bev=bev)
+        for x in (c0 - w * 0.5 - t * 0.5, c0 + w * 0.5 + t * 0.5):
+            add_box(bm, (t, d, h), (x, c1 + off, zc), mat, bev=bev)
+    else:
+        for z in (zc - h * 0.5 - t * 0.5, zc + h * 0.5 + t * 0.5):
+            add_box(bm, (d, w + 2 * t, t), (c1 + off, c0, z), mat, bev=bev)
+        for y in (c0 - w * 0.5 - t * 0.5, c0 + w * 0.5 + t * 0.5):
+            add_box(bm, (d, t, h), (c1 + off, y, zc), mat, bev=bev)
 
 
 # ---------------------------------------------------------------------------
@@ -1322,13 +1392,13 @@ def build_dr_rebrik():
 def build_dr_rozstrek():
     # vodny rozstrek nad vstupom: rura s piatimi tryskami a priponom
     bm = bmesh.new()
-    add_rod(bm, (0.0, -0.9, 0.0), (0.0, 0.9, 0.0), 0.025, PAINT_BLU, segments=8)
+    add_rod(bm, (0.0, -0.78, 0.0), (0.0, 0.78, 0.0), 0.025, PAINT_BLU, segments=8)
     for k in range(5):
-        y = -0.7 + 0.35 * k
+        y = -0.60 + 0.30 * k
         add_rod(bm, (0.0, y, 0.0), (0.0, y, -0.12), 0.015, STEEL, segments=6)
         add_cone(bm, 0.0, 0.03, 0.06, along_z((0.0, y, -0.15)), CHROME, segments=8)
     for s in SIDES_LR:
-        add_rod(bm, (0.0, s * 0.9, 0.0), (0.0, s * 0.9, -0.55), 0.02, PAINT_BLU, segments=6)
+        add_rod(bm, (0.0, s * 0.70, 0.0), (0.0, s * 0.70, -0.36), 0.02, PAINT_BLU, segments=6)
     return finish_mesh(bm, "SM_Dr_rozstrek")
 
 
@@ -1431,7 +1501,8 @@ def dr_rig(coll, parts, mats):
         return (var, "PROP", (root, '["%s"]' % prop_name))
 
     o0 = (0.0, 0.0, 0.0)
-    for tag, key_ in (("podvozok", "Dr_podvozok"), ("ram", "Dr_ram"), ("nasypka", "Dr_nasypka"), ("rost", "Dr_rost"), ("pruziny", "Dr_pruziny"), ("motor", "Dr_motor"),
+    mount(coll, name, "rost", root, (0.0, 0.0, 2.80), [("rost", parts["Dr_rost"])])
+    for tag, key_ in (("podvozok", "Dr_podvozok"), ("ram", "Dr_ram"), ("nasypka", "Dr_nasypka"), ("pruziny", "Dr_pruziny"), ("motor", "Dr_motor"),
                       ("nadrze", "Dr_nadrze"), ("plosina", "Dr_plosina")):
         mount(coll, name, tag, root, o0, [(tag, parts[key_])])
     for side, s in (("L", 1.0), ("P", -1.0)):
@@ -1442,7 +1513,7 @@ def dr_rig(coll, parts, mats):
     mount(coll, name, "rebrik", root, (-0.95, 1.30, 0.0), [("rebrik", parts["Dr_rebrik"])])
     mount(coll, name, "rozstrek", root, (XC - 0.10, 0.0, 3.22), [("rozstrek", parts["Dr_rozstrek"])])
     mount(coll, name, "majak", root, (2.0, 1.18, 2.56), [("majak", parts["Dr_majak"])])
-    for j, (x, y, z) in enumerate(((-3.95, 1.30, 3.95), (-3.95, -1.30, 3.95), (XC + 0.35, 0.90, 3.05), (XC + 0.35, -0.90, 3.05))):
+    for j, (x, y, z) in enumerate(((-3.95, 1.30, 3.95), (-3.95, -1.30, 3.95), (XC - 0.60, 0.78, 2.88), (XC - 0.60, -0.78, 2.88))):
         lamp, _ = mount(coll, name, "svetlo_%d" % (j + 1), root, (x, y, z), [("svetlo_%d" % (j + 1), parts["Dr_svetlo"])])
         lamp.rotation_euler = (0.0, 0.0, math.pi) if j != 2 and j != 3 else (0.0, 0.0, math.pi)
     for j, x in enumerate((1.64, 2.54)):
@@ -1464,7 +1535,7 @@ def dr_rig(coll, parts, mats):
     for s, side in ((1.0, "L"), (-1.0, "P")):
         telescope(coll, "%s_valec_pasu_%s" % (name, side), parts, "Dr_valec", n, ell, root, (3.50, s * 1.10, 1.00), cv["root"], (5.0, s * 0.62, -0.34))
     # hromady
-    pile, _ = mount(coll, name, "hromada_nasypka", root, (-2.30, 0.0, 2.78), [("hromada_nasypka", parts["Dr_hromada_nasypka"])])
+    pile, _ = mount(coll, name, "hromada_nasypka", root, (-2.30, 0.0, 2.68), [("hromada_nasypka", parts["Dr_hromada_nasypka"])])
     driver(pile, "scale", 2, "max(v, 0.001)", [prop("v", "Nasypka_naplnenie")])
     for ax in (0, 1):
         driver(pile, "scale", ax, "sqrt(max(v, 0.001))", [prop("v", "Nasypka_naplnenie")])

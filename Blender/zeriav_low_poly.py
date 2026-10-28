@@ -889,19 +889,24 @@ def tire_valve(bm, rim, y_out, sc=1.0):
 # ---------------------------------------------------------------------------
 
 CRANES = {
-    "40t": dict(key="40t", name="Zeriav_40t", R=0.58, TW=0.40, rim=0.36, track=1.05, axles=[3.55, 2.25, -1.95], steer=2, front=5.45, f_rear=-3.60,
-                z0=0.85, z1=1.20, cab=(3.30, 5.45), cab_roof=2.95, ring=1.05, ring_top=1.45, oxs=[1.0, -3.1], stroke=2.0,
-                boom_L=[7.2, 6.6, 6.1, 5.6], boom_b=[0.84, 0.74, 0.64, 0.54], boom_h=[0.90, 0.80, 0.70, 0.60], piv=(-0.9, -0.35, 2.10),
+    "40t": dict(key="40t", name="Zeriav_40t", R=0.58, TW=0.40, rim=0.36, track=1.05, axles=[3.55, 2.25, -1.95], steer=2, front=5.45, f_rear=-4.00,
+                z0=0.85, z1=1.20, cab=(3.30, 5.45), cab_roof=3.07, cab_lift=0.12, ring=1.05, ring_top=1.45, oxs=[1.0, -3.25], stroke=2.0,
+                boom_L=[7.2, 6.6, 6.1, 5.6], boom_b=[0.84, 0.74, 0.64, 0.54], boom_h=[0.90, 0.80, 0.70, 0.60], piv=(-0.9, -0.35, 2.22),
                 cw_front=-2.45, cw_h=1.30, hs_h=1.15, deck_f=1.5, cw_n=3, ucab=(-0.15, 1.55), ucab_h=1.85, hw=1.35, lift=0.12, hose=0.14, steer_max=35.0, boom_max=78.0, hook_len=0.95),
-    "80t": dict(key="80t", name="Zeriav_80t", R=0.70, TW=0.48, rim=0.43, track=1.24, axles=[4.60, 3.25, -1.75, -3.10], steer=2, front=6.70, f_rear=-4.60,
-                z0=1.00, z1=1.40, cab=(4.25, 6.70), cab_roof=3.30, ring=1.25, ring_top=1.65, oxs=[1.25, -4.25], stroke=2.4,
-                boom_L=[8.3, 7.6, 7.0, 6.5, 6.0], boom_b=[1.00, 0.88, 0.76, 0.64, 0.52], boom_h=[1.05, 0.93, 0.81, 0.69, 0.57], piv=(-1.1, -0.40, 2.40),
+    "80t": dict(key="80t", name="Zeriav_80t", R=0.70, TW=0.48, rim=0.43, track=1.24, axles=[4.64, 3.04, -1.75, -3.35], steer=2, front=6.70, f_rear=-5.10,
+                z0=1.00, z1=1.40, cab=(4.25, 6.70), cab_roof=3.44, cab_lift=0.14, ring=1.25, ring_top=1.65, oxs=[1.25, -4.45], stroke=2.4,
+                boom_L=[8.3, 7.6, 7.0, 6.5, 6.0], boom_b=[1.00, 0.88, 0.76, 0.64, 0.52], boom_h=[1.05, 0.93, 0.81, 0.69, 0.57], piv=(-1.1, -0.40, 2.54),
                 cw_front=-3.00, cw_h=1.55, hs_h=1.40, deck_f=1.8, cw_n=4, ucab=(-0.15, 1.85), ucab_h=2.0, hw=1.55, lift=0.14, hose=0.17, steer_max=33.0, boom_max=78.0, hook_len=0.95),
 }
 
 
 def zr_deck0(C):
     return C["cw_front"] - C["cw_n"] * 0.34 + 0.02
+
+
+def zr_zc(C):
+    # vyska osi nosnika podpery (pod ramom: vrch nosnika lezi na spodku ramu)
+    return C["z0"] - 0.17
 
 
 def zr_hh(C):
@@ -961,8 +966,8 @@ def build_zr_zakladna(C):
 
 def cab_stations(C, ls=False):
     x0, xf = C["cab"]
-    zf, zr, hw = C["z1"], C["cab_roof"], 1.20
-    zb = zf - 0.06
+    zf, zr, hw = C["z1"] + C["cab_lift"], C["cab_roof"], 1.20
+    zb = zf
     pts = [(x0, hw - 0.10, zr - 0.30, 0.10), (x0 + 0.04, hw - 0.04, zr - 0.12, 0.18), (x0 + 0.14, hw - 0.01, zr - 0.03, 0.24), (x0 + 0.40, hw, zr, 0.27),
            (xf - 0.75, hw, zr, 0.27), (xf - 0.40, hw - 0.005, zr - 0.02, 0.27), (xf - 0.18, hw - 0.02, zr - 0.07, 0.26), (xf - 0.06, hw - 0.05, zr - 0.13, 0.22),
            (xf, hw - 0.12, zr - 0.23, 0.16)]
@@ -973,8 +978,9 @@ def build_zr_kabina(C):
     # kabina nosica (zlta): hladke zaoblene telo z rezov, velke celne sklo s ramom, zadne bocne okna, otvory dveri, strecha so svetlami, stierace, clona, klimatizacia
     bm = bmesh.new()
     x0, xf = C["cab"]
-    zf, zr, hw = C["z1"], C["cab_roof"], 1.20
+    zf, zr, hw = C["z1"] + C["cab_lift"], C["cab_roof"], 1.20
     loft_rr(bm, cab_stations(C), PAINT_YEL, 4, "b")
+    pillow(bm, x0 + 0.10, xf - 0.15, -0.76, 0.76, C["z1"], zf + 0.02, 0.03, PAINT_BLK, flat="bt")           # podstavec (ulozenie) kabiny na rame
     zc = (zf + 0.85 + zr - 0.34) * 0.5
     h = zr - 0.34 - zf - 0.85
     add_box(bm, (0.03, 1.80, h), (xf + 0.002, 0.0, zc), GLASS)
@@ -987,15 +993,15 @@ def build_zr_kabina(C):
         add_rod(bm, (xf - 0.10, s * (hw + 0.03), zf + 0.35), (xf - 0.10, s * (hw + 0.03), zr - 0.45), 0.014, STEEL, segments=6)     # drziak
         for dz in (0.35, zr - zf - 0.45):
             add_rod(bm, (xf - 0.10, s * hw, zf + dz), (xf - 0.10, s * (hw + 0.03), zf + dz), 0.012, STEEL, segments=6)
-        bx(bm, x0 + 0.20, xf - 0.80, s * (hw + 0.001), s * (hw + 0.012), zf - 0.04, zf + 0.20, PAINT_BLK, 0.008)       # cierny prah
+        bx(bm, x0 + 0.20, xf - 0.80, s * (hw + 0.001), s * (hw + 0.012), zf, zf + 0.20, PAINT_BLK, 0.008)       # cierny prah
         for k in range(2):
             bx(bm, x0 + 0.35 + 0.35 * k, x0 + 0.62 + 0.35 * k, s * (hw + 0.001), s * (hw + 0.010), zf + 0.55, zf + 0.60, DARK, 0.004)
     pillow(bm, xf - 0.10, xf + 0.16, -1.04, 1.04, zr - 0.30, zr - 0.20, 0.04, PAINT_BLK, flat="a")               # clona nad celnym sklom
     for k in range(5):
         add_box(bm, (0.05, 0.13, 0.045), (xf - 0.30, -0.72 + 0.36 * k, zr + 0.02), LAMP_OR, bev=0.008)    # obrysove svetla na streche
-    pillow(bm, x0 + 0.12, x0 + 0.92, -0.62, 0.62, zr - 0.01, zr + 0.14, 0.06, PAINT_BLK, flat="b")               # klimatizacia
+    pillow(bm, x0 + 0.12, x0 + 0.92, -0.62, 0.62, zr - 0.01, zr + 0.09, 0.05, PAINT_BLK, flat="b")               # klimatizacia
     for k in range(5):
-        bx(bm, x0 + 0.20 + 0.13 * k, x0 + 0.24 + 0.13 * k, -0.50, 0.50, zr + 0.14, zr + 0.155, STEEL, 0.003)
+        bx(bm, x0 + 0.20 + 0.13 * k, x0 + 0.24 + 0.13 * k, -0.50, 0.50, zr + 0.09, zr + 0.105, STEEL, 0.003)
     for s in (-0.45, 0.35):
         add_rod(bm, (xf + 0.02, s, zf + 0.88), (xf + 0.02, s + 0.55, zf + 1.12), 0.011, DARK, segments=5)        # stierace
         add_rod(bm, (xf + 0.02, s, zf + 0.88), (xf + 0.02, s + 0.05, zf + 0.88), 0.016, DARK, segments=5)
@@ -1006,7 +1012,7 @@ def build_zr_kabina(C):
 def build_zr_dvere(C):
     # dvere nosica (lave; prave je zrkadlo), pivot na zavese pri prednej hrane (y = 1.20, z = podlaha kabiny); dvere siahaju do -X
     bm = bmesh.new()
-    top = C["cab_roof"] - C["z1"] - 0.16
+    top = C["cab_roof"] - C["z1"] - C["cab_lift"] - 0.16
     pillow(bm, -1.42, -0.02, 0.0, 0.07, 0.22, top, 0.035, PAINT_YEL, 3, 2, "l")
     h = top - 0.22 - 0.50
     zc = 0.22 + 0.50 + h * 0.5 + 0.02
@@ -1023,14 +1029,14 @@ def build_zr_dvere(C):
 def build_zr_maska(C):
     # predna maska kabiny (cierna): panel s chromovymi lamelami a znackou, spodny dych a drziak znacky
     bm = bmesh.new()
-    xf, zf = C["cab"][1], C["z1"]
-    pillow(bm, xf - 0.10, xf + 0.06, -1.06, 1.06, zf - 0.42, zf + 0.34, 0.06, PAINT_BLK, flat="a")
+    xf, zf = C["cab"][1], C["z1"] + C["cab_lift"]
+    pillow(bm, xf - 0.10, xf + 0.06, -1.06, 1.06, zf - 0.45, zf + 0.34, 0.06, PAINT_BLK, flat="a")
     for k in range(9):
         add_rod(bm, (xf + 0.065, -0.60, zf - 0.30 + 0.065 * k), (xf + 0.065, 0.60, zf - 0.30 + 0.065 * k), 0.012, CHROME, segments=6)
     pillow(bm, xf + 0.04, xf + 0.075, -0.20, 0.20, zf + 0.20, zf + 0.30, 0.012, CHROME, flat="a")
-    pillow(bm, xf + 0.03, xf + 0.07, -0.55, 0.55, zf - 0.40, zf - 0.30, 0.012, DARK, flat="a")
+    pillow(bm, xf + 0.03, xf + 0.07, -0.55, 0.55, zf - 0.50, zf - 0.40, 0.012, DARK, flat="a")
     for s in SIDES_LR:
-        bx(bm, xf + 0.04, xf + 0.068, s * 0.64, s * 0.68, zf - 0.30, zf + 0.24, CHROME, 0.006)
+        bx(bm, xf + 0.04, xf + 0.068, s * 0.64, s * 0.68, zf - 0.40, zf + 0.24, CHROME, 0.006)
     return finish_mesh(bm, "SM_Zr_maska_" + C["key"])
 
 
@@ -1046,20 +1052,23 @@ def build_zr_svetlomet():
 
 
 def build_zr_naraznik_predny(C):
-    # predny naraznik: zaoblene ocelove teleso s nastupnym rostom, vlecne oka, hmlovky, smerovky a drziak znacky
+    # predny naraznik: zaoblene ocelove teleso s nastupnym rostom, vlecne oka, hmlovky, smerovky a drziak znacky; vyska podla spodku masky kabiny
     bm = bmesh.new()
     xf = C["front"]
-    pillow(bm, xf - 0.24, xf + 0.08, -1.26, 1.26, 0.52, 0.88, 0.09, PAINT_BLK, flat="a")
-    bx(bm, xf - 0.32, xf + 0.10, -1.05, 1.05, 0.40, 0.52, STEEL, 0.015)
+    zt = C["z1"] + C["cab_lift"] - 0.45                 # horna hrana naraznika = spodok masky
+    pillow(bm, xf - 0.24, xf + 0.08, -1.26, 1.26, zt - 0.36, zt, 0.09, PAINT_BLK, flat="a")
+    bx(bm, xf - 0.32, xf + 0.10, -1.05, 1.05, zt - 0.48, zt - 0.36, STEEL, 0.015)
     for k in range(14):
-        bx(bm, xf - 0.30, xf + 0.08, -1.0 + 0.15 * k, -0.95 + 0.15 * k, 0.52, 0.535, DARK, 0.003)
+        bx(bm, xf - 0.30, xf + 0.08, -1.0 + 0.15 * k, -0.95 + 0.15 * k, zt - 0.36, zt - 0.345, DARK, 0.003)
     for s in SIDES_LR:
-        add_cylinder(bm, 0.04, 0.10, along_x((xf + 0.12, s * 0.60, 0.60)), STEEL, segments=10, bev=0.006)
-        add_cylinder(bm, 0.025, 0.12, along_x((xf + 0.12, s * 0.60, 0.60)), DARK, segments=8)
-        add_cylinder(bm, 0.065, 0.03, along_x((xf + 0.095, s * 0.95, 0.70)), CHROME, segments=14)
-        add_cylinder(bm, 0.055, 0.035, along_x((xf + 0.10, s * 0.95, 0.70)), LAMP_WHITE, segments=14)
-        pillow(bm, xf + 0.06, xf + 0.10, *zr_sy(s, 0.70, 1.00), 0.78, 0.84, 0.015, LAMP_OR, flat="a")
-    pillow(bm, xf + 0.06, xf + 0.09, -0.26, 0.26, 0.60, 0.74, 0.012, WHITE, flat="a")
+        add_cylinder(bm, 0.04, 0.10, along_x((xf + 0.12, s * 0.60, zt - 0.28)), STEEL, segments=10, bev=0.006)
+        add_cylinder(bm, 0.025, 0.12, along_x((xf + 0.12, s * 0.60, zt - 0.28)), DARK, segments=8)
+        add_cylinder(bm, 0.065, 0.03, along_x((xf + 0.095, s * 0.95, zt - 0.18)), CHROME, segments=14)
+        add_cylinder(bm, 0.055, 0.035, along_x((xf + 0.10, s * 0.95, zt - 0.18)), LAMP_WHITE, segments=14)
+        pillow(bm, xf + 0.06, xf + 0.10, *zr_sy(s, 0.70, 1.00), zt - 0.10, zt - 0.04, 0.015, LAMP_OR, flat="a")
+    pillow(bm, xf + 0.06, xf + 0.09, -0.26, 0.26, zt - 0.28, zt - 0.14, 0.012, WHITE, flat="a")
+    for s in SIDES_LR:
+        pillow(bm, xf - 0.62, xf - 0.20, *zr_sy(s, 0.46, 0.64), zt - 0.30, C["z0"] + 0.06, 0.03, PAINT_BLK)       # konzoly naraznika k ramu
     return finish_mesh(bm, "SM_Zr_naraznik_predny_" + C["key"])
 
 
@@ -1085,6 +1094,7 @@ def build_zr_schodik():
         bx(bm, -0.32, 0.22, 0.30, 0.325, z - 0.04, z + 0.06, PAINT_BLK, 0.006)
     for x in (-0.28, 0.18):
         bx(bm, x - 0.02, x + 0.02, 0.0, 0.30, -0.82, -0.20, PAINT_BLK, 0.01)
+    pillow(bm, -0.32, 0.22, -0.01, 0.035, -0.84, 0.14, 0.012, PAINT_BLK, flat="l")          # oporna platna na boku kabiny
     return bm
 
 
@@ -1095,8 +1105,7 @@ def build_zr_nadrz(C):
     for dx in (-0.45, 0.45):
         add_cylinder(bm, 0.312, 0.05, along_x((dx, 0.0, 0.0)), STEEL, segments=20)
         bx(bm, dx - 0.03, dx + 0.03, -0.05, 0.05, -0.42, -0.27, STEEL, 0.006)
-    add_cylinder(bm, 0.06, 0.08, along_z((0.35, 0.0, 0.31)), CHROME, segments=12, bev=0.008)
-    add_cylinder(bm, 0.05, 0.03, along_z((0.35, 0.0, 0.36)), PAINT_BLK, segments=12)
+    add_cylinder(bm, 0.06, 0.04, along_z((0.35, 0.0, 0.295)), CHROME, segments=12, bev=0.006)
     bx(bm, -0.10, 0.10, 0.28, 0.33, -0.12, 0.12, PAINT_BLK, 0.01)
     return finish_mesh(bm, "SM_Zr_nadrz_" + C["key"])
 
@@ -1138,10 +1147,13 @@ def build_zr_naprava(C):
         add_cylinder(bm, 0.18, 0.14, along_y((0.0, s * (t - 0.42), 0.0)), FRAME, segments=16, bev=0.02)
         add_cylinder(bm, 0.075, 0.13, along_y((-0.15, s * (t - 0.62), 0.18)), STEEL, segments=10, bev=0.008)
         add_rod(bm, (-0.15, s * (t - 0.55), 0.18), (-0.15, s * (t - 0.42), 0.16), 0.022, STEEL, segments=8)
+        gap = C["z0"] - R                      # od osi naprav po spodok ramu
+        hb = gap - 0.11 - 0.05
+        zc_b = 0.11 + 0.025 + hb * 0.5
         for dx in (-0.36, 0.36):
-            add_cylinder(bm, 0.09, 0.26, along_z((dx, s * (t - 0.62), R * 0.55 + 0.10)), PLAST, segments=14, bev=0.015)        # vzduchovy vak
-            add_cylinder(bm, 0.11, 0.025, along_z((dx, s * (t - 0.62), R * 0.55 + 0.235)), FRAME, segments=14)
-            add_cylinder(bm, 0.11, 0.025, along_z((dx, s * (t - 0.62), R * 0.55 - 0.03)), FRAME, segments=14)
+            add_cylinder(bm, 0.09, hb, along_z((dx, s * (t - 0.62), zc_b)), PLAST, segments=14, bev=0.015)        # vzduchovy vak medzi naprava a ram
+            add_cylinder(bm, 0.11, 0.025, along_z((dx, s * (t - 0.62), 0.11 + 0.0125)), FRAME, segments=14)
+            add_cylinder(bm, 0.11, 0.025, along_z((dx, s * (t - 0.62), gap - 0.0125)), FRAME, segments=14)
     return finish_mesh(bm, "SM_Zr_naprava_" + C["key"])
 
 
@@ -1203,7 +1215,7 @@ def build_zr_blatnik(C):
 def build_zr_podpera_nosnik(C):
     # puzdro vysuvnej podpery (priecny nosnik pod ramom, cierny; pivot v strede ramu v ose podpery): zaoblene teleso, koncove platne so skrutkami
     bm = bmesh.new()
-    zc = C["z0"] - 0.10
+    zc = zr_zc(C)
     hh = zr_hh(C)
     pillow(bm, -0.24, 0.24, -hh, hh, zc - 0.18, zc + 0.18, 0.05, FRAME, flat="t")
     for s in SIDES_LR:
@@ -1220,7 +1232,7 @@ def build_zr_podpera_vysuv(C):
     bm = bmesh.new()
     L = zr_beam_len(C)
     pillow(bm, -0.20, 0.20, 0.0, L, -0.16, 0.16, 0.05, PAINT_YEL)
-    pillow(bm, -0.25, 0.25, L - 0.52, L, -0.21, 0.21, 0.06, PAINT_YEL)
+    pillow(bm, -0.58, 0.25, L - 0.55, L, -0.21, 0.21, 0.06, PAINT_YEL)
     bx(bm, -0.215, 0.215, 0.0, 0.12, -0.17, 0.17, STEEL, 0.012)
     for k in range(4):
         add_box(bm, (0.12, 0.22, 0.012), (0.0, 0.40 + 0.40 * k, 0.163), WARN, bev=0.002, rotation=(0.0, 0.0, 40.0))
@@ -1232,13 +1244,13 @@ def build_zr_podpera_vysuv(C):
 def build_zr_podpera_valec(C):
     # puzdro valca podpery (zvisla trubka na konci nosnika; pivot v osi valca na spodku trubky): zlte teleso, hornna priruba, hadicove pripojky, spodne tesnenie
     bm = bmesh.new()
-    add_cylinder(bm, 0.145, 0.70, along_z((0.0, 0.0, 0.35)), PAINT_YEL, segments=16, bev=0.012)
-    add_cylinder(bm, 0.165, 0.05, along_z((0.0, 0.0, 0.70)), STEEL, segments=16, bev=0.006)
+    add_cylinder(bm, 0.145, 0.85, along_z((0.0, 0.0, 0.425)), PAINT_YEL, segments=16, bev=0.012)
+    add_cylinder(bm, 0.165, 0.05, along_z((0.0, 0.0, 0.85)), STEEL, segments=16, bev=0.006)
     add_cylinder(bm, 0.165, 0.05, along_z((0.0, 0.0, 0.03)), DARK, segments=16)
-    for dz in (0.20, 0.52):
+    for dz in (0.25, 0.65):
         add_cylinder(bm, 0.03, 0.10, along_x((0.16, 0.0, dz)), STEEL, segments=8)
-    add_rod(bm, (0.20, 0.0, 0.20), (0.26, 0.0, 0.42), 0.014, PLAST, segments=6)
-    add_rod(bm, (0.20, 0.0, 0.52), (0.26, 0.0, 0.42), 0.014, PLAST, segments=6)
+    add_rod(bm, (0.20, 0.0, 0.25), (0.26, 0.0, 0.45), 0.014, PLAST, segments=6)
+    add_rod(bm, (0.20, 0.0, 0.65), (0.26, 0.0, 0.45), 0.014, PLAST, segments=6)
     return finish_mesh(bm, "SM_Zr_podpera_valec_" + C["key"])
 
 
@@ -1248,7 +1260,7 @@ def build_zr_podpera_tyc(C):
     pillow(bm, -0.34, 0.34, -0.34, 0.34, 0.0, 0.055, 0.02, PAINT_BLK, flat="b")
     for k in range(5):
         bx(bm, -0.30 + 0.15 * k, -0.27 + 0.15 * k, -0.30, 0.30, 0.0, 0.065, PAINT_BLK, 0.004)
-    lr = C["z0"] + C["lift"] - 0.28
+    lr = C["z0"] + C["lift"] - 0.38
     add_cylinder(bm, 0.09, lr, along_z((0.0, 0.0, 0.10 + lr * 0.5)), CHROME, segments=16, bev=0.004)
     add_cylinder(bm, 0.115, 0.08, along_z((0.0, 0.0, 0.095)), STEEL, segments=14, bev=0.01)
     return finish_mesh(bm, "SM_Zr_podpera_tyc_" + C["key"])
@@ -1380,7 +1392,7 @@ def build_zr_plosina(C):
 def build_zr_kryt(C):
     # kryt motora a hydrauliky (zlty): hladke zaoblene telo so sklonenou strechou, bocne mriezky v ramikoch, servisne dvierka s klukami, chladic, nasavanie, vyfuk
     bm = bmesh.new()
-    x0, x1, hw, h = C["cw_front"], -0.30, C["hw"] - 0.03, C["hs_h"]
+    x0, x1, hw, h = C["cw_front"], -0.30, C["hw"] - 0.25, C["hs_h"]
     z0 = 0.14
     ztop = z0 + h
     st = [(x0, hw - 0.10, ztop - 0.40, 0.12), (x0 + 0.05, hw - 0.04, ztop - 0.22, 0.18), (x0 + 0.30, hw - 0.01, ztop - 0.05, 0.22), (x0 + 0.70, hw, ztop, 0.24),
@@ -1728,15 +1740,15 @@ def zr_rig(coll, C, parts, mats, x_pos, y_pos):
     for tag, mk in (("ram", "ram"), ("zakladna", "zakladna"), ("kabina", "kabina"), ("maska", "maska"), ("naraznik_predny", "naraznik_predny"),
                     ("opierka", "opierka"), ("naraznik_zadny", "naraznik_zadny")):
         mount(coll, name, tag, body, o0, [(tag, parts["Zr_%s_%s" % (mk, key_)])])
-    mount(coll, name, "nadrz", body, (-0.3 if key_ == "40t" else 0.0, t * 0.9, z0 + 0.07), [("nadrz", parts["Zr_nadrz_" + key_])])
-    mount(coll, name, "skrinka", body, (-0.3 if key_ == "40t" else 0.0, -t * 0.9, z0 + 0.07), [("skrinka", parts["Zr_skrinka_" + key_])])
-    mount(coll, name, "vyfuk", body, (cx0 - 0.25, -1.08, z1), [("vyfuk", parts["Zr_vyfuk"])])
+    mount(coll, name, "nadrz", body, (-0.3 if key_ == "40t" else 0.0, 0.945, z0 + 0.03), [("nadrz", parts["Zr_nadrz_" + key_])])
+    mount(coll, name, "skrinka", body, (-0.3 if key_ == "40t" else 0.0, -0.885, z0 + 0.03), [("skrinka", parts["Zr_skrinka_" + key_])])
+    mount(coll, name, "vyfuk", body, (cx0 - 0.25, -0.55, z1), [("vyfuk", parts["Zr_vyfuk"])])
     for s, side in ((1.0, "L"), (-1.0, "P")):
-        hinge, _ = mount(coll, name, "dvere_nosica_" + side, body, (cxf - 0.15, s * 1.20, z1), [("dvere_nosica_" + side, parts["Zr_dvere_%s_%s" % (key_, side)])])
+        hinge, _ = mount(coll, name, "dvere_nosica_" + side, body, (cxf - 0.15, s * 1.20, z1 + C["cab_lift"]), [("dvere_nosica_" + side, parts["Zr_dvere_%s_%s" % (key_, side)])])
         driver(hinge, "rotation_euler", 2, "%.0f * d * 1.35" % -s, [prop("d", "Dvere_nosica")])
-        mount(coll, name, "svetlomet_" + side, body, (cxf + 0.05, s * 0.85, z1 + 0.10), [("svetlomet_" + side, parts["Zr_svetlomet_" + side])])
-        mount(coll, name, "zrkadlo_" + side, body, (cxf - 0.30, s * 1.20, zr_ - 0.58), [("zrkadlo_" + side, parts["Zr_zrkadlo_" + side])])
-        mount(coll, name, "schodik_" + side, body, (cxf - 0.75, s * 1.20, z1), [("schodik_" + side, parts["Zr_schodik_" + side])])
+        mount(coll, name, "svetlomet_" + side, body, (cxf + 0.05, s * 0.85, z1 + C["cab_lift"] + 0.10), [("svetlomet_" + side, parts["Zr_svetlomet_" + side])])
+        mount(coll, name, "zrkadlo_" + side, hinge, (-0.15, 0.0, zr_ - 0.58 - (z1 + C["cab_lift"])), [("zrkadlo_" + side, parts["Zr_zrkadlo_" + side])])      # zrkadlo je na dverach
+        mount(coll, name, "schodik_" + side, body, (cxf - 0.75, s * 1.20, z1 + C["cab_lift"]), [("schodik_" + side, parts["Zr_schodik_" + side])])
         mount(coll, name, "svetlo_zadne_" + side, body, (C["f_rear"] - 0.30, s * 0.60, z0 + 0.09), [("svetlo_zadne_" + side, parts["Zr_svetlo_zadne_" + side])])
     # nahrady, riadenie, kolesa
     axles, wheels = [], []
@@ -1757,7 +1769,7 @@ def zr_rig(coll, C, parts, mats, x_pos, y_pos):
             wheels.append(hub)
             mount(coll, name, "blatnik_%d_%s" % (i + 1, side), body, (x, s * t, R), [("blatnik_%d_%s" % (i + 1, side), parts["Zr_blatnik_%s_%s" % (key_, side)])])
     # vysuvne podpery
-    zc = z0 - 0.10
+    zc = zr_zc(C)
     L = zr_beam_len(C)
     hh = zr_hh(C)
     for g, xg in enumerate(C["oxs"]):
@@ -1766,7 +1778,7 @@ def zr_rig(coll, C, parts, mats, x_pos, y_pos):
         for s, side in ((1.0, "L"), (-1.0, "P")):
             beam, _ = mount(coll, name, "podpera_vysuv_%s_%s" % (gn, side), body, (xg, s * (hh + 0.03 - L), zc), [("podpera_vysuv_%s_%s" % (gn, side), parts["Zr_podpera_vysuv_%s_%s" % (key_, side)])])
             driver(beam, "location", 1, "%.0f * (%.4f + e * %.4f)" % (s, hh + 0.03 - L, C["stroke"]), [prop("e", "Podpery_vysun")])
-            jack, _ = mount(coll, name, "podpera_valec_%s_%s" % (gn, side), beam, (0.0, s * (L - 0.25), -0.28), [("podpera_valec_%s_%s" % (gn, side), parts["Zr_podpera_valec_" + key_])])
+            jack, _ = mount(coll, name, "podpera_valec_%s_%s" % (gn, side), beam, (-0.40, s * (L - 0.25), -0.28), [("podpera_valec_%s_%s" % (gn, side), parts["Zr_podpera_valec_" + key_])])
             rod, _ = mount(coll, name, "podpera_tyc_%s_%s" % (gn, side), jack, (0.0, 0.0, 0.0), [("podpera_tyc_%s_%s" % (gn, side), parts["Zr_podpera_tyc_" + key_])])
             driver(rod, "location", 2, "0.40 * (1 - min(s / 0.70, 1.0)) - %.4f * max((s - 0.70) / 0.30, 0.0) - %.4f" % (C["lift"], zc - 0.28), [prop("s", "Podpery_spust")])
     # otocna nadstavba
