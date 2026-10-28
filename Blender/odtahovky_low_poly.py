@@ -3048,38 +3048,38 @@ def build_pl_rack(style):
 
 
 def build_pl_winch(style):
-    # navijak (pevna cast): ram, hydromotor, prevodovka, lanova vodiaca kladka; pivot na podlahe v strede, dozadu je -X; buben je zvlast
+    # navijak (pevna cast, maly): ram, hydromotor, drziak haku, lanova vodiaca kladka; pivot na podlahe v strede, dozadu je -X; buben je zvlast
     eu = style == "eu"
     bm = bmesh.new()
-    add_box(bm, (0.64, 1.46, 0.05), (0.0, 0.0, 0.025), FRAME, bev=0.008)
+    add_box(bm, (0.36, 0.80, 0.04), (0.0, 0.0, 0.02), FRAME, bev=0.006)
     for s in SIDES_LR:
-        add_box(bm, (0.46, 0.06, 0.52), (0.0, s * 0.63, 0.31), ACCENT, bev=0.01)
-        add_cylinder(bm, 0.07, 0.10, along_y((0.0, s * 0.68, 0.36)), STEEL, segments=10)
-    add_box(bm, (0.30, 0.24, 0.24), (0.04, 0.80, 0.28), DARK if eu else CHROME, bev=0.02)
-    add_cylinder(bm, 0.10, 0.30, along_y((0.0, 0.82, 0.40)), DARK, segments=10, bev=0.01)
-    add_box(bm, (0.12, 1.30, 0.04), (-0.12, 0.0, 0.12), STEEL, bev=0.004)
+        add_box(bm, (0.26, 0.04, 0.30), (0.0, s * 0.34, 0.19), ACCENT, bev=0.008)
+        add_cylinder(bm, 0.045, 0.06, along_y((0.0, s * 0.375, 0.22)), STEEL, segments=8)
+    add_box(bm, (0.18, 0.14, 0.14), (0.02, 0.45, 0.16), DARK if eu else CHROME, bev=0.012)
+    add_cylinder(bm, 0.06, 0.18, along_y((0.0, 0.47, 0.24)), DARK, segments=8, bev=0.006)
+    add_box(bm, (0.08, 0.70, 0.03), (-0.08, 0.0, 0.07), STEEL, bev=0.003)
     # drziak haku: stlpik s doskou pri vodiacej kladke vlavo
-    add_box(bm, (0.06, 0.06, 0.56), (-0.42, -0.30, 0.31), STEEL, bev=0.005)
-    add_box(bm, (0.16, 0.14, 0.04), (-0.42, -0.30, 0.60), STEEL, bev=0.005)
-    add_cylinder(bm, 0.02, 0.10, along_x((-0.42, -0.30, 0.64)), CHROME, segments=8)
+    add_box(bm, (0.05, 0.05, 0.40), (-0.26, -0.20, 0.22), STEEL, bev=0.004)
+    add_box(bm, (0.14, 0.12, 0.03), (-0.26, -0.20, 0.43), STEEL, bev=0.004)
+    add_cylinder(bm, 0.015, 0.08, along_x((-0.26, -0.20, 0.46)), CHROME, segments=8)
     # lanova vodiaca kladka (vzadu pri podlahe) a vodiace puzdra
-    add_cylinder(bm, 0.07, 0.46, along_y((-0.50, 0.0, 0.12)), STEEL, segments=10, bev=0.006)
+    add_cylinder(bm, 0.045, 0.28, along_y((-0.28, 0.0, 0.08)), STEEL, segments=8, bev=0.004)
     for s in SIDES_LR:
-        add_box(bm, (0.12, 0.05, 0.16), (-0.50, s * 0.25, 0.10), DARK, bev=0.005)
-        add_box(bm, (0.04, 0.04, 0.12), (-0.50, s * 0.30, 0.18), STEEL, bev=0.004)
+        add_box(bm, (0.08, 0.04, 0.10), (-0.28, s * 0.16, 0.07), DARK, bev=0.004)
+        add_box(bm, (0.03, 0.03, 0.08), (-0.28, s * 0.19, 0.12), STEEL, bev=0.003)
     return finish_mesh(bm, "SM_Odt_od_navijak_" + style)
 
 
 def build_pl_drum():
     # buben navijaka (otaca sa okolo Y): lano navinute, dve cela
     bm = bmesh.new()
-    add_cylinder(bm, 0.17, 1.10, along_y((0.0, 0.0, 0.0)), STEEL, segments=14, bev=0.006)
-    add_cylinder(bm, 0.20, 0.88, along_y((0.0, 0.0, 0.0)), DARK, segments=14)
+    add_cylinder(bm, 0.10, 0.50, along_y((0.0, 0.0, 0.0)), STEEL, segments=12, bev=0.004)
+    add_cylinder(bm, 0.12, 0.40, along_y((0.0, 0.0, 0.0)), DARK, segments=12)
     for s in SIDES_LR:
-        add_cylinder(bm, 0.27, 0.05, along_y((0.0, s * 0.56, 0.0)), STEEL, segments=14, bev=0.006)
+        add_cylinder(bm, 0.16, 0.03, along_y((0.0, s * 0.26, 0.0)), STEEL, segments=12, bev=0.004)
     for k in range(6):
         a = 2.0 * math.pi * k / 6.0
-        add_box(bm, (0.03, 0.88, 0.012), (0.205 * math.cos(a), 0.0, 0.205 * math.sin(a)), GALV, rotation=(0.0, -math.degrees(a), 0.0))
+        add_box(bm, (0.02, 0.40, 0.008), (0.122 * math.cos(a), 0.0, 0.122 * math.sin(a)), GALV, rotation=(0.0, -math.degrees(a), 0.0))
     return finish_mesh(bm, "SM_Odt_od_navijak_buben")
 
 
@@ -3317,19 +3317,19 @@ def pl_rig(coll, truck, parts, body, root, prop, mats):
     xf, zt = g["xf"], g["zt"]
     accent(rails, truck, mats)
     accent(new_object(coll, name + "_celna_stena", parts["Odt_od_celna_stena_" + style], (xf, 0.0, zt), bed), truck, mats)
-    winch = accent(new_object(coll, name + "_navijak", parts["Odt_od_navijak_" + style], (xf - 0.60, 0.0, zt), bed), truck, mats)
-    drum = new_object(coll, name + "_navijak_buben", parts["Odt_od_navijak_buben"], (0.0, 0.0, 0.36), winch)
-    fair = empty(coll, name + "_navijak_vodiaca", (-0.50, 0.0, 0.20), winch)
-    holder = empty(coll, name + "_hak_drziak", (xf - 1.02, -0.30, zt + 0.66), bed)
+    winch = accent(new_object(coll, name + "_navijak", parts["Odt_od_navijak_" + style], (xf - 0.40, 0.0, zt), bed), truck, mats)
+    drum = new_object(coll, name + "_navijak_buben", parts["Odt_od_navijak_buben"], (0.0, 0.0, 0.22), winch)
+    fair = empty(coll, name + "_navijak_vodiaca", (-0.28, 0.0, 0.12), winch)
+    holder = empty(coll, name + "_hak_drziak", (xf - 0.66, -0.20, zt + 0.48), bed)
     hook = new_object(coll, name + "_hak", parts["Odt_od_hak"], (0.0, 0.0, 0.0), holder)
-    hook.scale = (0.8, 0.8, 0.8)
+    hook.scale = (0.6, 0.6, 0.6)
     con = hook.constraints.new("COPY_LOCATION")
     con.name = "Na_aute"
     cable = new_object(coll, name + "_lano", parts["Odt_od_lano"], (0.0, 0.0, 0.0), fair)
     track(cable, hook, "TRACK_Z")
     driver(cable, "scale", 2, "d", [("d", "DIST", (fair, hook))])
-    d0 = Vector((xf - 1.02 - (xf - 0.60 - 0.50), -0.30, zt + 0.66 - (zt + 0.20))).length
-    driver(drum, "rotation_euler", 1, "-(d - %.4f) / 0.20" % d0, [("d", "DIST", (fair, hook))])
+    d0 = Vector((xf - 0.66 - (xf - 0.40 - 0.28), -0.20, zt + 0.48 - (zt + 0.12))).length
+    driver(drum, "rotation_euler", 1, "-(d - %.4f) / 0.12" % d0, [("d", "DIST", (fair, hook))])
     t, sc = pl_tilt_cyl(g), pl_slide_cyl(g)
     for s, side in ((1.0, "L"), (-1.0, "P")):
         telescope(coll, "%s_valec_naklapania_%s" % (name, side), parts, "pt" + cfg, t["n"], t["ell"], body,
@@ -3427,7 +3427,7 @@ def _pl_doc():
         "  Sklopny podram: prazdny objekt <Auto>_plosina_klb (pivot v osi klbu vzadu na rame, os Y, otaca sa o -Plosina_sklon x uhol, zadok ide dole). Jeho deti:",
         "    podram (diel Odt_od_podram_<podvozok>: dva nosniky s valcekmi, priecniky, cap), plosina (Odt_od_plosina_<styl>_<podvozok>, pohyb v X o -Plosina_odsun x odsun),",
         "    valce odsunu (zaklad na podrame vpredu). Plosina ma na zadnom konci skosenie (%.2f m) a spicka sa po odsune dotkne zeme." % PL_WEDGE,
-        "  Dieta plosiny: celna stena (pivot na prednej hrane na podlahe), navijak (pivot na podlahe v strede, 0.60 m za prednou hranou), jeho buben (otaca sa podla vzdialenosti haku),",
+        "  Dieta plosiny: celna stena (pivot na prednej hrane na podlahe), navijak (maly, pivot na podlahe v strede, 0.40 m za prednou hranou), jeho buben (otaca sa podla vzdialenosti haku),",
         "    prazdny objekt navijak_vodiaca (vystup lana, zaklad lana) a hak_drziak (miesto haku v pokoji).",
         "  Lano (Odt_od_lano, jednotkova dlzka v +Z): zaklad na vodiacej kladke, mieri (track Z) na hak, mierka Z = vzdialenost vodiacej kladky a haku.",
         "  Hak (Odt_od_hak) je dieta hak_drziak; constraint Copy Location 'Na_aute' (cielom je prazdny objekt auto_oko = tazne oko auta) ma vplyv = vlastnost Hak_k_autu (0 = v drziaku, 1 = na aute).",
@@ -3848,20 +3848,21 @@ def build_tz_rear(cfg, style):
 
 
 def build_tz_rear_winch(cfg, style):
-    # zadny navijak (nepohyblivy): ram, buben s lanom, hydromotor, vodiaca kladka, stlpiky; v suradniciach ramu
+    # zadny navijak (maly, nepohyblivy): ram, buben s lanom, hydromotor, vodiaca kladka; v suradniciach ramu
     xr = tz_rear(cfg)
     bm = bmesh.new()
-    xw = xr + 0.95
-    add_box(bm, (0.80, 1.20, 0.05), (xw, 0.0, TZ_DECK_Z + 0.025), FRAME, bev=0.008)
+    xw = xr + 0.80
+    zc = TZ_DECK_Z + 0.20
+    add_box(bm, (0.44, 0.70, 0.04), (xw, 0.0, TZ_DECK_Z + 0.02), FRAME, bev=0.006)
     for s in SIDES_LR:
-        add_box(bm, (0.50, 0.06, 0.50), (xw, s * 0.55, TZ_DECK_Z + 0.30), ACCENT, bev=0.01)
-    add_cylinder(bm, 0.18, 1.00, along_y((xw, 0.0, TZ_DECK_Z + 0.32)), STEEL, segments=14, bev=0.006)
-    add_cylinder(bm, 0.21, 0.80, along_y((xw, 0.0, TZ_DECK_Z + 0.32)), DARK, segments=14)
+        add_box(bm, (0.30, 0.04, 0.30), (xw, s * 0.31, TZ_DECK_Z + 0.19), ACCENT, bev=0.008)
+    add_cylinder(bm, 0.09, 0.56, along_y((xw, 0.0, zc)), STEEL, segments=12, bev=0.004)
+    add_cylinder(bm, 0.11, 0.44, along_y((xw, 0.0, zc)), DARK, segments=12)
     for s in SIDES_LR:
-        add_cylinder(bm, 0.26, 0.05, along_y((xw, s * 0.45, TZ_DECK_Z + 0.32)), STEEL, segments=14, bev=0.006)
-    add_box(bm, (0.30, 0.24, 0.24), (xw, 0.80, TZ_DECK_Z + 0.30), DARK, bev=0.02)
-    add_cylinder(bm, 0.07, 0.50, along_y((xw - 0.55, 0.0, TZ_DECK_Z + 0.10)), STEEL, segments=10, bev=0.006)
-    add_rod(bm, (xw - 0.50, 0.0, TZ_DECK_Z + 0.16), (xr - 0.25, 0.0, TZ_DECK_Z + 0.12), 0.016, DARK, segments=6)
+        add_cylinder(bm, 0.15, 0.03, along_y((xw, s * 0.24, zc)), STEEL, segments=12, bev=0.004)
+    add_box(bm, (0.18, 0.14, 0.14), (xw, 0.44, TZ_DECK_Z + 0.14), DARK, bev=0.012)
+    add_cylinder(bm, 0.04, 0.30, along_y((xw - 0.30, 0.0, TZ_DECK_Z + 0.07)), STEEL, segments=8, bev=0.004)
+    add_rod(bm, (xw - 0.28, 0.0, TZ_DECK_Z + 0.11), (xr - 0.25, 0.0, TZ_DECK_Z + 0.09), 0.012, DARK, segments=6)
     return finish_mesh(bm, "SM_Odt_tz_navijak_zadny_" + cfg["cfg"])
 
 
