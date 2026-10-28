@@ -1,0 +1,96 @@
+Naves (podvalnik) - diely (rozmery X x Y x Z v metroch). Predok = +X, lava = +Y, pociatok = zem pod capom.
+
+== PODVALNIK - SPOLOCNE ==
+Podval_cap_deska                   0.90 x 0.90 x 0.17
+Podval_celo                        0.30 x 2.55 x 1.40
+
+== PODPERY, REZERVA, SKRINKA, OVLADAC ==
+Podval_noha_vonkajsia_L            0.30 x 0.24 x 0.76
+Podval_noha_vonkajsia_P            0.30 x 0.24 x 0.76
+Podval_noha_vnutorna               0.30 x 0.30 x 0.88
+Podval_podpery_traverza            0.44 x 1.11 x 0.43
+Podval_naradi_skrinka              0.70 x 0.57 x 0.40
+Podval_ovladac_napravy             0.20 x 0.10 x 0.42
+Podval_rezerva                     1.05 x 0.45 x 1.05
+Podval_rezerva_kos_L               1.24 x 0.66 x 0.48
+Podval_rezerva_kos_P               1.24 x 0.66 x 0.48
+
+== BLATNIKY ==
+Podval_blatnik_L                   1.19 x 0.65 x 0.98
+Podval_blatnik_P                   1.19 x 0.65 x 0.98
+
+== NAPRAVY A PEROVANIE ==
+Podval_naprava                     0.44 x 1.68 x 0.29
+Podval_koleso                      1.05 x 0.42 x 1.05
+Podval_rameno                      1.06 x 0.16 x 0.28
+Podval_vankus                      0.30 x 0.30 x 0.30
+Podval_tlmic_valec                 0.07 x 0.07 x 0.35
+Podval_tlmic_piestnica             0.08 x 0.08 x 0.37
+
+== DIELY PRE DLZKU 12.0 m ==
+Podval_ram_12_0                    11.95 x 2.61 x 0.98
+Podval_podlaha_12_0                11.83 x 2.35 x 0.63
+Podval_zadny_lem_12_0              0.16 x 2.55 x 0.32
+Podval_zadny_naraznik_12_0         0.56 x 2.52 x 0.82
+Podval_zadne_svetlo_L_12_0         0.09 x 0.38 x 0.13
+Podval_zadne_svetlo_P_12_0         0.09 x 0.38 x 0.13
+Podval_bocne_svetla_L_12_0         11.02 x 0.03 x 0.67
+Podval_bocne_svetla_P_12_0         11.02 x 0.03 x 0.67
+Podval_rampa_L_12_0                3.36 x 1.10 x 0.13
+Podval_rampa_P_12_0                3.36 x 1.10 x 0.13
+
+== DIELY PRE DLZKU 14.0 m ==
+Podval_ram_14_0                    13.95 x 2.61 x 0.98
+Podval_podlaha_14_0                13.83 x 2.35 x 0.63
+Podval_zadny_lem_14_0              0.16 x 2.55 x 0.32
+Podval_zadny_naraznik_14_0         0.56 x 2.52 x 0.82
+Podval_zadne_svetlo_L_14_0         0.09 x 0.38 x 0.13
+Podval_zadne_svetlo_P_14_0         0.09 x 0.38 x 0.13
+Podval_bocne_svetla_L_14_0         13.02 x 0.03 x 0.67
+Podval_bocne_svetla_P_14_0         13.02 x 0.03 x 0.67
+Podval_rampa_L_14_0                3.86 x 1.10 x 0.13
+Podval_rampa_P_14_0                3.86 x 1.10 x 0.13
+
+== DIELY PRE DLZKU 16.0 m ==
+Podval_ram_16_0                    15.95 x 2.61 x 0.98
+Podval_podlaha_16_0                15.83 x 2.35 x 0.63
+Podval_zadny_lem_16_0              0.16 x 2.55 x 0.32
+Podval_zadny_naraznik_16_0         0.56 x 2.52 x 0.82
+Podval_zadne_svetlo_L_16_0         0.09 x 0.38 x 0.13
+Podval_zadne_svetlo_P_16_0         0.09 x 0.38 x 0.13
+Podval_bocne_svetla_L_16_0         15.02 x 0.03 x 0.67
+Podval_bocne_svetla_P_16_0         15.02 x 0.03 x 0.67
+Podval_rampa_L_16_0                4.36 x 1.10 x 0.13
+Podval_rampa_P_16_0                4.36 x 1.10 x 0.13
+
+DLZKY: 12.0 m (2 napravy), 14.0 m (3 napravy), 16.0 m (4 napravy)
+
+Podval_12_0: napravy x = -7.54, -8.85; koniec skrine x = -10.40; stred rezervy x = -10.35; skrinka x = -2.10; ovladac x = -11.08; zabrany x = bez
+Podval_14_0: napravy x = -8.23, -9.54, -10.85; koniec skrine x = -12.40; stred rezervy x = -12.35; skrinka x = -2.10; ovladac x = -13.08; zabrany x = bez
+Podval_16_0: napravy x = -8.92, -10.23, -11.54, -12.85; koniec skrine x = -14.40; stred rezervy x = -14.35; skrinka x = -2.10; ovladac x = -15.07; zabrany x = bez
+
+AKO JE TO POSKLADANE (hierarchia v kolekciach podla dlzky), suradnice od pociatku navesu (zem pod capom):
+  Hlavny objekt navesu (prazdny) - posuvaj nim cely naves, vlastnosti = ovladanie (popis na zaciatku skriptu).
+  Zapriahnutie: cap navesu da na stred tocne tahaca (x tocne + Posun_tocne); spodok dosky s capom je vo vyske 1.31 m = vrch tocne.
+  Skrina (ram): otaca sa okolo capu, zadok ide hore o Vyska_podvozku + 0.6 x pohyb naprav.
+  Napravy: pivot v osi kolies (z = 0.525); kolesa su ich deti (pravu stranu otoc o 180 st.). Prva naprava sa da zdvihnut.
+  Ramena: cap na rame v x napravy + 0.60, z 0.62; mieria osou -X na bod (0.000, 0.520, -0.120) pod napravou.
+  Vankuse: hore na rame (x napravy -0.32, z 0.80), mieria osou -Z na sedlo na ramene (-0.907, 0.000, 0.197); vysku natiahni mierkou Z = vzdialenost / 0.300.
+  Tlmice: valec na naprave mieri osou +Z na horne oko na rame, piestnica z horneho oka mieri osou -Z dole.
+    dole (-0.120, 0.660, 0.000) (od napravy), hore x napravy + 0.20, y 0.62, z 0.88.
+  Podpery: vonkajsie nohy v x -1.50, y +-0.60; vnutorne nohy idu o 0.34 m dole (Podpery 0 -> 1). Podpery su elektricke, bez kliky.
+  Rezerva: dve kolesa vedla seba (lave a prave, stredy v y = +-0.60, z = 0.908), lezia vodorovne pod ramom (otocene o 90 st. okolo X, plocha disku hore); kazde ma kos z dvoch U-rurok; vlastnosti Rezerva_L a Rezerva_P.
+  Ovladac napravy: na vonkajsej strane laveho nosnika hned za lavou rezervou (pivot na vonkajsej strane v y = 0.65, z = 1.12, x = x rezervy - 0.725), smeruje do +Y; sipky hore a dole su nakreslene na tlacidlach.
+  Rovnaky ovladac je aj pri podperach (objekt ovladac_podper): na vonkajsej strane laveho stlpu nohy, pivot v (-1.50, 0.75, 1.17), smeruje do +Y.
+  Prave diely _P su zrkadlove. Blatniky, svetla a zabrany maju pivot v pociatku navesu alebo v osi kolesa.
+V Unreali: kazdy par 'mieri na' urob cez Find Look at Rotation (alebo Look At v Control Rig / Animation Blueprinte).
+
+PODVALNIK: nosniky maju rovny krk (vrch plosiny 1.38 m) az po x = -2.20, potom klesaju do hlbokej casti (vrch 0.78 m, spodok nosnikov 0.46 m) a pred napravami sa zase zdvihnu na 1.38 m.
+  Plosina (Podval_podlaha) ide po profile nosnikov, bocne listy (hlinik) tiez; podpery su na rovnom krku (x = -1.50).
+  Rampy: dve (lava a prava, stred v y = +-0.70, sirka 1.10 m), pivot v zavese na zadnom okraji plosiny (x = zadok + 0.12, z = 1.40, os Y), rotacia okolo Y:
+    zlozena rampa lezi na plosine dopredu (180 st.), vlastnosti Rampa_L a Rampa_P 0 az 1 ju sklopia cez vodorovnu polohu az na zem (uhol 180 st. -> -sklon).
+  Vlastnosti: Rampa_L, Rampa_P (0 = zlozena na plosine, 1 = sklopena na zem), Vyska_podvozku, Zdvih_napravy, Podpery, Rezerva_L/P.
+  Animacia (snimky 1 az 580): jazda, vyska, zdvih napravy, podpery, potom sklopenie a zlozenie ramp.
+  Podval_12_0: 2 napravy, celkova dlzka 12.00 m, hlboka cast 2.09 m (x = -5.69 az -3.60), rampy po 3.20 m, sklon ramp 24.4 st.
+  Podval_14_0: 3 napravy, celkova dlzka 14.00 m, hlboka cast 2.78 m (x = -6.38 az -3.60), rampy po 3.70 m, sklon ramp 21.0 st.
+  Podval_16_0: 4 napravy, celkova dlzka 16.00 m, hlboka cast 3.47 m (x = -7.07 az -3.60), rampy po 4.20 m, sklon ramp 18.5 st.

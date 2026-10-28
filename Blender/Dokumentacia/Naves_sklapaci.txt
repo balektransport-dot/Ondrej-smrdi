@@ -1,0 +1,127 @@
+Naves (sklapaci) - diely (rozmery X x Y x Z v metroch). Predok = +X, lava = +Y, pociatok = zem pod capom.
+
+== SKLAPAC - SPOLOCNE ==
+Sklapac_cap_deska                  0.90 x 0.90 x 0.17
+
+== PODPERY, REZERVA, SKRINKA, OVLADAC ==
+Sklapac_noha_vonkajsia_L           0.30 x 0.24 x 0.76
+Sklapac_noha_vonkajsia_P           0.30 x 0.24 x 0.76
+Sklapac_noha_vnutorna              0.30 x 0.30 x 0.88
+Sklapac_podpery_traverza           0.44 x 1.11 x 0.43
+Sklapac_naradi_skrinka             0.70 x 0.57 x 0.40
+Sklapac_ovladac_napravy            0.20 x 0.10 x 0.42
+Sklapac_rezerva                    1.05 x 0.45 x 1.05
+Sklapac_rezerva_kos_L              1.24 x 0.66 x 0.48
+Sklapac_rezerva_kos_P              1.24 x 0.66 x 0.48
+
+== BLATNIKY ==
+Sklapac_blatnik_L                  1.19 x 0.65 x 0.98
+Sklapac_blatnik_P                  1.19 x 0.65 x 0.98
+
+== NAPRAVY A PEROVANIE ==
+Sklapac_naprava                    0.44 x 1.68 x 0.29
+Sklapac_koleso                     1.05 x 0.42 x 1.05
+Sklapac_rameno                     1.06 x 0.16 x 0.28
+Sklapac_vankus                     0.30 x 0.30 x 0.30
+Sklapac_tlmic_valec                0.07 x 0.07 x 0.35
+Sklapac_tlmic_piestnica            0.08 x 0.08 x 0.37
+
+== DIELY PRE DLZKU 8.0 m ==
+Sklapac_ram_8_0                    7.95 x 2.60 x 0.95
+Sklapac_korba_8_0                  7.49 x 2.65 x 1.60
+Sklapac_zadne_celo_8_0             0.17 x 2.50 x 1.40
+Sklapac_zadny_naraznik_8_0         0.56 x 2.52 x 0.82
+Sklapac_zadne_svetlo_L_8_0         0.09 x 0.38 x 0.13
+Sklapac_zadne_svetlo_P_8_0         0.09 x 0.38 x 0.13
+Sklapac_bocne_svetla_L_8_0         7.02 x 0.03 x 0.07
+Sklapac_bocne_svetla_P_8_0         7.02 x 0.03 x 0.07
+Sklapac_valec_0_8_0                0.24 x 0.34 x 1.41
+Sklapac_valec_1_8_0                0.22 x 0.23 x 1.32
+Sklapac_valec_2_8_0                0.19 x 0.20 x 1.32
+Sklapac_valec_3_8_0                0.16 x 0.16 x 1.32
+Sklapac_valec_4_8_0                0.13 x 0.13 x 1.32
+Sklapac_valec_5_8_0                0.11 x 0.15 x 1.39
+
+== DIELY PRE DLZKU 9.0 m ==
+Sklapac_ram_9_0                    8.95 x 2.60 x 0.95
+Sklapac_korba_9_0                  8.49 x 2.65 x 1.75
+Sklapac_zadne_celo_9_0             0.17 x 2.50 x 1.55
+Sklapac_zadny_naraznik_9_0         0.56 x 2.52 x 0.82
+Sklapac_zadne_svetlo_L_9_0         0.09 x 0.38 x 0.13
+Sklapac_zadne_svetlo_P_9_0         0.09 x 0.38 x 0.13
+Sklapac_bocne_svetla_L_9_0         8.02 x 0.03 x 0.07
+Sklapac_bocne_svetla_P_9_0         8.02 x 0.03 x 0.07
+Sklapac_valec_0_9_0                0.24 x 0.34 x 1.54
+Sklapac_valec_1_9_0                0.22 x 0.23 x 1.45
+Sklapac_valec_2_9_0                0.19 x 0.20 x 1.45
+Sklapac_valec_3_9_0                0.16 x 0.16 x 1.45
+Sklapac_valec_4_9_0                0.13 x 0.13 x 1.45
+Sklapac_valec_5_9_0                0.11 x 0.15 x 1.52
+
+== DIELY PRE DLZKU 10.0 m ==
+Sklapac_ram_10_0                   9.95 x 2.60 x 0.95
+Sklapac_korba_10_0                 9.49 x 2.65 x 1.90
+Sklapac_zadne_celo_10_0            0.17 x 2.50 x 1.70
+Sklapac_zadny_naraznik_10_0        0.56 x 2.52 x 0.82
+Sklapac_zadne_svetlo_L_10_0        0.09 x 0.38 x 0.13
+Sklapac_zadne_svetlo_P_10_0        0.09 x 0.38 x 0.13
+Sklapac_bocne_svetla_L_10_0        9.02 x 0.03 x 0.07
+Sklapac_bocne_svetla_P_10_0        9.02 x 0.03 x 0.07
+Sklapac_valec_0_10_0               0.24 x 0.34 x 1.68
+Sklapac_valec_1_10_0               0.22 x 0.23 x 1.58
+Sklapac_valec_2_10_0               0.19 x 0.20 x 1.58
+Sklapac_valec_3_10_0               0.16 x 0.16 x 1.58
+Sklapac_valec_4_10_0               0.13 x 0.13 x 1.58
+Sklapac_valec_5_10_0               0.11 x 0.15 x 1.65
+
+== DIELY PRE DLZKU 11.0 m ==
+Sklapac_ram_11_0                   10.95 x 2.60 x 0.95
+Sklapac_korba_11_0                 10.49 x 2.65 x 2.05
+Sklapac_zadne_celo_11_0            0.17 x 2.50 x 1.85
+Sklapac_zadny_naraznik_11_0        0.56 x 2.52 x 0.82
+Sklapac_zadne_svetlo_L_11_0        0.09 x 0.38 x 0.13
+Sklapac_zadne_svetlo_P_11_0        0.09 x 0.38 x 0.13
+Sklapac_bocne_svetla_L_11_0        10.02 x 0.03 x 0.07
+Sklapac_bocne_svetla_P_11_0        10.02 x 0.03 x 0.07
+Sklapac_zabrana_L_11_0             1.48 x 0.09 x 0.77
+Sklapac_zabrana_P_11_0             1.48 x 0.09 x 0.77
+Sklapac_valec_0_11_0               0.24 x 0.34 x 1.81
+Sklapac_valec_1_11_0               0.22 x 0.23 x 1.72
+Sklapac_valec_2_11_0               0.19 x 0.20 x 1.72
+Sklapac_valec_3_11_0               0.16 x 0.16 x 1.72
+Sklapac_valec_4_11_0               0.13 x 0.13 x 1.72
+Sklapac_valec_5_11_0               0.11 x 0.15 x 1.78
+
+DLZKY: 8.0 m (2 napravy), 9.0 m (3 napravy), 10.0 m (3 napravy), 11.0 m (3 napravy)
+
+Sklapac_8_0: napravy x = -3.69, -5.00; koniec skrine x = -6.40; stred rezervy x = -6.50; skrinka x = -3.00; ovladac x = -7.22; zabrany x = bez
+Sklapac_9_0: napravy x = -3.38, -4.69, -6.00; koniec skrine x = -7.40; stred rezervy x = -7.50; skrinka x = -3.00; ovladac x = -8.22; zabrany x = bez
+Sklapac_10_0: napravy x = -4.38, -5.69, -7.00; koniec skrine x = -8.40; stred rezervy x = -8.50; skrinka x = -3.00; ovladac x = -9.22; zabrany x = bez
+Sklapac_11_0: napravy x = -5.38, -6.69, -8.00; koniec skrine x = -9.40; stred rezervy x = -9.50; skrinka x = -3.00; ovladac x = -10.22; zabrany x = -3.05, -4.43
+
+AKO JE TO POSKLADANE (hierarchia v kolekciach podla dlzky), suradnice od pociatku navesu (zem pod capom):
+  Hlavny objekt navesu (prazdny) - posuvaj nim cely naves, vlastnosti = ovladanie (popis na zaciatku skriptu).
+  Zapriahnutie: cap navesu da na stred tocne tahaca (x tocne + Posun_tocne); spodok dosky s capom je vo vyske 1.31 m = vrch tocne.
+  Skrina (ram): otaca sa okolo capu, zadok ide hore o Vyska_podvozku + 0.6 x pohyb naprav.
+  Napravy: pivot v osi kolies (z = 0.525); kolesa su ich deti (pravu stranu otoc o 180 st.). Prva naprava sa da zdvihnut.
+  Ramena: cap na rame v x napravy + 0.60, z 0.62; mieria osou -X na bod (0.000, 0.520, -0.120) pod napravou.
+  Vankuse: hore na rame (x napravy -0.32, z 0.80), mieria osou -Z na sedlo na ramene (-0.907, 0.000, 0.197); vysku natiahni mierkou Z = vzdialenost / 0.300.
+  Tlmice: valec na naprave mieri osou +Z na horne oko na rame, piestnica z horneho oka mieri osou -Z dole.
+    dole (-0.120, 0.660, 0.000) (od napravy), hore x napravy + 0.20, y 0.62, z 0.88.
+  Podpery: vonkajsie nohy v x -2.40, y +-0.60; vnutorne nohy idu o 0.34 m dole (Podpery 0 -> 1). Podpery su elektricke, bez kliky.
+  Rezerva: dve kolesa vedla seba (lave a prave, stredy v y = +-0.60, z = 0.908), lezia vodorovne pod ramom (otocene o 90 st. okolo X, plocha disku hore); kazde ma kos z dvoch U-rurok; vlastnosti Rezerva_L a Rezerva_P.
+  Ovladac napravy: na vonkajsej strane laveho nosnika hned za lavou rezervou (pivot na vonkajsej strane v y = 0.65, z = 1.12, x = x rezervy - 0.725), smeruje do +Y; sipky hore a dole su nakreslene na tlacidlach.
+  Rovnaky ovladac je aj pri podperach (objekt ovladac_podper): na vonkajsej strane laveho stlpu nohy, pivot v (-2.40, 0.75, 1.17), smeruje do +Y.
+  Prave diely _P su zrkadlove. Blatniky, svetla a zabrany maju pivot v pociatku navesu alebo v osi kolesa.
+V Unreali: kazdy par 'mieri na' urob cez Find Look at Rotation (alebo Look At v Control Rig / Animation Blueprinte).
+
+SKLAPACI NAVES: korba (pivot v zavese vzadu: x = zadok + 0.32, z = 1.44, os Y) sa otaca o -Sklopenie x sklon (45 st. a menej podla velkosti) okolo Y,
+  zadne celo je jej dieta (pivot hore na zadnej hrane, os Y), otvara sa o Zadne_celo x 72 st. dozadu a hore.
+  Valec sklapania: zaklad na rame vpredu (x = 1.50, z = 1.46), ciel na ucho na prednej stene korby (objekt valec_sklapania_ciel je dieta korby),
+    teleskopicky s 6 stupnami (dlzka stupna podla velkosti, pozri nizsie); zaklad mieri osou +Z na ciel, stupen k sa vysuva o (d - dlzka stupna) x k / (n - 1).
+  Vlastnosti: Sklopenie (0 = korba lezi, 1 = vyklopena), Zadne_celo (0 = zatvorene, 1 = otvorene); ostatne ako pri plate (Vyska_podvozku, Zdvih_napravy, Podpery, Rezerva_L/P).
+  Animacia (snimky 1 az 660): jazda, vyska, zdvih napravy, podpery, potom sklopenie korby s otvorenim zadneho cela a spat.
+  Sklapac_8_0: korba 7.18 m, vyska bokov 1.35 m, sklon 45 st., valec 6 stupnov po 1.32 m (vzdialenost 1.34 az 6.93 m), zavesy x = -6.08
+  Sklapac_9_0: korba 8.18 m, vyska bokov 1.50 m, sklon 45 st., valec 6 stupnov po 1.45 m (vzdialenost 1.47 az 7.83 m), zavesy x = -7.08
+  Sklapac_10_0: korba 9.18 m, vyska bokov 1.65 m, sklon 43 st., valec 6 stupnov po 1.58 m (vzdialenost 1.61 az 8.43 m), zavesy x = -8.08
+  Sklapac_11_0: korba 10.18 m, vyska bokov 1.80 m, sklon 42 st., valec 6 stupnov po 1.72 m (vzdialenost 1.74 az 9.12 m), zavesy x = -9.08
