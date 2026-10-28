@@ -3051,6 +3051,10 @@ def build_pl_winch(style):
     # navijak (pevna cast, maly): ram, hydromotor, drziak haku, lanova vodiaca kladka; pivot na podlahe v strede, dozadu je -X; buben je zvlast
     eu = style == "eu"
     bm = bmesh.new()
+    # polica na celnej stene (stena je +0.22 pred stredom navijaka) s dvoma konzolami
+    add_box(bm, (0.54, 0.90, 0.04), (-0.05, 0.0, -0.02), FRAME, bev=0.006)
+    for s in SIDES_LR:
+        add_extruded(bm, [(0.22, -0.04), (-0.18, -0.04), (0.22, -0.38)], s * 0.40 - 0.02, s * 0.40 + 0.02, "XZ", FRAME, bev=0.004)
     add_box(bm, (0.36, 0.80, 0.04), (0.0, 0.0, 0.02), FRAME, bev=0.006)
     for s in SIDES_LR:
         add_box(bm, (0.26, 0.04, 0.30), (0.0, s * 0.34, 0.19), ACCENT, bev=0.008)
@@ -3317,10 +3321,11 @@ def pl_rig(coll, truck, parts, body, root, prop, mats):
     xf, zt = g["xf"], g["zt"]
     accent(rails, truck, mats)
     accent(new_object(coll, name + "_celna_stena", parts["Odt_od_celna_stena_" + style], (xf, 0.0, zt), bed), truck, mats)
-    winch = accent(new_object(coll, name + "_navijak", parts["Odt_od_navijak_" + style], (xf - 0.40, 0.0, zt), bed), truck, mats)
+    zw = 0.60 if style == "eu" else 0.85
+    winch = accent(new_object(coll, name + "_navijak", parts["Odt_od_navijak_" + style], (xf - 0.31, 0.0, zt + zw), bed), truck, mats)
     drum = new_object(coll, name + "_navijak_buben", parts["Odt_od_navijak_buben"], (0.0, 0.0, 0.22), winch)
     fair = empty(coll, name + "_navijak_vodiaca", (-0.28, 0.0, 0.12), winch)
-    holder = empty(coll, name + "_hak_drziak", (xf - 0.66, -0.20, zt + 0.48), bed)
+    holder = empty(coll, name + "_hak_drziak", (xf - 0.31 - 0.26, -0.20, zt + zw + 0.48), bed)
     hook = new_object(coll, name + "_hak", parts["Odt_od_hak"], (0.0, 0.0, 0.0), holder)
     hook.scale = (0.6, 0.6, 0.6)
     con = hook.constraints.new("COPY_LOCATION")
@@ -3328,7 +3333,7 @@ def pl_rig(coll, truck, parts, body, root, prop, mats):
     cable = new_object(coll, name + "_lano", parts["Odt_od_lano"], (0.0, 0.0, 0.0), fair)
     track(cable, hook, "TRACK_Z")
     driver(cable, "scale", 2, "d", [("d", "DIST", (fair, hook))])
-    d0 = Vector((xf - 0.66 - (xf - 0.40 - 0.28), -0.20, zt + 0.48 - (zt + 0.12))).length
+    d0 = Vector((-0.26 + 0.28, -0.20, 0.48 - 0.12)).length
     driver(drum, "rotation_euler", 1, "-(d - %.4f) / 0.12" % d0, [("d", "DIST", (fair, hook))])
     t, sc = pl_tilt_cyl(g), pl_slide_cyl(g)
     for s, side in ((1.0, "L"), (-1.0, "P")):
@@ -3361,7 +3366,7 @@ def pl_animate_car(truck, root):
     path, surf = pl_rail_path(g, car)
     wb, fo, rw = car["wb"], car["fo"], car["rw"]
     m_end = pl_bed_matrix(g, 1.0, 1.0)
-    f_end = m_end @ Vector((g["xf"] - 1.40 - fo, 0.0, g["zt"] + rw))
+    f_end = m_end @ Vector((g["xf"] - 1.10 - fo, 0.0, g["zt"] + rw))
     s_end = path_param(path, Vector((f_end.x, f_end.z)))
     s_start = path_param(path, Vector((surf[1].x - 1.3 - fo, rw)))
 
@@ -3427,7 +3432,7 @@ def _pl_doc():
         "  Sklopny podram: prazdny objekt <Auto>_plosina_klb (pivot v osi klbu vzadu na rame, os Y, otaca sa o -Plosina_sklon x uhol, zadok ide dole). Jeho deti:",
         "    podram (diel Odt_od_podram_<podvozok>: dva nosniky s valcekmi, priecniky, cap), plosina (Odt_od_plosina_<styl>_<podvozok>, pohyb v X o -Plosina_odsun x odsun),",
         "    valce odsunu (zaklad na podrame vpredu). Plosina ma na zadnom konci skosenie (%.2f m) a spicka sa po odsune dotkne zeme." % PL_WEDGE,
-        "  Dieta plosiny: celna stena (pivot na prednej hrane na podlahe), navijak (maly, pivot na podlahe v strede, 0.40 m za prednou hranou), jeho buben (otaca sa podla vzdialenosti haku),",
+        "  Dieta plosiny: celna stena (pivot na prednej hrane na podlahe), navijak (maly, hore na celnej stene: pivot na jeho polici v strede, 0.31 m za prednou hranou a 0.60 m (eu) / 0.85 m (us) nad podlahou), jeho buben (otaca sa podla vzdialenosti haku),",
         "    prazdny objekt navijak_vodiaca (vystup lana, zaklad lana) a hak_drziak (miesto haku v pokoji).",
         "  Lano (Odt_od_lano, jednotkova dlzka v +Z): zaklad na vodiacej kladke, mieri (track Z) na hak, mierka Z = vzdialenost vodiacej kladky a haku.",
         "  Hak (Odt_od_hak) je dieta hak_drziak; constraint Copy Location 'Na_aute' (cielom je prazdny objekt auto_oko = tazne oko auta) ma vplyv = vlastnost Hak_k_autu (0 = v drziaku, 1 = na aute).",

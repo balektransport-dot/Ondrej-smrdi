@@ -69,8 +69,8 @@ Odt_od_podstavec_us_4x2            4.59 x 1.37 x 0.61
 Odt_od_podstavec_us_6x2            5.33 x 1.37 x 0.61
 Odt_od_celna_stena_eu              0.24 x 2.34 x 1.12
 Odt_od_celna_stena_us              0.26 x 2.40 x 1.51
-Odt_od_navijak_eu                  0.51 x 0.97 x 0.48
-Odt_od_navijak_us                  0.51 x 0.97 x 0.48
+Odt_od_navijak_eu                  0.55 x 1.01 x 0.85
+Odt_od_navijak_us                  0.55 x 1.01 x 0.85
 Odt_od_navijak_buben               0.32 x 0.55 x 0.32
 Odt_od_hak                         0.30 x 0.10 x 0.66
 Odt_od_lano                        0.02 x 0.03 x 1.00
@@ -179,7 +179,7 @@ PLOSINOVA ODTAHOVKA (Plosinova_EU_xxx a Plosinova_US_xxx na podvozkoch 4x2 a 6x2
   Sklopny podram: prazdny objekt <Auto>_plosina_klb (pivot v osi klbu vzadu na rame, os Y, otaca sa o -Plosina_sklon x uhol, zadok ide dole). Jeho deti:
     podram (diel Odt_od_podram_<podvozok>: dva nosniky s valcekmi, priecniky, cap), plosina (Odt_od_plosina_<styl>_<podvozok>, pohyb v X o -Plosina_odsun x odsun),
     valce odsunu (zaklad na podrame vpredu). Plosina ma na zadnom konci skosenie (1.25 m) a spicka sa po odsune dotkne zeme.
-  Dieta plosiny: celna stena (pivot na prednej hrane na podlahe), navijak (maly, pivot na podlahe v strede, 0.40 m za prednou hranou), jeho buben (otaca sa podla vzdialenosti haku),
+  Dieta plosiny: celna stena (pivot na prednej hrane na podlahe), navijak (maly, hore na celnej stene: pivot na jeho polici v strede, 0.31 m za prednou hranou a 0.60 m (eu) / 0.85 m (us) nad podlahou), jeho buben (otaca sa podla vzdialenosti haku),
     prazdny objekt navijak_vodiaca (vystup lana, zaklad lana) a hak_drziak (miesto haku v pokoji).
   Lano (Odt_od_lano, jednotkova dlzka v +Z): zaklad na vodiacej kladke, mieri (track Z) na hak, mierka Z = vzdialenost vodiacej kladky a haku.
   Hak (Odt_od_hak) je dieta hak_drziak; constraint Copy Location 'Na_aute' (cielom je prazdny objekt auto_oko = tazne oko auta) ma vplyv = vlastnost Hak_k_autu (0 = v drziaku, 1 = na aute).
