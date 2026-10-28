@@ -1,0 +1,98 @@
+Naves (cisterna) - diely (rozmery X x Y x Z v metroch). Predok = +X, lava = +Y, pociatok = zem pod capom.
+
+== CISTERNA - SPOLOCNE ==
+Cisterna_cap_deska                 0.90 x 0.90 x 0.17
+Cisterna_poklop                    0.78 x 0.74 x 0.12
+Cisterna_adr                       0.04 x 0.43 x 0.33
+Cisterna_dvere_skrinky_L           0.08 x 0.61 x 0.56
+Cisterna_dvere_skrinky_P           0.08 x 0.61 x 0.56
+
+== PODPERY, SKRINKA, OVLADAC ==
+Cisterna_noha_vonkajsia_L          0.30 x 0.24 x 0.76
+Cisterna_noha_vonkajsia_P          0.30 x 0.24 x 0.76
+Cisterna_noha_vnutorna             0.30 x 0.30 x 0.88
+Cisterna_podpery_traverza          0.44 x 1.11 x 0.43
+Cisterna_naradi_skrinka            0.70 x 0.57 x 0.40
+Cisterna_ovladac_napravy           0.20 x 0.10 x 0.42
+
+== BLATNIKY ==
+Cisterna_blatnik_L                 1.19 x 0.57 x 0.98
+Cisterna_blatnik_P                 1.19 x 0.57 x 0.98
+
+== NAPRAVY A PEROVANIE ==
+Cisterna_naprava                   0.44 x 1.68 x 0.29
+Cisterna_koleso                    1.05 x 0.42 x 1.05
+Cisterna_rameno                    1.06 x 0.16 x 0.28
+Cisterna_vankus                    0.30 x 0.30 x 0.30
+Cisterna_tlmic_valec               0.07 x 0.07 x 0.35
+Cisterna_tlmic_piestnica           0.08 x 0.08 x 0.37
+
+== DIELY PRE DLZKU 9.5 m ==
+Cisterna_ram_9_5                   9.06 x 1.35 x 0.93
+Cisterna_nadrz_9_5                 9.36 x 2.41 x 1.96
+Cisterna_obrubnik_9_5              8.79 x 1.30 x 0.56
+Cisterna_rebrik_9_5                0.27 x 0.47 x 2.61
+Cisterna_skrinka_9_5               0.46 x 1.22 x 0.64
+Cisterna_zadny_naraznik_9_5        0.44 x 2.52 x 0.39
+Cisterna_zadne_svetlo_L_9_5        0.09 x 0.38 x 0.13
+Cisterna_zadne_svetlo_P_9_5        0.09 x 0.38 x 0.13
+Cisterna_bocne_svetla_L_9_5        8.12 x 0.03 x 0.07
+Cisterna_bocne_svetla_P_9_5        8.12 x 0.03 x 0.07
+
+== DIELY PRE DLZKU 11.5 m ==
+Cisterna_ram_11_5                  11.06 x 1.35 x 0.93
+Cisterna_nadrz_11_5                11.36 x 2.41 x 1.96
+Cisterna_obrubnik_11_5             10.79 x 1.30 x 0.56
+Cisterna_rebrik_11_5               0.27 x 0.47 x 2.61
+Cisterna_skrinka_11_5              0.46 x 1.22 x 0.64
+Cisterna_zadny_naraznik_11_5       0.44 x 2.52 x 0.39
+Cisterna_zadne_svetlo_L_11_5       0.09 x 0.38 x 0.13
+Cisterna_zadne_svetlo_P_11_5       0.09 x 0.38 x 0.13
+Cisterna_bocne_svetla_L_11_5       10.12 x 0.03 x 0.07
+Cisterna_bocne_svetla_P_11_5       10.12 x 0.03 x 0.07
+
+== DIELY PRE DLZKU 13.6 m ==
+Cisterna_ram_13_6                  13.16 x 1.35 x 0.93
+Cisterna_nadrz_13_6                13.46 x 2.41 x 1.96
+Cisterna_obrubnik_13_6             12.89 x 1.30 x 0.56
+Cisterna_rebrik_13_6               0.27 x 0.47 x 2.61
+Cisterna_skrinka_13_6              0.46 x 1.22 x 0.64
+Cisterna_zadny_naraznik_13_6       0.44 x 2.52 x 0.39
+Cisterna_zadne_svetlo_L_13_6       0.09 x 0.38 x 0.13
+Cisterna_zadne_svetlo_P_13_6       0.09 x 0.38 x 0.13
+Cisterna_bocne_svetla_L_13_6       12.22 x 0.03 x 0.07
+Cisterna_bocne_svetla_P_13_6       12.22 x 0.03 x 0.07
+
+DLZKY: 9.5 m (2 napravy), 11.5 m (3 napravy), 13.6 m (3 napravy)
+
+Cisterna_9_5: napravy x = -5.14, -6.45; koniec skrine x = -7.90; skrinka x = -3.00; ovladac x = -1.85; zabrany x = bez
+Cisterna_11_5: napravy x = -5.83, -7.14, -8.45; koniec skrine x = -9.90; skrinka x = -3.00; ovladac x = -1.85; zabrany x = bez
+Cisterna_13_6: napravy x = -7.93, -9.24, -10.55; koniec skrine x = -12.00; skrinka x = -3.00; ovladac x = -1.85; zabrany x = bez
+
+AKO JE TO POSKLADANE (hierarchia v kolekciach podla dlzky), suradnice od pociatku navesu (zem pod capom):
+  Hlavny objekt navesu (prazdny) - posuvaj nim cely naves, vlastnosti = ovladanie (popis na zaciatku skriptu).
+  Zapriahnutie: cap navesu da na stred tocne tahaca (x tocne + Posun_tocne); spodok dosky s capom je vo vyske 1.31 m = vrch tocne.
+  Skrina (ram): otaca sa okolo capu, zadok ide hore o Vyska_podvozku + 0.6 x pohyb naprav.
+  Napravy: pivot v osi kolies (z = 0.525); kolesa su ich deti (pravu stranu otoc o 180 st.). Prva naprava sa da zdvihnut.
+  Ramena: cap na rame v x napravy + 0.60, z 0.62; mieria osou -X na bod (0.000, 0.600, -0.120) pod napravou.
+  Vankuse: hore na rame (x napravy -0.32, z 0.80), mieria osou -Z na sedlo na ramene (-0.907, 0.000, 0.197); vysku natiahni mierkou Z = vzdialenost / 0.300.
+  Tlmice: valec na naprave mieri osou +Z na horne oko na rame, piestnica z horneho oka mieri osou -Z dole.
+    dole (-0.120, 0.660, 0.000) (od napravy), hore x napravy + 0.20, y 0.62, z 0.88.
+  Podpery: vonkajsie nohy v x -2.40, y +-0.60; vnutorne nohy idu o 0.34 m dole (Podpery 0 -> 1). Podpery su elektricke, bez kliky.
+  Ovladac napravy: na vonkajsej strane laveho nosnika za nohami (pivot na vonkajsej strane v y = 0.65, z = 1.12, x = noha + 0.55), smeruje do +Y; sipky hore a dole su nakreslene na tlacidlach.
+  Rovnaky ovladac je aj pri podperach (objekt ovladac_podper): na vonkajsej strane laveho stlpu nohy, pivot v (-2.40, 0.75, 1.17), smeruje do +Y.
+  Prave diely _P su zrkadlove. Blatniky, svetla a zabrany maju pivot v pociatku navesu alebo v osi kolesa.
+V Unreali: kazdy par 'mieri na' urob cez Find Look at Rotation (alebo Look At v Control Rig / Animation Blueprinte).
+
+CISTERNA: nadrz (jeden dielik) je pevne na rame; sedi na podstavcoch na nosnikoch pod obruceami medzi komorami.
+  Prierez je zaoblena elipsa (polsirka 1.14, polvyska 0.84, os v z = 2.27), na koncoch klenby po 0.30 m; obruce (hlinik) medzi komorami a na koncoch valca.
+  Poklopy (pocet = pocet komor): kazdy ma pivot v osi pantu na zadnom okraji komina (x = stred komory - 0.37, z = 3.31, os Y),
+    otvara sa o Poklopy x 106 st. (os Y, zaporne = hore a dozadu); poklopy sa otvaraju postupne od zadneho (vlastnost Poklopy 0 az 1 prejde vsetky).
+  Skrinka s ventilmi vzadu (nepohyblive diely v dieli skrinka, dvere zvlast): dvere skrinky maju pivot na vonkajsom okraji (x = zadok + 0.26, y = +-0.60, z = 0.83),
+    lave sa otaca o -Dvere_skrinky x 100 st. okolo Z, prave o +Dvere_skrinky x 100 st. (otvaraju sa dozadu).
+  Ochranne trubky (obrubnik), rebrik na zadnej klenbe vlavo (od zadu: y = 0.82), ADR tabulky na oboch klenbach (objekty adr_zadok a adr_predok, predna je otocena o 180 st.).
+  Vlastnosti: Poklopy (0 = zatvorene, 1 = vsetky otvorene), Dvere_skrinky (0 = zatvorene, 1 = otvorene), Vyska_podvozku, Zdvih_napravy, Podpery.
+  Animacia (snimky 1 az 650): jazda, vyska, zdvih napravy, podpery, potom otvorenie poklopov a dveri skrinky a spat.
+  Cisterna_9_5: nadrz 9.36 m (valec 8.76 m), 3 komory po 2.92 m, objem asi 29 m3, poklopy x = -6.00, -3.08, -0.16
+  Cisterna_11_5: nadrz 11.36 m (valec 10.76 m), 4 komory po 2.69 m, objem asi 36 m3, poklopy x = -8.11, -5.42, -2.73, -0.04
+  Cisterna_13_6: nadrz 13.46 m (valec 12.86 m), 5 komory po 2.57 m, objem asi 42 m3, poklopy x = -10.27, -7.70, -5.13, -2.56, 0.01

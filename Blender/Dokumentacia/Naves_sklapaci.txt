@@ -3,16 +3,13 @@ Naves (sklapaci) - diely (rozmery X x Y x Z v metroch). Predok = +X, lava = +Y, 
 == SKLAPAC - SPOLOCNE ==
 Sklapac_cap_deska                  0.90 x 0.90 x 0.17
 
-== PODPERY, REZERVA, SKRINKA, OVLADAC ==
+== PODPERY, SKRINKA, OVLADAC ==
 Sklapac_noha_vonkajsia_L           0.30 x 0.24 x 0.76
 Sklapac_noha_vonkajsia_P           0.30 x 0.24 x 0.76
 Sklapac_noha_vnutorna              0.30 x 0.30 x 0.88
 Sklapac_podpery_traverza           0.44 x 1.11 x 0.43
 Sklapac_naradi_skrinka             0.70 x 0.57 x 0.40
 Sklapac_ovladac_napravy            0.20 x 0.10 x 0.42
-Sklapac_rezerva                    1.05 x 0.45 x 1.05
-Sklapac_rezerva_kos_L              1.24 x 0.66 x 0.48
-Sklapac_rezerva_kos_P              1.24 x 0.66 x 0.48
 
 == BLATNIKY ==
 Sklapac_blatnik_L                  1.19 x 0.65 x 0.98
@@ -92,10 +89,10 @@ Sklapac_valec_5_11_0               0.11 x 0.15 x 1.78
 
 DLZKY: 8.0 m (2 napravy), 9.0 m (3 napravy), 10.0 m (3 napravy), 11.0 m (3 napravy)
 
-Sklapac_8_0: napravy x = -3.69, -5.00; koniec skrine x = -6.40; stred rezervy x = -6.50; skrinka x = -3.00; ovladac x = -7.22; zabrany x = bez
-Sklapac_9_0: napravy x = -3.38, -4.69, -6.00; koniec skrine x = -7.40; stred rezervy x = -7.50; skrinka x = -3.00; ovladac x = -8.22; zabrany x = bez
-Sklapac_10_0: napravy x = -4.38, -5.69, -7.00; koniec skrine x = -8.40; stred rezervy x = -8.50; skrinka x = -3.00; ovladac x = -9.22; zabrany x = bez
-Sklapac_11_0: napravy x = -5.38, -6.69, -8.00; koniec skrine x = -9.40; stred rezervy x = -9.50; skrinka x = -3.00; ovladac x = -10.22; zabrany x = bez
+Sklapac_8_0: napravy x = -3.69, -5.00; koniec skrine x = -6.40; skrinka x = -3.00; ovladac x = -1.85; zabrany x = bez
+Sklapac_9_0: napravy x = -3.38, -4.69, -6.00; koniec skrine x = -7.40; skrinka x = -3.00; ovladac x = -1.85; zabrany x = bez
+Sklapac_10_0: napravy x = -4.38, -5.69, -7.00; koniec skrine x = -8.40; skrinka x = -3.00; ovladac x = -1.85; zabrany x = bez
+Sklapac_11_0: napravy x = -5.38, -6.69, -8.00; koniec skrine x = -9.40; skrinka x = -3.00; ovladac x = -1.85; zabrany x = bez
 
 AKO JE TO POSKLADANE (hierarchia v kolekciach podla dlzky), suradnice od pociatku navesu (zem pod capom):
   Hlavny objekt navesu (prazdny) - posuvaj nim cely naves, vlastnosti = ovladanie (popis na zaciatku skriptu).
@@ -107,8 +104,7 @@ AKO JE TO POSKLADANE (hierarchia v kolekciach podla dlzky), suradnice od pociatk
   Tlmice: valec na naprave mieri osou +Z na horne oko na rame, piestnica z horneho oka mieri osou -Z dole.
     dole (-0.120, 0.660, 0.000) (od napravy), hore x napravy + 0.20, y 0.62, z 0.88.
   Podpery: vonkajsie nohy v x -2.40, y +-0.60; vnutorne nohy idu o 0.34 m dole (Podpery 0 -> 1). Podpery su elektricke, bez kliky.
-  Rezerva: dve kolesa vedla seba (lave a prave, stredy v y = +-0.60, z = 0.908), lezia vodorovne pod ramom (otocene o 90 st. okolo X, plocha disku hore); kazde ma kos z dvoch U-rurok; vlastnosti Rezerva_L a Rezerva_P.
-  Ovladac napravy: na vonkajsej strane laveho nosnika hned za lavou rezervou (pivot na vonkajsej strane v y = 0.65, z = 1.12, x = x rezervy - 0.725), smeruje do +Y; sipky hore a dole su nakreslene na tlacidlach.
+  Ovladac napravy: na vonkajsej strane laveho nosnika za nohami (pivot na vonkajsej strane v y = 0.65, z = 1.12, x = noha + 0.55), smeruje do +Y; sipky hore a dole su nakreslene na tlacidlach.
   Rovnaky ovladac je aj pri podperach (objekt ovladac_podper): na vonkajsej strane laveho stlpu nohy, pivot v (-2.40, 0.75, 1.17), smeruje do +Y.
   Prave diely _P su zrkadlove. Blatniky, svetla a zabrany maju pivot v pociatku navesu alebo v osi kolesa.
 V Unreali: kazdy par 'mieri na' urob cez Find Look at Rotation (alebo Look At v Control Rig / Animation Blueprinte).
@@ -117,7 +113,7 @@ SKLAPACI NAVES: korba (pivot v zavese vzadu: x = zadok + 0.32, z = 1.44, os Y) s
   zadne celo je jej dieta (pivot hore na zadnej hrane, os Y), otvara sa o Zadne_celo x 72 st. dozadu a hore.
   Valec sklapania: zaklad na rame vpredu (x = 1.50, z = 1.46), ciel na ucho na prednej stene korby (objekt valec_sklapania_ciel je dieta korby),
     teleskopicky s 6 stupnami (dlzka stupna podla velkosti, pozri nizsie); zaklad mieri osou +Z na ciel, stupen k sa vysuva o (d - dlzka stupna) x k / (n - 1).
-  Vlastnosti: Sklopenie (0 = korba lezi, 1 = vyklopena), Zadne_celo (0 = zatvorene, 1 = otvorene); ostatne ako pri plate (Vyska_podvozku, Zdvih_napravy, Podpery, Rezerva_L/P).
+  Vlastnosti: Sklopenie (0 = korba lezi, 1 = vyklopena), Zadne_celo (0 = zatvorene, 1 = otvorene); ostatne ako pri plate (Vyska_podvozku, Zdvih_napravy, Podpery).
   Animacia (snimky 1 az 660): jazda, vyska, zdvih napravy, podpery, potom sklopenie korby s otvorenim zadneho cela a spat.
   Sklapac_8_0: korba 7.18 m, vyska bokov 1.35 m, sklon 45 st., valec 6 stupnov po 1.32 m (vzdialenost 1.34 az 6.93 m), zavesy x = -6.08
   Sklapac_9_0: korba 8.18 m, vyska bokov 1.50 m, sklon 45 st., valec 6 stupnov po 1.45 m (vzdialenost 1.47 az 7.83 m), zavesy x = -7.08

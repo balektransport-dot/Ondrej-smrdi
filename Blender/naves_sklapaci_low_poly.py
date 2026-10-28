@@ -4,7 +4,7 @@
 #
 # Vytvori kolekciu "Naves_sklapaci":
 #   Sklapac_8_0, Sklapac_9_0, Sklapac_10_0, Sklapac_11_0 - hotove sklapacie navesy rozne velke (kazdy v svojej podkolekcii):
-#       stredovy ram a podvozok ako pri plate (kralovsky cap, elektricke podpery, napravy na vankusoch, blatniky, rezerva, naradie; bez bocnych listov a zabran),
+#       stredovy ram a podvozok ako pri plate (kralovsky cap, elektricke podpery, napravy na vankusoch, blatniky, naradie; bez rezerv, bez bocnych listov a zabran),
 #       oceľova korba v tvare U so skosenymi rohmi, rebrami, prednou stenou a zadnym celom na hornych zavesoch,
 #       teleskopicky valec (6 stupnov) pred prednou stenou, ktory korbu zdvihne az o 45 st.
 #   Sklapac_diely - kazdy diel samostatne s menovkou (spolocne diely raz, diely podla velkosti pre kazdu velkost zvlast).
@@ -16,7 +16,6 @@
 #   Vyska_podvozku  - dofuknutie / vypustenie vankusov: zadok sa zdvihne alebo spusti (-0.06 az 0.10 m)
 #   Zdvih_napravy   - zdvihnutie prvej napravy 0 = dole, 1 = hore (rovnako ako ovladac na boku navesu so sipkami hore / dole)
 #   Podpery         - 0 = zdvihnute (naves na tahaci), 1 = spustene na zem (elektricke podpery, bez kliky)
-#   Rezerva_L, Rezerva_P - 1 = rezervne koleso lezi vodorovne pod ramom za kolesami v kosi, 0 = prazdny kos
 # Ked pustis animaciu (medzernik): jazda cez nerovnosti, zvysenie a znizenie, zdvih napravy, podpery a nakoniec sklopenie korby s otvorenim zadneho cela.
 # Predok = +X, lava strana = +Y. Pociatok navesu = zem pod kralovskym capom (king pin).
 # Zapriahnutie k nasim tahacom: spodok navesu pri cape je vo vyske 1.31 m = vrch tocne tahaca,
@@ -1397,7 +1396,7 @@ def configure(length):
         LENGTH=length, X_REAR=x_rear, AXLES=axles, BEAM_BOTTOM=beam_bottom, XBEAMS_DEEP=deep,
         FLOOR_X0=x_rear + 0.12, FLOOR_X1=X_FRONT - 0.05, FLOOR_LEN=X_FRONT - 0.05 - x_rear - 0.12,
         FLOOR_MID=(x_rear + 0.12 + X_FRONT - 0.05) * 0.5, GUARD_XS=guard, SIDE_LIGHT_X=lights, POSTS_X=(),
-        DOOR_HINGE_X=x_rear - 0.045, SPARE_X=axles[-1] - 1.50, TOOLBOX_X=LEG_X - 0.60, CTRL_X=axles[-1] - 1.50 - 0.725,
+        DOOR_HINGE_X=x_rear - 0.045, SPARE_X=0.0, TOOLBOX_X=LEG_X - 0.60, CTRL_X=LEG_X + 0.55,
         TIP_HW=hw, TIP_ANGLE=math.radians(tilt), BOX_MAT=BOX0 + col, HINGE_X=hinge_x, U_FRONT=u_front, A_U=a_u, A_V=a_v,
         CYL_N=n, CYL_ELL=ell, CYL_DMIN=min(ds), CYL_DMAX=max(ds)))
 
@@ -1428,7 +1427,7 @@ def build_parts(mats, tag):
         put(finish_mesh(bm, name + "_L"))
         put(finish_mesh(mirrored, name + "_P"))
 
-    common = [build_frame, build_kingpin_plate, build_bumper, build_toolbox, build_spare, build_controller,
+    common = [build_frame, build_kingpin_plate, build_bumper, build_toolbox, build_controller,
               build_trailer_axle, build_wheel, build_shock_body, build_shock_rod, build_trailing_arm, build_air_bag,
               build_leg_inner, build_leg_cross, build_tip_box, build_tip_gate]
     for fn in common:
@@ -1439,7 +1438,6 @@ def build_parts(mats, tag):
     put_lr(build_rear_light(), "SM_Sklapac_zadne_svetlo")
     put_lr(build_side_lights(), "SM_Sklapac_bocne_svetla")
     put_lr(build_mudguard(0.72, 1.19, "frame"), "SM_Sklapac_blatnik")
-    put_lr(build_spare_basket(), "SM_Sklapac_rezerva_kos")
 
     parts = {}
     for key, mesh in built.items():
@@ -1474,8 +1472,6 @@ def build_trailer(coll, parts, rn, y_pos):
     set_prop(root, "Vyska_podvozku", 0.0, -0.06, 0.10, "Dofuknutie / vypustenie vankusov v metroch (zadok hore / dole)")
     set_prop(root, "Zdvih_napravy", 0.0, 0.0, 1.0, "0 = prva naprava dole, 1 = zdvihnuta (ovladac na boku)")
     set_prop(root, "Podpery", 0.0, 0.0, 1.0, "0 = podpery hore (na tahaci), 1 = spustene na zem")
-    set_prop(root, "Rezerva_L", 1, 0, 1, "1 = lave rezervne koleso lezi v kosi pod ramom, 0 = prazdny kos")
-    set_prop(root, "Rezerva_P", 1, 0, 1, "1 = prave rezervne koleso lezi v kosi pod ramom, 0 = prazdny kos")
     set_prop(root, "Sklopenie", 0.0, 0.0, 1.0, "0 = korba lezi, 1 = vyklopena (45 st.)")
     set_prop(root, "Zadne_celo", 0.0, 0.0, 1.0, "0 = zadne celo zatvorene, 1 = otvorene o 72 st.")
     if curtain:
@@ -1534,11 +1530,6 @@ def build_trailer(coll, parts, rn, y_pos):
             names.append("Sklapac_zabrana_")
         for name in names:
             new_object(coll, nm(name[PFX_LEN:] + side), parts[name + side], (0.0, 0.0, 0.0), body)
-    for s, side in ((1.0, "L"), (-1.0, "P")):
-        new_object(coll, nm("rezerva_kos_" + side), parts["Sklapac_rezerva_kos_" + side], (SPARE_X, 0.0, 0.0), body)
-        spare = new_object(coll, nm("rezerva_" + side), parts["Sklapac_rezerva"], (SPARE_X, s * SPARE_Y, SPARE_Z), body, (90.0, 0.0, 0.0))
-        for path_name in ("hide_viewport", "hide_render"):
-            driver(spare, path_name, -1, "r < 0.5", [prop("r", "Rezerva_" + side)])
 
     # --- kolesa, ramena, vankuse, tlmice, blatniky ---
     path, seat_local, bag_bottom, _ = arm_geometry()
@@ -1639,9 +1630,8 @@ def animate(root, terrain, curtain):
 
 
 COMMON_SECTIONS = [
-    ("PODPERY, REZERVA, SKRINKA, OVLADAC", ["Sklapac_noha_vonkajsia_L", "Sklapac_noha_vonkajsia_P", "Sklapac_noha_vnutorna",
-                                            "Sklapac_podpery_traverza", "Sklapac_naradi_skrinka", "Sklapac_ovladac_napravy",
-                                            "Sklapac_rezerva", "Sklapac_rezerva_kos_L", "Sklapac_rezerva_kos_P"]),
+    ("PODPERY, SKRINKA, OVLADAC", ["Sklapac_noha_vonkajsia_L", "Sklapac_noha_vonkajsia_P", "Sklapac_noha_vnutorna",
+                                   "Sklapac_podpery_traverza", "Sklapac_naradi_skrinka", "Sklapac_ovladac_napravy"]),
     ("BLATNIKY", ["Sklapac_blatnik_L", "Sklapac_blatnik_P"]),
     ("NAPRAVY A PEROVANIE", ["Sklapac_naprava", "Sklapac_koleso", "Sklapac_rameno", "Sklapac_vankus", "Sklapac_tlmic_valec",
                              "Sklapac_tlmic_piestnica"]),
@@ -1724,8 +1714,8 @@ def main():
     _, seat_local, bag_bottom, _ = arm_geometry()
     lines += ["DLZKY: " + ", ".join("%.1f m (%d napravy)" % (v["length"], len(v["axles"])) for v in variants), ""]
     for v in variants:
-        lines.append("%s: napravy x = %s; koniec skrine x = %.2f; stred rezervy x = %.2f; skrinka x = %.2f; ovladac x = %.2f; zabrany x = %s" % (
-            v["root"], ", ".join("%.2f" % a for a in v["axles"]), v["rear"], v["spare"], v["tool"], v["ctrl"],
+        lines.append("%s: napravy x = %s; koniec skrine x = %.2f; skrinka x = %.2f; ovladac x = %.2f; zabrany x = %s" % (
+            v["root"], ", ".join("%.2f" % a for a in v["axles"]), v["rear"], v["tool"], v["ctrl"],
             ", ".join("%.2f" % x for x in v["guard"]) or "bez"))
         if TRAILER_TYPE == "plachta":
             lines.append("    stlpiky x = %s; plachta %d dielikov po %.3f m; zavesy dveri x = %.3f" % (
@@ -1745,8 +1735,7 @@ def main():
         "    dole %s (od napravy), hore x napravy + %.2f, y %.2f, z %.2f." % (vec(SHOCK_LOW), SHOCK_UP.x, SHOCK_UP.y, SHOCK_UP.z),
         "  Podpery: vonkajsie nohy v x %.2f, y +-%.2f; vnutorne nohy idu o %.2f m dole (Podpery 0 -> 1). Podpery su elektricke, bez kliky." % (
             LEG_X, LEG_Y, LEG_TRAVEL),
-        "  Rezerva: dve kolesa vedla seba (lave a prave, stredy v y = +-%.2f, z = %.3f), lezia vodorovne pod ramom (otocene o 90 st. okolo X, plocha disku hore); kazde ma kos z dvoch U-rurok; vlastnosti Rezerva_L a Rezerva_P." % (SPARE_Y, SPARE_Z),
-        "  Ovladac napravy: na vonkajsej strane laveho nosnika hned za lavou rezervou (pivot na vonkajsej strane v y = %.2f, z = 1.12, x = x rezervy - 0.725), smeruje do +Y; sipky hore a dole su nakreslene na tlacidlach." % (BEAM_Y + 0.13),
+        "  Ovladac napravy: na vonkajsej strane laveho nosnika za nohami (pivot na vonkajsej strane v y = %.2f, z = 1.12, x = noha + 0.55), smeruje do +Y; sipky hore a dole su nakreslene na tlacidlach." % (BEAM_Y + 0.13),
         "  Rovnaky ovladac je aj pri podperach (objekt ovladac_podper): na vonkajsej strane laveho stlpu nohy, pivot v (%.2f, %.2f, 1.17), smeruje do +Y." % (LEG_X, LEG_Y + 0.07 + 0.082),
         "  Prave diely _P su zrkadlove. Blatniky, svetla a zabrany maju pivot v pociatku navesu alebo v osi kolesa.",
         "V Unreali: kazdy par 'mieri na' urob cez Find Look at Rotation (alebo Look At v Control Rig / Animation Blueprinte).",
@@ -1765,7 +1754,7 @@ def main():
         "  zadne celo je jej dieta (pivot hore na zadnej hrane, os Y), otvara sa o Zadne_celo x 72 st. dozadu a hore.",
         "  Valec sklapania: zaklad na rame vpredu (x = %.2f, z = %.2f), ciel na ucho na prednej stene korby (objekt valec_sklapania_ciel je dieta korby)," % (CYL_BX, CYL_BZ),
         "    teleskopicky s 6 stupnami (dlzka stupna podla velkosti, pozri nizsie); zaklad mieri osou +Z na ciel, stupen k sa vysuva o (d - dlzka stupna) x k / (n - 1).",
-        "  Vlastnosti: Sklopenie (0 = korba lezi, 1 = vyklopena), Zadne_celo (0 = zatvorene, 1 = otvorene); ostatne ako pri plate (Vyska_podvozku, Zdvih_napravy, Podpery, Rezerva_L/P).",
+        "  Vlastnosti: Sklopenie (0 = korba lezi, 1 = vyklopena), Zadne_celo (0 = zatvorene, 1 = otvorene); ostatne ako pri plate (Vyska_podvozku, Zdvih_napravy, Podpery).",
         "  Animacia (snimky 1 az 660): jazda, vyska, zdvih napravy, podpery, potom sklopenie korby s otvorenim zadneho cela a spat.",
     ]
     for v in variants:
