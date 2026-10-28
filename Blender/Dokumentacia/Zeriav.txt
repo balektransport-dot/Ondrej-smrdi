@@ -1,0 +1,109 @@
+Autozeriav - diely (rozmery X x Y x Z v metroch). Predok = +X, lava = +Y.
+
+== AUTOZERIAV 40t ==
+Zr_ram_40t                               8.90 x 1.28 x 0.35
+Zr_zakladna_40t                          2.20 x 2.14 x 0.28
+Zr_kabina_40t                            2.20 x 2.42 x 1.82
+Zr_maska_40t                             0.17 x 2.20 x 0.68
+Zr_naraznik_predny_40t                   0.50 x 2.50 x 0.46
+Zr_nadrz_40t                             1.30 x 0.62 x 0.64
+Zr_skrinka_40t                           1.30 x 0.48 x 0.52
+Zr_naprava_40t                           0.82 x 1.40 x 0.61
+Zr_pneu_40t                              1.17 x 0.47 x 1.17
+Zr_podpera_nosnik_40t                    0.52 x 2.60 x 0.40
+Zr_podpera_valec_40t                     0.32 x 0.32 x 0.72
+Zr_podpera_tyc_40t                       0.68 x 0.68 x 0.74
+Zr_opierka_40t                           1.45 x 1.04 x 0.15
+Zr_naraznik_zadny_40t                    0.33 x 2.30 x 0.38
+Zr_plosina_40t                           4.95 x 2.70 x 1.19
+Zr_kryt_40t                              2.15 x 2.73 x 1.87
+Zr_kabina_zerava_40t                     1.72 x 1.11 x 1.91
+Zr_dvere_zerava_40t                      0.99 x 0.07 x 1.30
+Zr_pult_40t                              1.18 x 0.70 x 0.98
+Zr_konzoly_40t                           2.25 x 1.18 x 2.30
+Zr_vitel_40t                             0.64 x 0.75 x 0.64
+Zr_vitel_podstava_40t                    0.75 x 0.84 x 0.42
+Zr_hlava_40t                             0.77 x 0.69 x 0.89
+Zr_hak_40t                               0.46 x 0.44 x 0.96
+Zr_dvere_40t_L                           1.40 x 0.10 x 1.64
+Zr_disk_40t_L                            0.72 x 0.19 x 0.75
+Zr_blatnik_40t_L                         1.27 x 0.50 x 0.49
+Zr_podpera_vysuv_40t_L                   0.48 x 2.55 x 0.40
+Zr_zakladka_40t_L                        0.45 x 0.29 x 0.30
+Zr_zavazie_1_40t                         0.32 x 2.60 x 1.47
+Zr_zavazie_2_40t                         0.32 x 2.60 x 1.47
+Zr_zavazie_3_40t                         0.32 x 2.60 x 1.47
+Zr_rameno_1_40t                          7.25 x 0.88 x 1.18
+Zr_rameno_2_40t                          6.60 x 0.78 x 0.84
+Zr_rameno_3_40t                          6.10 x 0.68 x 0.74
+Zr_rameno_4_40t                          5.60 x 0.58 x 0.64
+
+== AUTOZERIAV 80t ==
+Zr_ram_80t                               11.15 x 1.28 x 0.40
+Zr_zakladna_80t                          2.60 x 2.54 x 0.28
+Zr_kabina_80t                            2.50 x 2.42 x 1.96
+Zr_maska_80t                             0.17 x 2.20 x 0.68
+Zr_naraznik_predny_80t                   0.50 x 2.50 x 0.46
+Zr_nadrz_80t                             1.30 x 0.62 x 0.64
+Zr_skrinka_80t                           1.30 x 0.48 x 0.52
+Zr_naprava_80t                           0.82 x 1.78 x 0.68
+Zr_pneu_80t                              1.41 x 0.57 x 1.41
+Zr_podpera_nosnik_80t                    0.52 x 2.98 x 0.40
+Zr_podpera_valec_80t                     0.32 x 0.32 x 0.72
+Zr_podpera_tyc_80t                       0.68 x 0.68 x 0.91
+Zr_opierka_80t                           1.75 x 1.04 x 0.23
+Zr_naraznik_zadny_80t                    0.33 x 2.30 x 0.38
+Zr_plosina_80t                           6.14 x 3.10 x 1.19
+Zr_kryt_80t                              2.70 x 3.13 x 2.12
+Zr_kabina_zerava_80t                     2.03 x 1.28 x 2.06
+Zr_dvere_zerava_80t                      1.16 x 0.07 x 1.45
+Zr_pult_80t                              1.33 x 0.82 x 0.98
+Zr_konzoly_80t                           2.25 x 1.34 x 2.60
+Zr_vitel_80t                             0.64 x 0.91 x 0.64
+Zr_vitel_podstava_80t                    0.75 x 1.00 x 0.42
+Zr_hlava_80t                             0.77 x 0.67 x 0.87
+Zr_hak_80t                               0.46 x 0.44 x 0.96
+Zr_dvere_80t_L                           1.40 x 0.10 x 1.64
+Zr_disk_80t_L                            0.86 x 0.21 x 0.89
+Zr_blatnik_80t_L                         1.50 x 0.58 x 0.56
+Zr_podpera_vysuv_80t_L                   0.48 x 2.95 x 0.40
+Zr_zakladka_80t_L                        0.45 x 0.29 x 0.30
+Zr_zavazie_1_80t                         0.32 x 3.00 x 1.72
+Zr_zavazie_2_80t                         0.32 x 3.00 x 1.72
+Zr_zavazie_3_80t                         0.32 x 3.00 x 1.72
+Zr_zavazie_4_80t                         0.32 x 3.00 x 1.72
+Zr_rameno_1_80t                          8.35 x 1.04 x 1.33
+Zr_rameno_2_80t                          7.60 x 0.92 x 0.97
+Zr_rameno_3_80t                          7.00 x 0.80 x 0.85
+Zr_rameno_4_80t                          6.50 x 0.68 x 0.73
+Zr_rameno_5_80t                          6.00 x 0.56 x 0.61
+
+== AUTOZERIAV - SPOLOCNE ==
+Zr_svetlomet_L                           0.11 x 0.40 x 0.22
+Zr_zrkadlo_L                             0.05 x 0.46 x 0.56
+Zr_schodik_L                             0.50 x 0.30 x 0.62
+Zr_vyfuk                                 0.29 x 0.16 x 1.41
+Zr_svetlo_zadne_L                        0.07 x 0.46 x 0.14
+Zr_majak                                 0.18 x 0.18 x 0.15
+Zr_svetlo_pracovne                       0.11 x 0.26 x 0.14
+Zr_lano                                  0.30 x 0.03 x 1.00
+
+
+AUTOZERIAV (Zeriav_40t, Zeriav_80t): podvozok s kabinou, riadenymi nahradami a styrmi vysuvnymi podperami, otocna nadstavba s kabinou zerava a protizavazim,
+  teleskopicke rameno na teleskopickom valci zdvihu, hlava s kladkou, lano a hakovy blok. Pociatok = zem pod osou otocnej nadstavby, predok +X, lava +Y.
+  Vlastnosti na hlavnom objekte (<Zeriav>): Koleso_otocenie (stupne), Riadenie (+-uhol riadenych naprav), Podpery_vysun, Podpery_spust (0 az 0.7 = podlozky dosadnu, 0.7 az 1 = podvozok sa zdvihne),
+    Otocenie (stupne, +-360), Vyzdvih (0 az 1 = 0 az 78 st.), Vysun (0 az 1 = vsetky stupne), Hak (0 = pod hlavou, 1 = na zemi), Dvere_nosica, Dvere_zerava (0 az 1).
+  DEMONTAZ: kazdy diel je samostatny objekt <Zeriav>_<diel> a je detom UCHYTU <Zeriav>_uchyt_<diel> (prazdny objekt v pivote dielu), animacia je na uchyte. Vymena: zmaz objekt dielu, novy diel (rovnaky pivot) daj ako dieta uchytu.
+  Carrier: ram, zakladna (vencove lozisko), kabina, dvere_nosica_L / _P (zavesa, rotacia Z), maska, naraznik_predny, svetlomet_L / _P, zrkadlo_L / _P, schodik_L / _P, nadrz, skrinka, vyfuk, opierka (rameno na streche),
+    naraznik_zadny, svetlo_zadne_L / _P, naprava_N (pohyblivy pivot v osi), zakladka_N_L / _P (riadenie: rotacia Z na prvych dvoch napravach), koleso_N_L / _P (= pneu + disk, os Y), blatnik_N_L / _P,
+    podpera_nosnik_predna / zadna (puzdro), podpera_vysuv_<predna|zadna>_L / _P (posun po Y), podpera_valec_*, podpera_tyc_* (piest s podlozkou: stupa podla Podpery_spust).
+  Nadstavba (uchyt <Zeriav>_uchyt_otocna, rotacia Z = Otocenie): plosina (so zabradlim), kryt (motor + hydraulika), zavazie_1 az N (dosky protizavazia), kabina_zerava, dvere_zerava (zavesa), pult (sedadlo a ovladace), konzoly (cap ramena + oka valca),
+    majak, svetlo_pracovne_1 / _2.
+  Rameno (uchyt <Zeriav>_uchyt_rameno_cap, rotacia Y = -Vyzdvih x 78 st.): rameno_1 (zakladny stupen) az rameno_N (kazdy dalsi stupen je dieta predosleho a vysuva sa po X o Vysun x (dlzka - 1.25 m)),
+    vitel_podstava + vitel (bubon sa otaca podla Hak), hlava (cheeky, kladka), prazdny objekt <Zeriav>_hlava_lano (miesto, z ktoreho visi lano). Valec zdvihu <Zeriav>_valec_zdvihu_1..n: prvy stupen mieri na ciel (cap na ramene), dalsie sa vysuvaju.
+  Hak: uchyt <Zeriav>_uchyt_hak NEMA rodica, jeho poloha je driver zo svetovej polohy hlavy (x, y), vyska = max(1.00, vyska hlavy - 1.1) pre Hak = 0 az 1.00 m (blok na zemi) pre Hak = 1, otocenie Z podla hlavy; lano (<Zeriav>_lano) je dieta hlavy, mieri na hak (Damped Track, mierka Z = vzdialenost).
+  Animacia: jazda 1 az 200 (kolesa, riadenie), dvere 205 az 260, podpery von 210 az 260 a dole 262 az 330, rameno hore 340 az 420, vysun 420 az 520, otocenie 520 az 620, hak dole 620 az 700 a hore 700 az 760, spat 760 az 860,
+    zasunutie 860 az 890, rameno dole 890 az 930, podpery hore 930 az 960 a dnu 960 az 990.
+  Zeriav_40t: 3 naprav (x = 3.55, 2.25, -1.95), kolesa R 0.58 m, dlzka 9.1 m, rameno 4 stupnov (zasunute 7.2 m, vysunute asi 21.8 m od capu), podpery rozpatie 6.6 m
+  Zeriav_80t: 4 naprav (x = 4.60, 3.25, -1.75, -3.10), kolesa R 0.70 m, dlzka 11.3 m, rameno 5 stupnov (zasunute 8.3 m, vysunute asi 30.4 m od capu), podpery rozpatie 7.8 m
+V Unreali: kazdy par 'mieri na' urob cez Find Look at Rotation (alebo Look At v Control Rig / Animation Blueprinte).

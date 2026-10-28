@@ -21,6 +21,7 @@ Bez okna: `blender --background --python skript.py`. Do FBX sa exportuje každý
 | `domiesavac_low_poly.py` | domiešavače betónu 4x2 / 6x2 / 8x2 (bubon 4,4 / 5,4 / 6,4 m, asi 7 / 9 / 11 m³): šikmý rotujúci bubon s vonkajšími lopatkami, nasýpka, žľab s predĺžením (odložený pod bubnom alebo pracovná poloha), nádrž na vodu, rebrík |
 | `odtahovky_low_poly.py` | odťahovky na pevnom podvozku, každá v európskom aj americkom štýle: plošinová 4x2 / 6x2 / 8x2 (sklopný podrám, plošina zjazdí šikmo na zem, navijak s hákom vytiahne auto) a ťažká 6x2 / 8x2 (otočný žeriav s hákom, podjazdové rameno, podpery, skrine s dvierkami) |
 | `pickup_vozik_low_poly.py` | dva pickupy (dvojkabína 4 dvere a jednokabína 2 dvere; čierny pruh, ochranný rollbar, svetelná lišta, rúrová ochrana, veľké kolesá, ťažná guľa) a prívesy so spojkou: malý vozík 2,0 / 2,6 m, podval na auto 4,0 / 5,2 m (pevná mriežková paluba, dva výsuvné nájazdy, dvojmontáž kolies, navijak vytiahne auto), vozík na palety 3,0 / 4,2 m s EUR paletami, cisternový vozík 1,5 / 3 m³ (tvar cisterny s klenbami, poklopy a dvierka skrinky s ventilmi sa otvárajú, armatúra v rovnakom rozmere ako na cisternovom návese), vozík na drevo s kmeňmi (4,0 / 6,0 m), skriňový vozík 2,5 / 3,6 m (zadná rampa, bočné dvere); všetko demontovateľné po dieloch (uchyty) |
+| `zeriav_low_poly.py` | autožeriav 40 t (3 nápravy, 4-dielne teleskopické rameno) a 80 t (4 nápravy, 5-dielne rameno): riadené nápravy, 4 výsuvné podpery, otočná nadstavba s kabínou a protizávažím, rameno na teleskopickom valci zdvihu, kladka, lano a háčikový blok; všetko demontovateľné po dieloch (uchyty) |
 | `podvozok_low_poly.py`, `nadrz_tocna_low_poly.py` | podvozok kamióna, nádrže a otočná |
 | `motory_low_poly.py`, `prevodovky_low_poly.py` | motory R4 / R6 / V8 a prevodovky |
 | `sklopka_low_poly.py`, `sklopka_v2_low_poly.py`, `vozik_low_poly.py` | sklopka (malý nákladiak) a vyklápací vozík |
@@ -36,6 +37,10 @@ Každá nadstavba má vlastnosti na koreňovom objekte auta (panel N → Item) a
 - **Hákový nosič:** teleskopické hákové rameno naberie kontajner zo zeme, vytiahne ho po sklopnom ráme a vyloží ho opačným postupom (snímky 460 až 900). Vlastnosti `Zdvih_ramu`, `Hak_uhol`, `Hak_vysun`.
 
 Náhľady sú v `Nahlady/`, pomocný skript na render náhľadu v `Nastroje/render_preview.py`.
+
+## Autožeriav – ovládanie
+
+Vlastnosti na koreňovom objekte `Zeriav_40t` / `Zeriav_80t` (panel N → Item): `Koleso_otocenie`, `Riadenie`, `Podpery_vysun`, `Podpery_spust` (0 až 0,7 podložky dosadnú, do 1 sa podvozok nadvihne), `Otocenie` (±360°), `Vyzdvih` (0 až 78°), `Vysun` (všetky stupne rámena), `Hak` (0 = pod hlavou, 1 = na zemi), `Dvere_nosica`, `Dvere_zerava`. Animácia 1 až 1000: jazda, podpery, rameno, otočenie, hák dole a hore, zloženie. Hák nemá rodiča (jeho poloha je driver zo svetovej polohy hlavy ramena), lano mieri z hlavy na hák. Diely sú na uchytoch `<Žeriav>_uchyt_<diel>`, zoznam v `Dokumentacia/Zeriav.txt`.
 
 ## Návesy – ovládanie
 
