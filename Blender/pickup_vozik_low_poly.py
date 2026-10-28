@@ -547,6 +547,90 @@ def export_mesh(coll, mesh, file_name):
 
 
 # ---------------------------------------------------------------------------
+# Pneumatiky: telo pneumatiky je OTOCENY PRIEREZ (zaoblene rameno, vypukla bocnica s rebrom pri disku, korunovy dezen, rebra / drazky, rebro na bocnici) a dezenove bloky
+# (bahno: sikme stredove bloky + ramenne bloky zalomene na bocnicu; cesta: pozdlzne rebra + ramenne bloky), ochranne rebro pri disku.
+# Pneumatika sedi na hrane disku (priruba disku vyciuva von nad bocnicu), ventilok je na disku.
+# ---------------------------------------------------------------------------
+
+TIRE_SEGS = 24
+
+
+def tire_revolve(bm, loop, segs, mat):
+    # prierez (y, polomer) otoceny okolo osi Y; uhol t smeruje ako otocenie okolo Y (rovnako ako ramy dezenovych blokov)
+    ts = [2.0 * math.pi * k / segs for k in range(segs)]
+    rings = [[bm.verts.new((rho * math.sin(t), y, rho * math.cos(t))) for t in ts] for y, rho in loop]
+    faces = []
+    n = len(loop)
+    for i in range(n):
+        j = (i + 1) % n
+        for k in range(segs):
+            m = (k + 1) % segs
+            faces.append(bm.faces.new((rings[i][k], rings[i][m], rings[j][m], rings[j][k])))
+    set_material(faces, mat)
+    return faces
+
+
+def tire_profile(r, w, rim, th, grooves=(), bead=None):
+    # polovica prierezu pre y > 0 od uchytu na disku po stred dezenu; grooves = [(y stred, sirka)] pozdlzne drazky hlbky th * 0.7
+    hw = w * 0.5
+    H = r - rim
+    by = hw - 0.05 if bead is None else bead
+    rt = r - th
+    half = [(by, rim * 0.965), (by + 0.003, rim * 1.012),
+            (by + 0.012, rim + 0.075 * H), (by + 0.018, rim + 0.095 * H),          # ochranne rebro pri disku
+            (hw * 0.91, rim + 0.24 * H), (hw * 0.985, rim + 0.43 * H), (hw * 1.0 + 0.003, rim + 0.465 * H), (hw * 1.0 + 0.003, rim + 0.535 * H), (hw * 0.985, rim + 0.57 * H), (hw * 0.975, rim + 0.74 * H),
+            (hw * 0.90, rt - 0.012), (hw * 0.76, rt - 0.001), (hw * 0.70, rt)]
+    for gy, gw in sorted(grooves, reverse=True):
+        d = th * 0.75
+        half += [(gy + gw * 0.5 + 0.006, rt), (gy + gw * 0.5, rt - d), (gy - gw * 0.5, rt - d), (gy - gw * 0.5 - 0.006, rt)]
+    half.append((0.0, rt + 0.003))
+    return half
+
+
+def tire_lug(bm, t, rho, y, size, yaw, tilt, mat, bev):
+    frame = Matrix.Rotation(t, 4, "Y") @ Matrix.Translation((0.0, 0.0, rho))
+    add_box(bm, size, (0.0, y, 0.0), mat, bev=bev, rotation=(tilt, 0.0, yaw), frame=frame)
+
+
+def add_tire(bm, r, w, rim, style="road", segs=TIRE_SEGS):
+    # pneumatika okolo osi Y (stred v pociatku, symetricka); style: "bahno" (hruby dezen) alebo "cesta" (rebra + ramenne bloky)
+    hw = w * 0.5
+    th = 0.026 if style == "bahno" else 0.014
+    grooves = () if style == "bahno" else ((w * 0.20, 0.018), (-w * 0.20, 0.018))
+    half = tire_profile(r, w, rim, th, [g for g in grooves if g[0] > 0.0])
+    loop = [(-y, rho) for y, rho in half[:-1]] + [(0.0, half[-1][1])] + half[:-1][::-1]
+    tire_revolve(bm, loop, segs, TIRE)
+    step = 2.0 * math.pi / segs
+    rt = r - th
+    if style == "bahno":
+        for k in range(segs):
+            t = step * k
+            tire_lug(bm, t, rt + th * 0.5, w * 0.17, (0.052, 0.085, th), 24.0, 0.0, TIRE, 0.0)
+            tire_lug(bm, t + step * 0.5, rt + th * 0.5, -w * 0.17, (0.052, 0.085, th), -24.0, 0.0, TIRE, 0.0)
+            for s in (1.0, -1.0):
+                tire_lug(bm, t + step * (0.25 if s > 0 else 0.75), r - 0.044, s * hw * 0.84, (0.050, 0.080, 0.046), s * 8.0, -s * 38.0, TIRE, 0.0)
+    else:
+        for k in range(segs):
+            t = step * k
+            for s in (1.0, -1.0):
+                tire_lug(bm, t + (0.0 if s > 0 else step * 0.5), r - 0.021, s * hw * 0.85, (0.030, 0.036, 0.020), s * 10.0, -s * 34.0, TIRE, 0.0)
+
+
+
+def tire_valve(bm, rim, y_out):
+    # ventilok na vonkajsej strane disku (kratka trubka s ciapockou), mierne nad prirubou
+    t = 0.75
+    x, z = rim * 0.80 * math.sin(t), rim * 0.80 * math.cos(t)
+    add_cylinder(bm, 0.0085, 0.032, along_y((x, y_out - 0.002, z)), STEEL, segments=8)
+    add_cylinder(bm, 0.0065, 0.020, along_y((x, y_out + 0.020, z)), CHROME, segments=8)
+
+
+DOC_EXTRA.extend(["", "PNEUMATIKY (Pv_pk_pneu pickup, Pv_tr_pneu_<polomer> privesy, Pv_auto_koleso): telo je otoceny prierez (zaoblene rameno, vypukla bocnica, ochranne rebro pri disku a rebro na bocnici),",
+                  "  pickup ma hruby terenny dezen (sikme stredove bloky a ramenne bloky zalomene na bocnicu), privesy dezen cesta/teren (pozdlzne rebra a male ramenne bloky), kolesa auta na podvale rebra.",
+                  "  Disk (pivot v osi, vonkajsia strana +Y) ma prirubu nad bocnicou a ventilok. Pneumatika aj disk su samostatne diely na uchyte koleso_N_<strana>."])
+
+
+# ---------------------------------------------------------------------------
 # Spolocne pomocne funkcie: teleskopicke valce, rifle, lomena drha auta, driver zo svetovej polohy, maly navijak a odtahovane auto
 # ---------------------------------------------------------------------------
 
@@ -738,9 +822,9 @@ def build_pv_car(size):
 def build_pv_car_wheel(size):
     rw = PV_CARS[size]["rw"]
     bm = bmesh.new()
-    add_cylinder(bm, rw, 0.20, along_y((0.0, 0.0, 0.0)), TIRE, segments=14, bev=0.015)
-    add_cylinder(bm, rw * 0.62, 0.21, along_y((0.0, 0.0, 0.0)), RIM, segments=10)
-    add_cylinder(bm, rw * 0.22, 0.23, along_y((0.0, 0.0, 0.0)), STEEL, segments=8)
+    add_tire(bm, rw, 0.20, rw * 0.60, "cesta", 20)
+    add_cylinder(bm, rw * 0.60, 0.19, along_y((0.0, 0.0, 0.0)), RIM, segments=14)
+    add_cylinder(bm, rw * 0.20, 0.22, along_y((0.0, 0.0, 0.0)), STEEL, segments=8)
     return finish_mesh(bm, "SM_Pv_auto_koleso_" + size)
 
 
@@ -1398,14 +1482,9 @@ def build_pk_pero():
 
 
 def build_pk_pneu():
-    # pneumatika pickupu (pivot v osi, symetricka): vysoka s hrubym dezenom
-    r, w, rim = PK_R, PK_TW, 0.285
+    # pneumatika pickupu (pivot v osi, symetricka): vysoka terenna s hrubym bahnom dezenom, vypukla bocnica a ramenne bloky
     bm = bmesh.new()
-    add_ring(bm, r - 0.022, rim * 0.92, w, 0.0, TIRE, 22, bev=0.035)
-    for k in range(22):
-        a = 2.0 * math.pi * k / 22
-        add_box(bm, (0.075, w * 0.88, 0.04), (0.0, 0.0, 0.0), TIRE, bev=0.012,
-                frame=Matrix.Rotation(a, 4, "Y") @ Matrix.Translation((0.0, 0.0, r - 0.020)))
+    add_tire(bm, PK_R, PK_TW, 0.285, "bahno", 24)
     return finish_mesh(bm, "SM_Pv_pk_pneu")
 
 
@@ -1426,6 +1505,7 @@ def build_pk_disk():
         a = 2.0 * math.pi * k / 5.0 + math.pi / 5.0
         add_cylinder(bm, 0.014, 0.03, along_y((0.062 * math.cos(a), w * 0.5 + 0.015, 0.062 * math.sin(a))), CHROME, segments=6)
     add_cylinder(bm, 0.11, 0.14, along_y((0.0, -w * 0.5 + 0.04, 0.0)), DARK, segments=12)
+    tire_valve(bm, rim, w * 0.5)
     return bm
 
 
@@ -1610,14 +1690,11 @@ def tr_wheel_code(r, alloy=False, narrow=False):
 
 
 def build_tr_pneu(r, alloy=False, narrow=False):
-    # pneumatika (pivot v osi kolesa, symetricka): ring s dezenom a zaoblenymi ramenami; narrow = uzsia pre dvojmontaz
+    # pneumatika (pivot v osi kolesa, symetricka): otoceny prierez s vypuklou bocnicou, pozdlzne rebra a ramenne bloky; narrow = uzsia pre dvojmontaz
     w = 0.16 if narrow else (0.20 if alloy else (0.19 if r < 0.34 else 0.21))
     rim = r * (0.70 if alloy else 0.62)
     bm = bmesh.new()
-    add_ring(bm, r - 0.02, rim * 0.94, w, 0.0, TIRE, 24, bev=0.03)
-    for k in range(24):
-        a = 2.0 * math.pi * k / 24
-        add_box(bm, (0.05, w * 0.84, 0.03), (0.0, 0.0, 0.0), TIRE, bev=0.008, frame=Matrix.Rotation(a, 4, "Y") @ Matrix.Translation((0.0, 0.0, r - 0.018)))
+    add_tire(bm, r, w, rim, "cesta", 28)
     return finish_mesh(bm, "SM_Pv_tr_pneu_" + tr_wheel_code(r, alloy, narrow))
 
 
@@ -1639,12 +1716,14 @@ def build_tr_disk(r, alloy=False, narrow=False):
         for k in range(5):
             a = 2.0 * math.pi * k / 5
             add_cylinder(bm, 0.011, 0.03, along_y((0.036 * math.cos(a), w * 0.5, 0.036 * math.sin(a))), CHROME, segments=6)
+        tire_valve(bm, rim, w * 0.5)
     else:
         add_ring(bm, rim * 0.70, rim * 0.60, 0.02, w * 0.5 - 0.025, STEEL, 16, bev=0.004)
         add_cylinder(bm, rim * 0.34, 0.05, along_y((0.0, w * 0.5 - 0.03, 0.0)), STEEL, segments=14, bev=0.008)
         for k in range(5):
             a = 2.0 * math.pi * k / 5
             add_cylinder(bm, 0.017, 0.03, along_y((rim * 0.46 * math.cos(a), w * 0.5 - 0.02, rim * 0.46 * math.sin(a))), CHROME, segments=6)
+        tire_valve(bm, rim, w * 0.5)
     return bm
 
 
@@ -2207,7 +2286,7 @@ def pd_tr(p):
     xw = sum(xs) / len(xs)
     g = pd_geo(p)
     zt = PD_ZT
-    return dict(name=p["name"], key="pd_" + p["key"], R=p["R"], axles=xs, track=PD_TRACK, sy=PD_SY, wheel="alloy", dual=0.09, fender="wing", wing=((max(xs) - min(xs)) + 0.70, 0.36),
+    return dict(name=p["name"], key="pd_" + p["key"], R=p["R"], axles=xs, track=PD_TRACK, sy=PD_SY, wheel="alloy", dual=0.09, fender="wing", wing=((max(xs) - min(xs)) + 0.70, 0.38),
                 oje=dict(xf=PD_XF, hw=PD_SY, z=0.515, z0=0.53), hang=dict(z=0.43, h=0.07),
                 kons=dict(y0=PD_SY - 0.01, y1=1.00, zb=0.43, zt=0.64, yr=0.97), kons_mat=PAINT_BLUE,
                 bump=dict(x=g["xr"] - 0.08, w=2.62, z=0.50, gap=(0.34, 0.90)),

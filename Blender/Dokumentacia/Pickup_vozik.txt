@@ -5,7 +5,7 @@ Pv_pk_volant                             0.38 x 0.05 x 0.37
 Pv_pk_naprava_predna                     0.46 x 1.36 x 0.39
 Pv_pk_naprava_zadna                      0.26 x 1.50 x 0.31
 Pv_pk_pero                               1.10 x 0.10 x 0.19
-Pv_pk_pneu                               0.82 x 0.30 x 0.82
+Pv_pk_pneu                               0.82 x 0.35 x 0.82
 Pv_pk_disk_L                             0.57 x 0.36 x 0.56
 Pv_pk_tlmic_valec                        0.06 x 0.06 x 0.24
 Pv_pk_tlmic_piestnica                    0.07 x 0.07 x 0.24
@@ -97,14 +97,14 @@ Pv_tr_zastrcka                           0.29 x 0.09 x 0.12
 Pv_tr_pero                               0.87 x 0.10 x 0.13
 Pv_tr_svetlo_L                           0.06 x 0.34 x 0.12
 Pv_tr_spz                                0.03 x 0.44 x 0.19
-Pv_tr_pneu_28                            0.55 x 0.19 x 0.55
-Pv_tr_pneu_30                            0.59 x 0.19 x 0.59
-Pv_tr_pneu_30a                           0.59 x 0.20 x 0.59
-Pv_tr_pneu_31                            0.61 x 0.19 x 0.61
-Pv_tr_disk_28_L                          0.35 x 0.05 x 0.35
-Pv_tr_disk_30_L                          0.37 x 0.05 x 0.37
-Pv_tr_disk_30a_L                         0.42 x 0.09 x 0.42
-Pv_tr_disk_31_L                          0.38 x 0.05 x 0.38
+Pv_tr_pneu_28                            0.55 x 0.21 x 0.55
+Pv_tr_pneu_30                            0.59 x 0.21 x 0.59
+Pv_tr_pneu_30a                           0.59 x 0.22 x 0.59
+Pv_tr_pneu_31                            0.61 x 0.21 x 0.61
+Pv_tr_disk_28_L                          0.35 x 0.09 x 0.35
+Pv_tr_disk_30_L                          0.37 x 0.09 x 0.37
+Pv_tr_disk_30a_L                         0.42 x 0.10 x 0.42
+Pv_tr_disk_31_L                          0.38 x 0.09 x 0.38
 Pv_tr_blatnik_28_L                       0.68 x 0.27 x 0.22
 Pv_tr_blatnik_30_L                       0.72 x 0.27 x 0.23
 Pv_tr_blatnik_31_L                       0.74 x 0.27 x 0.23
@@ -156,12 +156,12 @@ Pv_tr_oje_pd_4_0                         1.50 x 0.61 x 0.15
 Pv_tr_oje_pd_5_2                         1.50 x 0.61 x 0.15
 Pv_tr_naraznik_pd_4_0                    0.50 x 2.62 x 0.18
 Pv_tr_naraznik_pd_5_2                    0.50 x 2.62 x 0.18
-Pv_tr_kridlo_pd_4_0_L                    0.70 x 0.37 x 0.16
-Pv_tr_kridlo_pd_5_2_L                    1.80 x 0.37 x 0.16
+Pv_tr_kridlo_pd_4_0_L                    0.70 x 0.39 x 0.16
+Pv_tr_kridlo_pd_5_2_L                    1.80 x 0.39 x 0.16
 Pv_auto_4_0                              3.60 x 1.74 x 1.49
 Pv_auto_5_2                              4.60 x 1.90 x 1.50
-Pv_auto_koleso_4_0                       0.51 x 0.23 x 0.52
-Pv_auto_koleso_5_2                       0.58 x 0.23 x 0.60
+Pv_auto_koleso_4_0                       0.51 x 0.22 x 0.51
+Pv_auto_koleso_5_2                       0.59 x 0.22 x 0.59
 
 == VOZIK NA PALETY ==
 Pv_pa_ram_3_0                            3.17 x 1.82 x 0.12
@@ -267,6 +267,10 @@ Pv_tr_naraznik_sk_3_6                    0.50 x 2.10 x 0.18
 Pv_tr_naprava_87                         0.17 x 1.62 x 0.17
 Pv_tr_naprava_102                        0.17 x 1.92 x 0.17
 
+
+PNEUMATIKY (Pv_pk_pneu pickup, Pv_tr_pneu_<polomer> privesy, Pv_auto_koleso): telo je otoceny prierez (zaoblene rameno, vypukla bocnica, ochranne rebro pri disku a rebro na bocnici),
+  pickup ma hruby terenny dezen (sikme stredove bloky a ramenne bloky zalomene na bocnicu), privesy dezen cesta/teren (pozdlzne rebra a male ramenne bloky), kolesa auta na podvale rebra.
+  Disk (pivot v osi, vonkajsia strana +Y) ma prirubu nad bocnicou a ventilok. Pneumatika aj disk su samostatne diely na uchyte koleso_N_<strana>.
 
 PICKUP (Pickup_dvojkabina: 4 dvere, kratka korba; Pickup_jednokabina: 2 dvere, dlha korba; pociatok = zem pod prednou napravou, predok +X, lava strana +Y):
   Pickup_dvojkabina: rozvor 3.22 m, dlzka od predneho narazniku (x = 0.96) po zadny naraznik (x = -4.60) 5.56 m, sirka 1.98 m, vyska strechy 1.80 m, kabina po x = -2.42, korba -1.81 m, gula tazneho zariadenia v (-4.82, 0, 0.45), rozchod 1.52 m, kolesa R 0.41
