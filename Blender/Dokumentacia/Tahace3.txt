@@ -1,0 +1,90 @@
+Tahace 2 - diely (rozmery X x Y x Z v metroch). Predok = +X, lava = +Y.
+
+== KABINA ==
+Tahac3_kabina                  2.31 x 3.15 x 3.19
+Tahac3_interier                2.14 x 2.28 x 2.33
+Tahac3_volant                  0.53 x 0.53 x 0.18
+Tahac3_rucicka_velka           0.02 x 0.08 x 0.00
+Tahac3_rucicka_mala            0.01 x 0.03 x 0.00
+Tahac3_nasavanie               0.41 x 0.04 x 0.67
+Tahac3_perovanie_kabiny_mech   0.12 x 0.12 x 0.19
+Tahac3_perovanie_kabiny_piest  0.06 x 0.06 x 0.24
+
+== RAMY A PREDOK ==
+Tahac3_4x2_ram                 5.75 x 1.28 x 0.52
+Tahac3_6x2_ram                 6.80 x 1.28 x 0.52
+Tahac3_8x2_ram                 8.25 x 1.28 x 0.52
+Tahac3_naraznik                0.44 x 2.40 x 0.46
+Tahac3_chladic                 0.25 x 0.72 x 0.70
+
+== PRISLUSENSTVO ==
+Tahac3_tocna_kolajnice         1.20 x 0.92 x 0.09
+Tahac3_tocna_platna            0.93 x 1.24 x 0.18
+Tahac3_nadrz_nafta             1.20 x 0.67 x 0.70
+Tahac3_nadrz_adblue            0.40 x 0.49 x 0.52
+Tahac3_baterie                 0.62 x 0.55 x 0.39
+Tahac3_vzduchojemy             0.62 x 0.32 x 0.56
+Tahac3_vyfuk                   0.49 x 0.93 x 0.40
+Tahac3_lavka                   0.60 x 1.40 x 0.11
+Tahac3_hadice                  0.18 x 0.72 x 0.93
+
+== BLATNIKY ==
+Tahac3_blatnik_zadny_L         1.35 x 0.86 x 1.08
+Tahac3_blatnik_zadny_P         1.35 x 0.86 x 1.08
+Tahac3_blatnik_zadny_svetla_L  1.41 x 0.86 x 1.08
+Tahac3_blatnik_zadny_svetla_P  1.41 x 0.86 x 1.08
+Tahac3_blatnik_vleceny_L       1.41 x 0.67 x 1.08
+Tahac3_blatnik_vleceny_P       1.41 x 0.67 x 1.08
+Tahac3_blatnik_predny_L        1.19 x 0.73 x 0.98
+Tahac3_blatnik_predny_P        1.19 x 0.73 x 0.98
+
+== NAPRAVY A PEROVANIE ==
+Tahac3_naprava_predna          0.33 x 1.83 x 0.23
+Tahac3_naprava_hnacia          0.60 x 1.45 x 0.40
+Tahac3_naprava_vlecena         0.24 x 1.45 x 0.28
+Tahac3_koleso_predne           1.05 x 0.36 x 1.04
+Tahac3_koleso_zadne            1.05 x 0.57 x 1.05
+Tahac3_pero_predna_cast        0.74 x 0.10 x 0.08
+Tahac3_pero_zadna_cast         0.74 x 0.10 x 0.08
+Tahac3_tlmic_valec             0.07 x 0.07 x 0.35
+Tahac3_tlmic_piestnica         0.08 x 0.08 x 0.37
+Tahac3_rameno                  1.12 x 0.16 x 0.29
+Tahac3_vankus                  0.30 x 0.30 x 0.30
+
+== KARDANY ==
+Tahac3_4x2_kardan_predny       1.19 x 0.13 x 0.12
+Tahac3_6x2_kardan_predny       0.89 x 0.13 x 0.12
+Tahac3_8x2_kardan_predny       2.32 x 0.13 x 0.12
+Tahac3_kardan_zadny            1.00 x 0.13 x 0.14
+
+MOTORY: nase R4 / R6 / V8 s prevodovkami (diely su v skripte Motory). Koniec vystupneho hriadela kazdej
+  prevodovky je na rame v (-1.300, 0.000, 0.900), takze kazdy motor sedi na ten isty kardan. Vlastnost Motor = 1 / 2 / 3.
+  Motor R4: pivot motora na rame v (-0.258, 0.000, 0.670)
+  Motor R6: pivot motora na rame v (0.062, 0.000, 0.660)
+  Motor V8: pivot motora na rame v (-0.008, 0.000, 0.640)
+
+AKO JE TO POSKLADANE (hierarchia v kolekciach Tahac3_4x2 / 6x2 / 8x2), suradnice od pociatku tahaca:
+  Tahac3_xxx (prazdny objekt) - posuvaj nim cely tahac, vlastnosti = ovladanie (popis na zaciatku skriptu).
+  Napravy: pivot v osi kolies (z = 0.525). Predne kolesa su na capoch riadenia (y = +-0.86), zadne na koncoch naprav.
+  Tahac3_xxx_ram (odpruzena cast): z = 0.6 x pohyb prvej napravy, sklon podla hnacej napravy + vyska vankusov.
+  Predne pera: dve casti na stranu, oka na rame v x napravy +-0.70, z 0.73, mieria na stred pera (0.000, 0.400, 0.060) (od napravy).
+  Zadne ramena: cap na rame v x napravy + 0.65, z 0.66; mieria osou -X na bod (0.000, 0.400, -0.120) pod napravou.
+  Vankuse: hore na rame (x napravy -0.32, z 0.80), mieria osou -Z na sedlo na ramene (-0.961, 0.000, 0.205);
+    vysku natiahni mierkou Z = vzdialenost / 0.300.
+  Tlmice: valec na naprave mieri osou +Z na horne oko na rame, piestnica z horneho oka mieri osou -Z dole.
+  Kardan: predna cast na rame (-1.300, 0.000, 0.900) mieri osou -X na diferencial, zadna cast (0.400, 0.000, 0.000) (od hnacej napravy) mieri +X.
+  Kabina: pivot = predny cap vyklapania (1.030, 0.000, 0.910) (na rame). Vyklopenie = otocenie okolo Y o 55 st.
+    Interier a nasavanie maju rovnaky pivot ako kabina (daj ich na to iste miesto).
+    Zadne perovanie kabiny: mech na rame (-0.832, 0.550, 0.960) mieri +Z na oko na kabine (-0.832, 0.550, 1.240); pri vyklopeni sa odopne.
+    Kabina 3: dlhsia o 0.35 m (vzadu spaca cast s lozkom), jemne vyklenuta sikma strecha, panoramaticke sklo sklonene o 0.24 m, tmava predna cast strechy
+      so svetelnym pasom, znackou a smerovkami, dve antenky; nasavanie vzduchu je vtavene do laveho boku kabiny (diel Tahac3_nasavanie, pivot ako kabina).
+    Farby: kabina je biela, akcentova farba (pas po boku, stitok pod mriezkou) je na kazdom tahaci ina - nastavuje sa na objekte kabiny (slot TH3_Akcent_modry).
+    Vyfuk: tlmic pod autom vpravo za prednou napravou, vyustka smeruje dole von (diel Tahac3_vyfuk, pivot v pociatku tahaca).
+  Tocna: kolajnice na vrchu ramu (z 1.08), platna sa posuva v osi X o +-0.28 m.
+  Blatniky: pivot v osi kolesa. Zadny a predny (2. naprava 8x2) na rame, vleceny na naprave (zdviha sa s nou).
+    Zadne svetla su priamo na poslednom zadnom blatniku (4x2: Tahac3_blatnik_zadny_svetla, 6x2 a 8x2: Tahac3_blatnik_vleceny); SPZ je na konci ramu.
+  Prave diely _P su zrkadlove, kolesa vpravo otoc o 180 st. okolo Z.
+V Unreali: kazdy par 'mieri na' urob cez Find Look at Rotation (alebo Look At v Control Rig / Animation Blueprinte).
+Tahac3_4x2: napravy x = 0.00, -3.60, tocna x = -3.30, koniec ramu x = -4.70
+Tahac3_6x2: napravy x = 0.00, -3.30, -4.65, tocna x = -3.75, koniec ramu x = -5.75
+Tahac3_8x2: napravy x = 0.00, -1.95, -4.75, -6.10, tocna x = -5.20, koniec ramu x = -7.20

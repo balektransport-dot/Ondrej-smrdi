@@ -1,0 +1,241 @@
+Nosice - diely (rozmery X x Y x Z v metroch). Predok = +X, lava = +Y.
+
+== KABINA ==
+Nos_kabina                         2.31 x 3.15 x 3.19
+Nos_interier                       2.14 x 2.28 x 2.33
+Nos_volant                         0.53 x 0.53 x 0.18
+Nos_rucicka_velka                  0.02 x 0.08 x 0.00
+Nos_rucicka_mala                   0.01 x 0.03 x 0.00
+Nos_nasavanie                      0.41 x 0.04 x 0.67
+Nos_perovanie_kabiny_mech          0.12 x 0.12 x 0.19
+Nos_perovanie_kabiny_piest         0.06 x 0.06 x 0.24
+
+== RAMY A PREDOK ==
+Nos_4x2_ram                        7.25 x 1.28 x 0.52
+Nos_6x2_ram                        8.35 x 1.28 x 0.52
+Nos_8x2_ram                        9.45 x 1.28 x 0.52
+Nos_naraznik                       0.44 x 2.40 x 0.46
+Nos_chladic                        0.25 x 0.72 x 0.70
+
+== PRISLUSENSTVO ==
+Nos_nadrz_nafta                    1.20 x 0.67 x 0.70
+Nos_nadrz_adblue                   0.40 x 0.49 x 0.52
+Nos_baterie                        0.62 x 0.55 x 0.39
+Nos_vzduchojemy                    0.62 x 0.32 x 0.56
+Nos_vyfuk                          0.49 x 0.93 x 0.40
+
+== BLATNIKY ==
+Nos_blatnik_zadny_L                1.35 x 0.86 x 1.08
+Nos_blatnik_zadny_P                1.35 x 0.86 x 1.08
+Nos_blatnik_zadny_svetla_L         1.41 x 0.86 x 1.08
+Nos_blatnik_zadny_svetla_P         1.41 x 0.86 x 1.08
+Nos_blatnik_vleceny_L              1.41 x 0.67 x 1.08
+Nos_blatnik_vleceny_P              1.41 x 0.67 x 1.08
+Nos_blatnik_predny_L               1.19 x 0.73 x 0.98
+Nos_blatnik_predny_P               1.19 x 0.73 x 0.98
+
+== NAPRAVY A PEROVANIE ==
+Nos_naprava_predna                 0.33 x 1.83 x 0.23
+Nos_naprava_hnacia                 0.60 x 1.45 x 0.40
+Nos_naprava_vlecena                0.24 x 1.45 x 0.28
+Nos_koleso_predne                  1.05 x 0.36 x 1.04
+Nos_koleso_zadne                   1.05 x 0.57 x 1.05
+Nos_pero_predna_cast               0.74 x 0.10 x 0.08
+Nos_pero_zadna_cast                0.74 x 0.10 x 0.08
+Nos_tlmic_valec                    0.07 x 0.07 x 0.35
+Nos_tlmic_piestnica                0.08 x 0.08 x 0.37
+Nos_rameno                         1.12 x 0.16 x 0.29
+Nos_vankus                         0.30 x 0.30 x 0.30
+
+== KARDANY ==
+Nos_4x2_kardan_predny              2.07 x 0.13 x 0.12
+Nos_6x2_kardan_predny              2.17 x 0.13 x 0.12
+Nos_8x2_kardan_predny              3.27 x 0.13 x 0.12
+Nos_kardan_zadny                   1.00 x 0.13 x 0.14
+
+== SPOLOCNE NA NADSTAVBY ==
+Nos_zadny_naraznik                 0.37 x 2.30 x 0.58
+Nos_naradie_skrinka                0.80 x 0.49 x 0.40
+
+== KORBA A VALNIK ==
+Nos_korba_podlaha_4x2              4.90 x 2.59 x 0.32
+Nos_korba_podlaha_6x2              6.00 x 2.59 x 0.32
+Nos_korba_podlaha_8x2              7.10 x 2.59 x 0.32
+Nos_korba_bocnica_4x2_L            4.76 x 0.10 x 0.60
+Nos_korba_bocnica_6x2_L            5.86 x 0.10 x 0.60
+Nos_korba_bocnica_8x2_L            6.96 x 0.10 x 0.60
+Nos_korba_zadne_celo               0.11 x 2.40 x 0.60
+Nos_korba_predna_stena             0.10 x 2.44 x 1.30
+Nos_ruka_podlaha_6x2               5.05 x 2.59 x 0.32
+Nos_ruka_bocnica_6x2_L             4.99 x 0.10 x 0.60
+Nos_ruka_zadne_celo                0.11 x 2.40 x 0.60
+Nos_drevo_podlaha_6x2              5.05 x 2.59 x 0.32
+
+== SKLAPAC ==
+Nos_sklap_podram_4x2               4.81 x 1.52 x 0.34
+Nos_sklap_podram_6x2               5.91 x 1.52 x 0.34
+Nos_sklap_podram_8x2               7.01 x 1.52 x 0.34
+Nos_sklap_korba_4x2                4.86 x 2.58 x 1.83
+Nos_sklap_korba_6x2                5.96 x 2.58 x 1.83
+Nos_sklap_korba_8x2                7.06 x 2.58 x 1.83
+Nos_sklap_zadne_celo               0.12 x 2.56 x 1.22
+Nos_valec_sklap_0                  0.17 x 0.22 x 1.03
+Nos_valec_sklap_1                  0.14 x 0.14 x 0.95
+Nos_valec_sklap_2                  0.11 x 0.12 x 0.95
+Nos_valec_sklap_3                  0.11 x 0.13 x 1.02
+
+== HAKOVY NOSIC ==
+Nos_hak_podram_4x2                 4.83 x 1.52 x 0.34
+Nos_hak_podram_6x2                 5.93 x 1.52 x 0.34
+Nos_hak_podram_8x2                 7.03 x 1.52 x 0.34
+Nos_hak_klopny_ram_4x2             4.78 x 1.32 x 0.51
+Nos_hak_klopny_ram_6x2             5.88 x 1.32 x 0.51
+Nos_hak_klopny_ram_8x2             6.98 x 1.32 x 0.51
+Nos_hak_rameno_4x2_0               1.34 x 0.37 x 0.33
+Nos_hak_rameno_4x2_1               1.26 x 0.33 x 0.20
+Nos_hak_rameno_4x2_2               1.16 x 0.29 x 0.17
+Nos_hak_rameno_4x2_3               1.06 x 0.25 x 0.15
+Nos_hak_rameno_6x2_0               1.71 x 0.37 x 0.33
+Nos_hak_rameno_6x2_1               1.63 x 0.33 x 0.20
+Nos_hak_rameno_6x2_2               1.53 x 0.29 x 0.17
+Nos_hak_rameno_6x2_3               1.43 x 0.25 x 0.15
+Nos_hak_rameno_8x2_0               2.07 x 0.37 x 0.33
+Nos_hak_rameno_8x2_1               1.99 x 0.33 x 0.20
+Nos_hak_rameno_8x2_2               1.89 x 0.29 x 0.17
+Nos_hak_rameno_8x2_3               1.79 x 0.25 x 0.15
+Nos_hak_hlava                      0.94 x 0.30 x 1.70
+Nos_valec_hak_0                    0.15 x 0.19 x 1.11
+Nos_valec_hak_1                    0.12 x 0.13 x 1.03
+Nos_valec_hak_2                    0.10 x 0.10 x 1.03
+Nos_valec_hak_3                    0.09 x 0.12 x 1.09
+
+== PRENOSNE KONTAJNERY ==
+Nos_kontajner_otvoreny_3_9         4.42 x 2.37 x 1.43
+Nos_kontajner_otvoreny_5_0         5.52 x 2.37 x 1.43
+Nos_kontajner_otvoreny_6_0         6.52 x 2.37 x 1.43
+Nos_kontajner_veko_3_9             4.42 x 2.37 x 1.54
+Nos_kontajner_veko_5_0             5.52 x 2.37 x 1.54
+Nos_kontajner_veko_6_0             6.52 x 2.37 x 1.54
+Nos_kontajner_plosina_3_9          4.42 x 2.37 x 1.34
+Nos_kontajner_plosina_5_0          5.52 x 2.37 x 1.34
+Nos_kontajner_plosina_6_0          6.52 x 2.37 x 1.34
+
+== HYDRAULICKA RUKA ==
+Nos_zeriav_drevo_podstavec         1.13 x 2.48 x 0.54
+Nos_zeriav_drevo_kolona            0.95 x 1.08 x 1.83
+Nos_zeriav_drevo_rameno            2.72 x 0.58 x 1.03
+Nos_zeriav_drevo_lakt              2.68 x 0.50 x 0.88
+Nos_zeriav_drevo_kridlo            2.00 x 0.38 x 0.57
+Nos_zeriav_drevo_teleskop1         1.62 x 0.23 x 0.23
+Nos_zeriav_drevo_teleskop2         1.40 x 0.24 x 0.20
+Nos_zeriav_drevo_rotator           0.30 x 0.30 x 0.41
+Nos_zeriav_drevo_hlava             0.29 x 0.30 x 0.11
+Nos_zeriav_ruka_podstavec          1.13 x 2.48 x 0.44
+Nos_zeriav_ruka_kolona             0.81 x 0.92 x 1.56
+Nos_zeriav_ruka_rameno             2.31 x 0.49 x 0.88
+Nos_zeriav_ruka_lakt               2.28 x 0.42 x 0.75
+Nos_zeriav_ruka_kridlo             1.70 x 0.32 x 0.49
+Nos_zeriav_ruka_teleskop1          1.37 x 0.20 x 0.20
+Nos_zeriav_ruka_teleskop2          1.19 x 0.20 x 0.17
+Nos_zeriav_ruka_rotator            0.25 x 0.26 x 0.35
+Nos_zeriav_ruka_hlava              0.25 x 0.25 x 0.09
+Nos_zeriav_podpera_L               0.44 x 1.22 x 0.34
+Nos_zeriav_podpera_P               0.44 x 1.22 x 0.34
+Nos_zeriav_noha                    0.30 x 0.19 x 0.73
+Nos_zeriav_noha_piest              0.44 x 0.44 x 1.14
+Nos_drapak_telo                    0.46 x 0.64 x 0.69
+Nos_drapak_cap_L                   0.12 x 0.61 x 1.30
+Nos_drapak_cap_P                   0.12 x 0.61 x 1.30
+Nos_zeriav_hak_blok                0.38 x 0.14 x 1.09
+Nos_zeriav_lano                    0.02 x 0.03 x 1.00
+Nos_valec_zldrevo_0                0.13 x 0.16 x 0.55
+Nos_valec_zldrevo_1                0.10 x 0.10 x 0.48
+Nos_valec_zldrevo_2                0.08 x 0.08 x 0.48
+Nos_valec_zldrevo_3                0.08 x 0.10 x 0.54
+Nos_valec_zjdrevo_0                0.11 x 0.14 x 0.46
+Nos_valec_zjdrevo_1                0.09 x 0.09 x 0.40
+Nos_valec_zjdrevo_2                0.07 x 0.07 x 0.40
+Nos_valec_zjdrevo_3                0.07 x 0.08 x 0.45
+Nos_valec_zfdrevo_0                0.10 x 0.12 x 0.46
+Nos_valec_zfdrevo_1                0.08 x 0.08 x 0.40
+Nos_valec_zfdrevo_2                0.06 x 0.07 x 0.40
+Nos_valec_zfdrevo_3                0.06 x 0.07 x 0.45
+Nos_valec_zlruka_0                 0.11 x 0.14 x 0.47
+Nos_valec_zlruka_1                 0.08 x 0.09 x 0.41
+Nos_valec_zlruka_2                 0.07 x 0.07 x 0.41
+Nos_valec_zlruka_3                 0.07 x 0.08 x 0.46
+Nos_valec_zjruka_0                 0.09 x 0.12 x 0.39
+Nos_valec_zjruka_1                 0.07 x 0.08 x 0.34
+Nos_valec_zjruka_2                 0.06 x 0.06 x 0.34
+Nos_valec_zjruka_3                 0.06 x 0.07 x 0.39
+Nos_valec_zfruka_0                 0.08 x 0.11 x 0.39
+Nos_valec_zfruka_1                 0.07 x 0.07 x 0.34
+Nos_valec_zfruka_2                 0.05 x 0.06 x 0.34
+Nos_valec_zfruka_3                 0.05 x 0.06 x 0.39
+Nos_valec_gr_0                     0.07 x 0.08 x 0.60
+Nos_valec_gr_1                     0.06 x 0.08 x 0.61
+
+== NOSIC DREVA ==
+Nos_drevo_celna_stena              0.12 x 2.46 x 2.30
+Nos_drevo_klanica_L                0.16 x 0.16 x 1.62
+Nos_drevo_klanica_P                0.16 x 0.16 x 1.62
+Nos_drevo_klady_4x2                3.52 x 2.27 x 1.25
+Nos_drevo_klady_6x2                4.62 x 2.27 x 1.25
+Nos_drevo_klady_8x2                5.72 x 2.27 x 1.25
+
+MOTORY: nase R4 / R6 / V8 s prevodovkami (diely su v skripte Motory). Koniec vystupneho hriadela kazdej
+  prevodovky je na rame v (-1.300, 0.000, 0.900), takze kazdy motor sedi na ten isty kardan. Vlastnost Motor = 1 / 2 / 3.
+  Motor R4: pivot motora na rame v (-0.258, 0.000, 0.670)
+  Motor R6: pivot motora na rame v (0.062, 0.000, 0.660)
+  Motor V8: pivot motora na rame v (-0.008, 0.000, 0.640)
+
+AKO JE TO POSKLADANE (kolekcie Korba_4x2 ... Valnik_ruka_8x2, suradnice od pociatku auta = zem pod prvou prednou napravou):
+  <Auto>_xxx (prazdny objekt) - posuvaj nim cele auto, vlastnosti = ovladanie (popis na zaciatku skriptu).
+  Napravy: pivot v osi kolies (z = 0.525). Predne kolesa su na capoch riadenia (y = +-0.86), zadne na koncoch naprav.
+  <Auto>_ram (odpruzena cast): z = 0.6 x pohyb prvej napravy, sklon podla hnacej napravy + vyska vankusov. Nadstavba je dieta ramu.
+  Predne pera, zadne ramena, vankuse, tlmice, kardan, kabina (vyklapanie, perovanie), volant a budiky - ako pri tahacoch.
+  Kabina: pivot = predny cap vyklapania (1.030, 0.000, 0.910) (na rame). Vyklopenie = otocenie okolo Y o 55 st.
+  Blatniky: pivot v osi kolesa; zadne svetla su priamo na poslednom zadnom blatniku. Vyfuk je pod autom vpravo.
+  Prave diely _P su zrkadlove, kolesa vpravo otoc o 180 st. okolo Z.
+  Pevny ram: nadstavba lezi na podrame na rame (vrch ramu z = 1.08), horny povrch podlahy z = 1.40, sirka 2.50 m.
+  Zadny naraznik (ochrana proti podbehnutiu) na konci ramu, bocna ochrana medzi napravami, skrinka na naradie vlavo.
+
+KORBA (Korba_xxx, aj Valnik_ruka_xxx): vlastnosti Bocnice (0 = zatvorene, 1 = sklopene dole o 170 st.) a Zadne_celo (0 az 1 = sklopene dozadu o 90 st.).
+  Podlaha (Nos_korba_podlaha_<podvozok>) je dieta ramu; bocnice maju pivot na dolnej vonkajsej hrane v strede dlzky (y = +-1.25, z = 1.40), otacaju sa okolo X (lava -170 st., prava +170 st.); zadne celo ma pivot na dolnej zadnej hrane v osi, otaca sa okolo Y (-90 st.).
+  Predna stena (iba korba), zadny naraznik, bocna ochrana a skrinka na naradie su pevne diely ramu.
+
+SKLAPAC (Sklapac_xxx): vlastnosti Sklopenie (0 az 1 = korba sklopena o 45 st. okolo zavesu) a Zadne_celo (otvorenie aj bez sklopenia).
+  Podram (Nos_sklap_podram_<podvozok>) je dieta ramu. Korba (Nos_sklap_korba_<podvozok>) ma pivot na zavese (x = zadok + 0.12, z = 1.30) a otaca sa okolo Y o -45 st.
+  Zadne celo ma pivot na hornej hrane (os Y) a je dieta korby; otvara sa o 60 st. samo podla sklopenia: max(min(1, 2.5 x Sklopenie), Zadne_celo).
+  Hydraulicky valec (4 stupne po 0.95 m): zaklad (Nos_valec_sklap_0) je na podrame a mieri osou +Z na ciel na korbe;
+    stupne 1 az 3 su deti zakladu a posuvaju sa po osi Z o (d - 0.95) x k / 3, kde d = vzdialenost zakladu od ciela (k = cislo stupna).
+
+HAKOVY NOSIC (Hak_xxx): teleskopicke hakove rameno naberie kontajner zo zeme, vytiahne ho po sklopnom rame a ulozi; vyklada opacne.
+  Ovladace (vlastnosti korena): Zdvih_ramu (0 az 1 = sklopny ram zdvihnuty o 0 az 45 st.), Hak_uhol (st., uhol ramena voci rame: 0 = lezi po rame, okolo 145 = vyklopene dozadu na zem),
+  Hak_vysun (0 az 1 = vysun ramena, 3 teleskopicke stupne) a Kontajner (1/0 = viditelnost kontajnera).
+  Animacia snimky 460 az 900: vylozenie (ram sa zdvihne, kontajner sa po kolajniciach zosunie na zem), uvolnenie haku, odchod dopredu, cuvanie, podhaknutie tyce zospodu a nalozenie spat.
+    Kontajner je dieta korena (nie ramu) a jeho poloha je v animacii kazdy druhy snimok: lezi na zemi, zadnymi kolieskami sa kotula po zemi a po valci na zadku ramu, potom lezi na kolajniciach.
+  Podram a sklopny ram: ram ma pivot na zavese (x = zadok, z = 1.30), otaca sa okolo Y o -45 st. x Zdvih_ramu; rameno je jeho dieta.
+  Hakove rameno: zakladna rura s capom (x = 0.30 od zavesu po rame), uhol okolo Y o -Hak_uhol; tri vysuvne stupne su jeho deti (posun v X o k/3 plneho vysunu x Hak_vysun),
+    na konci posledneho stupna je hlava (stojina + hak). Bod 'hak_tyc' (empty v hlave) a 'kontajner_tyc' (empty na kontajneri) sa pocas nabrania kryju.
+  Valec sklapania ramena: 4 stupne po 1.03 m, zaklad na rame, cielovy bod na ramene (ten isty princip ako u sklapaca).
+  Kontajnery: tri druhy (otvoreny, s vekom, plosina) x tri dlzky (3.9 / 5.0 / 6.0 m), pivot v strede dna, predok = +X, hakova tyc 0.42 m pred celom vo vyske 1.30 m,
+    zadne kolieska (polomer 0.095). Na 4x2 je otvoreny 3.9 m, na 6x2 s vekom 5.0 m, na 8x2 plosina 6.0 m. Vsetky su aj samostatne v kolekcii Kontajnery.
+
+HYDRAULICKA RUKA (Drevo_xxx s drapakom a pevnym hakom, Valnik_ruka_xxx s hakom na lane): zlozena je zig-zag - hlavne rameno hore, druhe rameno sikmo dole dozadu, treti clanok vodorovne spat.
+  Vlastnosti: Podpery (0 = zasunute, nohy zlozene hore; 0 az 0.35 nosnik sa vysunie do strany, 0.35 az 0.6 noha sa otoci o 180 st. dolu, 0.6 az 0.9 noha na zem, 0.9 az 1 pritlacenie = podvozok sa nadvihne o 8 cm),
+  Otocenie (0 az 360 st., 180 = dozadu / zlozene), Vyloz (-5 az 85 st., zlozene 75), Lakt (druhe rameno -135 az 35 st., zlozene -135),
+  Lakt2 (treti clanok -140 az 60 st., zlozeny -130), Teleskop a Teleskop2 (predlzenia 0 az 1: 1.3 a 1.1 m), Rotator (st., neobmedzene),
+  Nastroj (1 = otoceny hore pri zlozeni, 0 = visi dole), Drapak (0 otvoreny, 1 zatvoreny; iba drevo), Hak_spustenie (iba valnik).
+  Kinematika (kazdy diel je dieta predosleho, pivot na jeho klbe): podstavec (dieta ramu, os x = -1.73) -> kolona (okolo Z o Otocenie)
+  -> hlavne rameno (okolo Y o -Vyloz, pivot 1.57 nad podstavcom kolony) -> druhe rameno (okolo Y o -Lakt, pivot na konci ramena 2.4) -> treti clanok (okolo Y o -Lakt2, pivot na konci 2.4)
+  -> teleskop 1 (posun v X: 0.2 + 1.3 x Teleskop) -> teleskop 2 (posun v X: 0.15 + 1.1 x Teleskop2) -> rotator (visi dole: okolo Y o -(sucet uhlov), pri zlozeni o 180 st.)
+  -> hlava rotatora (okolo Z o Rotator) -> drapak (dve celuste na zavesoch, hydraulicke valce) s pevnym hakom v strede / hak na lane.
+  Teleskopicke valce (4 stupne; celust 2 stupne): zaklad mieri osou +Z na ciel, stupne sa posuvaju po Z o (d - dlzka stupna) x k / (n - 1).
+  Podpery: nosnik (pohyb v Y, lavy a pravy v inom x, aby sa minuli), klb nohy (otocenie okolo X o 180 st.), puzdro nohy a jej piest (pohyb v Z o 0.31 m + pritlacenie); mierka ruky: drevo 1.0, valnik 0.85. Sedacka obsluhy je na lavej strane kolony.
+
+NOSIC DREVA (Drevo_xxx): vlastnost Naklad (1/0 = klady dreva); podlaha, vysoka celna stena, dvojice klanic po 1.55 m; ruka s drapakom za kabinou (popis vyssie).
+V Unreali: kazdy par 'mieri na' urob cez Find Look at Rotation (alebo Look At v Control Rig / Animation Blueprinte).
+Podvozok 4x2: napravy x = 0.00, -4.50, koniec ramu x = -6.20, dlzka podlahy korby 4.90 m
+Podvozok 6x2: napravy x = 0.00, -4.60, -5.95, koniec ramu x = -7.30, dlzka podlahy korby 6.00 m
+Podvozok 8x2: napravy x = 0.00, -1.95, -5.70, -7.05, koniec ramu x = -8.40, dlzka podlahy korby 7.10 m

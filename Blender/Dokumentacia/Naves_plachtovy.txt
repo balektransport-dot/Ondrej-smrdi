@@ -1,0 +1,123 @@
+Naves (plachta) - diely (rozmery X x Y x Z v metroch). Predok = +X, lava = +Y, pociatok = zem pod capom.
+
+== SKRINA - SPOLOCNE ==
+Naves_cap_deska                    0.90 x 0.90 x 0.17
+Naves_celo                         0.30 x 2.55 x 2.74
+Naves_dvere_L                      0.12 x 1.33 x 2.47
+Naves_dvere_P                      0.12 x 1.33 x 2.47
+Naves_stlpik                       0.08 x 0.08 x 2.57
+
+== PODPERY, REZERVA, SKRINKA, OVLADAC ==
+Naves_noha_vonkajsia_L             0.30 x 0.24 x 0.76
+Naves_noha_vonkajsia_P             0.30 x 0.24 x 0.76
+Naves_noha_vnutorna                0.30 x 0.30 x 0.88
+Naves_podpery_traverza             0.44 x 1.11 x 0.43
+Naves_naradi_skrinka               0.70 x 0.57 x 0.40
+Naves_ovladac_napravy              0.20 x 0.10 x 0.42
+Naves_rezerva                      1.05 x 0.45 x 1.05
+Naves_rezerva_kos_L                1.24 x 0.66 x 0.48
+Naves_rezerva_kos_P                1.24 x 0.66 x 0.48
+
+== BLATNIKY ==
+Naves_blatnik_L                    1.19 x 0.65 x 0.98
+Naves_blatnik_P                    1.19 x 0.65 x 0.98
+
+== NAPRAVY A PEROVANIE ==
+Naves_naprava                      0.44 x 1.68 x 0.29
+Naves_koleso                       1.05 x 0.42 x 1.05
+Naves_rameno                       1.06 x 0.16 x 0.28
+Naves_vankus                       0.30 x 0.30 x 0.30
+Naves_tlmic_valec                  0.07 x 0.07 x 0.35
+Naves_tlmic_piestnica              0.08 x 0.08 x 0.37
+
+== DIELY PRE DLZKU 13.6 m ==
+Naves_ram_13_6                     13.45 x 2.60 x 0.83
+Naves_podlaha_13_6                 13.43 x 2.35 x 0.03
+Naves_strecha_13_6                 13.63 x 2.57 x 0.19
+Naves_zadny_portal_13_6            0.17 x 2.66 x 2.95
+Naves_plachta_dielik_13_6          0.20 x 0.03 x 2.50
+Naves_zadny_naraznik_13_6          0.56 x 2.52 x 0.82
+Naves_zadne_svetlo_L_13_6          0.09 x 0.38 x 0.13
+Naves_zadne_svetlo_P_13_6          0.09 x 0.38 x 0.13
+Naves_bocne_svetla_L_13_6          12.62 x 0.03 x 0.07
+Naves_bocne_svetla_P_13_6          12.62 x 0.03 x 0.07
+Naves_zabrana_L_13_6               2.50 x 0.09 x 0.77
+Naves_zabrana_P_13_6               2.50 x 0.09 x 0.77
+Naves_zastera_bok_L_13_6           10.53 x 0.02 x 0.17
+Naves_zastera_bok_P_13_6           10.53 x 0.02 x 0.17
+
+== DIELY PRE DLZKU 12.0 m ==
+Naves_ram_12_0                     11.85 x 2.60 x 0.83
+Naves_podlaha_12_0                 11.83 x 2.35 x 0.03
+Naves_strecha_12_0                 12.03 x 2.57 x 0.19
+Naves_zadny_portal_12_0            0.17 x 2.66 x 2.95
+Naves_plachta_dielik_12_0          0.20 x 0.03 x 2.50
+Naves_zadny_naraznik_12_0          0.56 x 2.52 x 0.82
+Naves_zadne_svetlo_L_12_0          0.09 x 0.38 x 0.13
+Naves_zadne_svetlo_P_12_0          0.09 x 0.38 x 0.13
+Naves_bocne_svetla_L_12_0          11.02 x 0.03 x 0.07
+Naves_bocne_svetla_P_12_0          11.02 x 0.03 x 0.07
+Naves_zabrana_L_12_0               1.11 x 0.09 x 0.77
+Naves_zabrana_P_12_0               1.11 x 0.09 x 0.77
+Naves_zastera_bok_L_12_0           8.93 x 0.02 x 0.17
+Naves_zastera_bok_P_12_0           8.93 x 0.02 x 0.17
+
+== DIELY PRE DLZKU 10.5 m ==
+Naves_ram_10_5                     10.35 x 2.60 x 0.83
+Naves_podlaha_10_5                 10.33 x 2.35 x 0.03
+Naves_strecha_10_5                 10.53 x 2.57 x 0.19
+Naves_zadny_portal_10_5            0.17 x 2.66 x 2.95
+Naves_plachta_dielik_10_5          0.20 x 0.03 x 2.50
+Naves_zadny_naraznik_10_5          0.56 x 2.52 x 0.82
+Naves_zadne_svetlo_L_10_5          0.09 x 0.38 x 0.13
+Naves_zadne_svetlo_P_10_5          0.09 x 0.38 x 0.13
+Naves_bocne_svetla_L_10_5          9.52 x 0.03 x 0.07
+Naves_bocne_svetla_P_10_5          9.52 x 0.03 x 0.07
+Naves_zabrana_L_10_5               1.11 x 0.09 x 0.77
+Naves_zabrana_P_10_5               1.11 x 0.09 x 0.77
+Naves_zastera_bok_L_10_5           7.43 x 0.02 x 0.17
+Naves_zastera_bok_P_10_5           7.43 x 0.02 x 0.17
+
+== DIELY PRE DLZKU 9.5 m ==
+Naves_ram_9_5                      9.35 x 2.60 x 0.83
+Naves_podlaha_9_5                  9.33 x 2.35 x 0.03
+Naves_strecha_9_5                  9.53 x 2.57 x 0.19
+Naves_zadny_portal_9_5             0.17 x 2.66 x 2.95
+Naves_plachta_dielik_9_5           0.20 x 0.03 x 2.50
+Naves_zadny_naraznik_9_5           0.56 x 2.52 x 0.82
+Naves_zadne_svetlo_L_9_5           0.09 x 0.38 x 0.13
+Naves_zadne_svetlo_P_9_5           0.09 x 0.38 x 0.13
+Naves_bocne_svetla_L_9_5           8.52 x 0.03 x 0.07
+Naves_bocne_svetla_P_9_5           8.52 x 0.03 x 0.07
+Naves_zastera_bok_L_9_5            6.16 x 0.02 x 0.17
+Naves_zastera_bok_P_9_5            6.16 x 0.02 x 0.17
+
+DLZKY: 13.6 m (3 napravy), 12.0 m (3 napravy), 10.5 m (2 napravy), 9.5 m (2 napravy)
+
+Plachta_13_6: napravy x = -6.40, -7.71, -9.02; koniec skrine x = -12.00; stred rezervy x = -10.52; skrinka x = -3.00; ovladac x = -11.24; zabrany x = -3.05, -4.25, -5.45
+    stlpiky x = -2.20, -5.60, -9.00; plachta 66 dielikov po 0.204 m; zavesy dveri x = -12.045
+Plachta_12_0: napravy x = -5.00, -6.31, -7.62; koniec skrine x = -10.40; stred rezervy x = -9.12; skrinka x = -3.00; ovladac x = -9.85; zabrany x = -3.05, -4.05
+    stlpiky x = -2.20, -5.60, -9.00; plachta 58 dielikov po 0.204 m; zavesy dveri x = -10.445
+Plachta_10_5: napravy x = -5.01, -6.32; koniec skrine x = -8.90; stred rezervy x = -7.82; skrinka x = -3.00; ovladac x = -8.54; zabrany x = -3.05, -4.06
+    stlpiky x = -2.20, -5.60; plachta 51 dielikov po 0.203 m; zavesy dveri x = -8.945
+Plachta_9_5: napravy x = -4.14, -5.45; koniec skrine x = -7.90; stred rezervy x = -6.95; skrinka x = -3.00; ovladac x = -7.67; zabrany x = bez
+    stlpiky x = -2.20, -5.60; plachta 46 dielikov po 0.203 m; zavesy dveri x = -7.945
+
+AKO JE TO POSKLADANE (hierarchia v kolekciach podla dlzky), suradnice od pociatku navesu (zem pod capom):
+  Hlavny objekt navesu (prazdny) - posuvaj nim cely naves, vlastnosti = ovladanie (popis na zaciatku skriptu).
+  Zapriahnutie: cap navesu da na stred tocne tahaca (x tocne + Posun_tocne); spodok dosky s capom je vo vyske 1.31 m = vrch tocne.
+  Skrina (ram): otaca sa okolo capu, zadok ide hore o Vyska_podvozku + 0.6 x pohyb naprav.
+  Napravy: pivot v osi kolies (z = 0.525); kolesa su ich deti (pravu stranu otoc o 180 st.). Prva naprava sa da zdvihnut.
+  Ramena: cap na rame v x napravy + 0.60, z 0.62; mieria osou -X na bod (0.000, 0.520, -0.120) pod napravou.
+  Vankuse: hore na rame (x napravy -0.32, z 0.80), mieria osou -Z na sedlo na ramene (-0.907, 0.000, 0.197); vysku natiahni mierkou Z = vzdialenost / 0.300.
+  Tlmice: valec na naprave mieri osou +Z na horne oko na rame, piestnica z horneho oka mieri osou -Z dole.
+    dole (-0.120, 0.660, 0.000) (od napravy), hore x napravy + 0.20, y 0.62, z 0.88.
+  Podpery: vonkajsie nohy v x -2.40, y +-0.60; vnutorne nohy idu o 0.34 m dole (Podpery 0 -> 1). Podpery su elektricke, bez kliky.
+  Rezerva: dve kolesa vedla seba (lave a prave, stredy v y = +-0.60, z = 0.908), lezia vodorovne pod ramom (otocene o 90 st. okolo X, plocha disku hore); kazde ma kos z dvoch U-rurok; vlastnosti Rezerva_L a Rezerva_P.
+  Ovladac napravy: na vonkajsej strane laveho nosnika hned za lavou rezervou (pivot na vonkajsej strane v y = 0.65, z = 1.12, x = x rezervy - 0.725), smeruje do +Y; sipky hore a dole su nakreslene na tlacidlach.
+  Rovnaky ovladac je aj pri podperach (objekt ovladac_podper): na vonkajsej strane laveho stlpu nohy, pivot v (-2.40, 0.75, 1.17), smeruje do +Y.
+  Prave diely _P su zrkadlove. Blatniky, svetla a zabrany maju pivot v pociatku navesu alebo v osi kolesa.
+V Unreali: kazdy par 'mieri na' urob cez Find Look at Rotation (alebo Look At v Control Rig / Animation Blueprinte).
+  Plachta: kazdy dielik je dieta klbu na svojom prednom okraji; klb i je dieta predchadzajuceho dielika a je o -sirku dielika (X) od neho.
+    Klby sa striedavo otacaju o +-2 x 1.48 rad (harmonika). Prvy klb je na rame v (1.555, 1.255, 1.420) (lava), pre pravu stranu zrkadlovo.
+  Stlpiky (pivot dole, z = 1.41) sa pri odsunuti plachty schovaju. Dvere: otacaju sa okolo Z o 270 st. (lave zaporne, prave kladne).
