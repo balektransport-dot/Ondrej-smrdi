@@ -37,3 +37,9 @@ kabina|schodik
 ram|vyfuk
 ram|skrinka
 naraznik_zadny|ram
+kabina_zerava|svetlo_pracovne
+kabina_zerava|majak
+maska|svetlomet
+naraznik_zadny|svetlo_zadne
+ram|zakladna
+rameno_1|valec_zdvihu

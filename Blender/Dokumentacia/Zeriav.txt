@@ -1,9 +1,9 @@
 Autozeriav - diely (rozmery X x Y x Z v metroch). Predok = +X, lava = +Y.
 
 == AUTOZERIAV 40t ==
-Zr_ram_40t                               9.30 x 1.32 x 0.35
+Zr_ram_40t                               9.30 x 1.50 x 0.41
 Zr_zakladna_40t                          2.20 x 2.18 x 0.28
-Zr_kabina_40t                            2.34 x 2.49 x 1.97
+Zr_kabina_40t                            2.20 x 2.49 x 1.97
 Zr_maska_40t                             0.18 x 2.12 x 0.84
 Zr_naraznik_predny_40t                   0.80 x 2.52 x 0.52
 Zr_nadrz_40t                             1.30 x 0.64 x 0.74
@@ -23,25 +23,25 @@ Zr_pult_40t                              1.19 x 0.70 x 1.18
 Zr_konzoly_40t                           2.25 x 1.18 x 2.42
 Zr_vitel_40t                             0.64 x 0.75 x 0.64
 Zr_vitel_podstava_40t                    0.75 x 0.95 x 0.42
-Zr_hlava_40t                             0.77 x 0.73 x 0.94
+Zr_hlava_40t                             0.77 x 0.78 x 1.09
 Zr_hak_40t                               0.48 x 0.45 x 0.97
-Zr_dvere_40t_L                           1.40 x 0.09 x 1.44
+Zr_dvere_40t_L                           1.10 x 0.09 x 1.44
 Zr_disk_40t_L                            0.72 x 0.19 x 0.75
 Zr_blatnik_40t_L                         1.36 x 0.52 x 0.93
-Zr_podpera_vysuv_40t_L                   0.83 x 2.55 x 0.42
+Zr_podpera_vysuv_40t_L                   0.83 x 2.56 x 0.42
 Zr_zakladka_40t_L                        0.50 x 0.34 x 0.38
-Zr_zavazie_1_40t                         0.32 x 2.62 x 1.48
-Zr_zavazie_2_40t                         0.32 x 2.62 x 1.48
-Zr_zavazie_3_40t                         0.33 x 2.62 x 1.48
+Zr_zavazie_1_40t                         0.32 x 2.62 x 1.52
+Zr_zavazie_2_40t                         0.32 x 2.62 x 1.52
+Zr_zavazie_3_40t                         0.33 x 2.62 x 1.52
 Zr_rameno_1_40t                          7.25 x 0.93 x 1.18
 Zr_rameno_2_40t                          6.60 x 0.78 x 0.84
 Zr_rameno_3_40t                          6.10 x 0.68 x 0.74
 Zr_rameno_4_40t                          5.60 x 0.58 x 0.64
 
 == AUTOZERIAV 80t ==
-Zr_ram_80t                               11.65 x 1.32 x 0.40
+Zr_ram_80t                               11.65 x 1.60 x 0.46
 Zr_zakladna_80t                          2.60 x 2.58 x 0.28
-Zr_kabina_80t                            2.64 x 2.49 x 2.14
+Zr_kabina_80t                            2.50 x 2.49 x 2.14
 Zr_maska_80t                             0.18 x 2.12 x 0.84
 Zr_naraznik_predny_80t                   0.80 x 2.52 x 0.48
 Zr_nadrz_80t                             1.30 x 0.64 x 0.74
@@ -61,17 +61,17 @@ Zr_pult_80t                              1.34 x 0.82 x 1.18
 Zr_konzoly_80t                           2.25 x 1.34 x 2.74
 Zr_vitel_80t                             0.64 x 0.91 x 0.64
 Zr_vitel_podstava_80t                    0.75 x 1.11 x 0.42
-Zr_hlava_80t                             0.77 x 0.71 x 0.92
+Zr_hlava_80t                             0.77 x 0.76 x 1.07
 Zr_hak_80t                               0.48 x 0.45 x 0.97
-Zr_dvere_80t_L                           1.40 x 0.09 x 1.59
+Zr_dvere_80t_L                           1.10 x 0.09 x 1.59
 Zr_disk_80t_L                            0.86 x 0.21 x 0.89
 Zr_blatnik_80t_L                         1.58 x 0.60 x 1.01
-Zr_podpera_vysuv_80t_L                   0.83 x 2.95 x 0.42
+Zr_podpera_vysuv_80t_L                   0.83 x 2.96 x 0.42
 Zr_zakladka_80t_L                        0.50 x 0.34 x 0.38
-Zr_zavazie_1_80t                         0.32 x 3.02 x 1.73
-Zr_zavazie_2_80t                         0.32 x 3.02 x 1.73
-Zr_zavazie_3_80t                         0.32 x 3.02 x 1.73
-Zr_zavazie_4_80t                         0.33 x 3.02 x 1.73
+Zr_zavazie_1_80t                         0.32 x 3.02 x 1.77
+Zr_zavazie_2_80t                         0.32 x 3.02 x 1.77
+Zr_zavazie_3_80t                         0.32 x 3.02 x 1.77
+Zr_zavazie_4_80t                         0.33 x 3.02 x 1.77
 Zr_rameno_1_80t                          8.35 x 1.09 x 1.33
 Zr_rameno_2_80t                          7.60 x 0.92 x 0.97
 Zr_rameno_3_80t                          7.00 x 0.80 x 0.85
