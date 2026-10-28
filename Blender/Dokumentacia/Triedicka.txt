@@ -1,0 +1,69 @@
+Pasova triedicka materialov - diely (rozmery X x Y x Z v metroch). Predok = +X, lava = +Y.
+
+== TRIEDICKA ==
+Tr_podvozok                              4.40 x 2.48 x 0.45
+Tr_pas_L                                 4.60 x 0.60 x 1.02
+Tr_ram                                   11.20 x 3.48 x 1.58
+Tr_nasypka                               3.27 x 3.11 x 1.24
+Tr_bocnica_L                             3.10 x 0.07 x 0.67
+Tr_sito                                  4.52 x 2.64 x 1.10
+Tr_pruziny                               3.46 x 2.50 x 0.32
+Tr_zlaby                                 4.10 x 1.70 x 1.02
+Tr_vstup                                 1.07 x 1.64 x 0.82
+Tr_motor                                 1.82 x 0.84 x 2.28
+Tr_dvere_motora                          0.86 x 0.07 x 1.10
+Tr_chladic                               0.72 x 0.80 x 1.10
+Tr_nadrze                                1.70 x 0.88 x 1.17
+Tr_rozstrek                              0.06 x 1.84 x 0.58
+Tr_svetlo                                0.11 x 0.26 x 0.14
+Tr_majak                                 0.18 x 0.18 x 0.15
+Tr_hromada_nasypka                       2.30 x 2.31 x 1.16
+Tr_hromada_vstup                         4.49 x 4.43 x 1.66
+Tr_hromada_hrube                         7.68 x 7.66 x 2.83
+Tr_hromada_stredne                       6.19 x 6.13 x 2.39
+Tr_hromada_jemne                         6.20 x 6.21 x 2.39
+
+== DOPRAVNIK podavac ==
+Cv_tr_podavac_ram                        7.04 x 1.26 x 0.87
+Cv_tr_podavac_pas                        6.68 x 1.00 x 0.55
+Cv_tr_podavac_buben                      0.45 x 1.48 x 0.45
+Cv_tr_podavac_lista                      0.26 x 0.61 x 0.05
+Cv_tr_podavac_kryt                       1.17 x 1.20 x 1.16
+Cv_tr_podavac_naklad_0                   0.44 x 0.54 x 0.14
+
+== DOPRAVNIK dopr_hrube ==
+Cv_tr_hrube_ram                          8.04 x 1.16 x 0.87
+Cv_tr_hrube_pas                          7.68 x 0.90 x 0.54
+Cv_tr_hrube_buben                        0.45 x 1.38 x 0.45
+Cv_tr_hrube_lista                        0.24 x 0.55 x 0.05
+Cv_tr_hrube_kryt                         1.17 x 1.10 x 1.16
+Cv_tr_hrube_naklad_0                     0.36 x 0.37 x 0.16
+
+== DOPRAVNIK dopr_stredne ==
+Cv_tr_stredne_ram                        6.04 x 1.16 x 0.87
+Cv_tr_stredne_pas                        5.68 x 0.90 x 0.54
+Cv_tr_stredne_buben                      0.45 x 1.38 x 0.45
+Cv_tr_stredne_lista                      0.24 x 0.55 x 0.05
+Cv_tr_stredne_kryt                       1.17 x 1.10 x 1.16
+Cv_tr_stredne_naklad_0                   0.44 x 0.48 x 0.12
+
+== DOPRAVNIK dopr_jemne ==
+Cv_tr_jemne_ram                          6.04 x 1.16 x 0.87
+Cv_tr_jemne_pas                          5.68 x 0.90 x 0.54
+Cv_tr_jemne_buben                        0.45 x 1.38 x 0.45
+Cv_tr_jemne_lista                        0.24 x 0.55 x 0.05
+Cv_tr_jemne_kryt                         1.17 x 1.10 x 1.16
+Cv_tr_jemne_naklad_0                     0.40 x 0.44 x 0.06
+
+
+PASOVA TRIEDICKA MATERIALOV (Triedicka_pasova): mobilne dvojsitove triedenie s tromi vystupnymi dopravnikmi. Pociatok = zem pod stredom podvozku, predok +X (hrube dopravnik na osi),
+  nasypka vzadu (-X), lava +Y. Tok: nasypka -> podavaci pas -> vibracne dvojsito -> hrube (nadsitne, os), stredne (vlavo, +Y), jemne (vpravo, -Y).
+  Vlastnosti na hlavnom objekte: Otacanie (faza vibracii v stupnoch), Chod (0 stoji, 1 bezi: vibracie sita), Pas_pohyb (metre pasov), Nasypka_bocnice, Nasypka_naplnenie, Hromada_hrube / _stredne / _jemne, Dvere_motora.
+    Animacia 1 az 1000: dvere motora 20 az 120, bocnice 60 az 100, rozbeh 130 az 170, nasypka sa plni 130 az 210, hromady rastu od 220 / 240 / 260 do 1000.
+  DEMONTAZ: kazdy diel je samostatny objekt <Triedicka_pasova>_<diel> a je detom UCHYTU <Triedicka_pasova>_uchyt_<diel> (prazdny objekt v pivote dielu). Vymena: zmaz objekt dielu a novy diel daj ako dieta uchytu.
+  Diely: podvozok, pas_L / _P (pasy, stoja), ram (horny ram, stojky, podstavec sita), nasypka, bocnica_L / _P (klapky, rotacia X podla Nasypka_bocnice), sito (pohyblive, vibruje po X a Z) a pruziny (v uchyte sito_osadenie so sklonom 7 st.),
+    zlaby (zbernne zlaby pod sitom), vstup (vstupny zlab sita), motor, dvere_motora_1 / _2, chladic, nadrze, rozstrek, svetlo_1 az 4, majak, hromady: hromada_nasypka, hromada_vstup, hromada_hrube, hromada_stredne, hromada_jemne.
+  Dopravniky (kazdy na uchyte <Triedicka_pasova>_uchyt_<id>): podavac (sklon 22 st., dlzka 6.2 m), dopr_hrube (20 st., 7.2 m), dopr_stredne (18 st., 5.2 m, otoceny do +Y), dopr_jemne (18 st., 5.2 m, otoceny do -Y);
+    kazdy ma diely <id>_ram, _pas (korytovy pas), _kryt (hlava so zlabom), _buben_hlava / _chvost (otacaju sa podla Pas_pohyb); listy pasu (<id>_lista_N) a kamene (<id>_naklad_N) bezia po slucke (poloha je driver z Pas_pohyb).
+  Rozmery: dlzka s dopravnikmi a nasypkou asi 20 m, sirka stroja 3.2 m, vyska nasypky 3.0 m, sito 4.2 x 1.6 m.
+V Unreali: kazdy par 'mieri na' urob cez Find Look at Rotation (alebo Look At v Control Rig / Animation Blueprinte).

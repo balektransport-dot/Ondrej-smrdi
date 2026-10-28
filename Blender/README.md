@@ -22,6 +22,8 @@ Bez okna: `blender --background --python skript.py`. Do FBX sa exportuje každý
 | `odtahovky_low_poly.py` | odťahovky na pevnom podvozku, každá v európskom aj americkom štýle: plošinová 4x2 / 6x2 / 8x2 (sklopný podrám, plošina zjazdí šikmo na zem, navijak s hákom vytiahne auto) a ťažká 6x2 / 8x2 (otočný žeriav s hákom, podjazdové rameno, podpery, skrine s dvierkami) |
 | `pickup_vozik_low_poly.py` | dva pickupy (dvojkabína 4 dvere a jednokabína 2 dvere; čierny pruh, ochranný rollbar, svetelná lišta, rúrová ochrana, veľké kolesá, ťažná guľa) a prívesy so spojkou: malý vozík 2,0 / 2,6 m, podval na auto 4,0 / 5,2 m (pevná mriežková paluba, dva výsuvné nájazdy, dvojmontáž kolies, navijak vytiahne auto), vozík na palety 3,0 / 4,2 m s EUR paletami, cisternový vozík 1,5 / 3 m³ (tvar cisterny s klenbami, poklopy a dvierka skrinky s ventilmi sa otvárajú, armatúra v rovnakom rozmere ako na cisternovom návese), vozík na drevo s kmeňmi (4,0 / 6,0 m), skriňový vozík 2,5 / 3,6 m (zadná rampa, bočné dvere); všetko demontovateľné po dieloch (uchyty) |
 | `zeriav_low_poly.py` | autožeriav 40 t (3 nápravy, 4-dielne teleskopické rameno) a 80 t (4 nápravy, 5-dielne rameno): riadené nápravy, 4 výsuvné podpery, otočná nadstavba s kabínou a protizávažím, rameno na teleskopickom valci zdvihu, kladka, lano a háčikový blok; všetko demontovateľné po dieloch (uchyty) |
+| `drvic_low_poly.py` | pásový čeľusťový drvič kameňa na štrk: násypka s bočnými klapkami a roštom, vibračný podávač, čeľusťový drvič (pevná a kývajúca sa čeľusť, excentrický hriadeľ so zotrvačníkmi), motorový diel s dvierkami, výstupný pásový dopravník s kameňmi (7,6 m), vodný rozstrek, plošina s rebríkom, hromady (vstup, násypka, štrk); všetko demontovateľné po dieloch (uchyty) |
+| `triedicka_low_poly.py` | pásová triediaca stanica materiálov: násypka s podávacím pásom, vibračné dvojsito, tri výstupné dopravníky (hrubé na osi, stredné vľavo, jemné vpravo) s kameňmi, motorový diel s dvierkami, rozstrek, hromady troch frakcií; všetko demontovateľné po dieloch (uchyty) |
 | `podvozok_low_poly.py`, `nadrz_tocna_low_poly.py` | podvozok kamióna, nádrže a otočná |
 | `motory_low_poly.py`, `prevodovky_low_poly.py` | motory R4 / R6 / V8 a prevodovky |
 | `sklopka_low_poly.py`, `sklopka_v2_low_poly.py`, `vozik_low_poly.py` | sklopka (malý nákladiak) a vyklápací vozík |
@@ -41,6 +43,10 @@ Náhľady sú v `Nahlady/`, pomocný skript na render náhľadu v `Nastroje/rend
 ## Autožeriav – ovládanie
 
 Vlastnosti na koreňovom objekte `Zeriav_40t` / `Zeriav_80t` (panel N → Item): `Koleso_otocenie`, `Riadenie`, `Podpery_vysun`, `Podpery_spust` (0 až 0,7 podložky dosadnú, do 1 sa podvozok nadvihne), `Otocenie` (±360°), `Vyzdvih` (0 až 78°), `Vysun` (všetky stupne rámena), `Hak` (0 = pod hlavou, 1 = na zemi), `Dvere_nosica`, `Dvere_zerava`. Animácia 1 až 1000: jazda, podpery, rameno, otočenie, hák dole a hore, zloženie. Hák nemá rodiča (jeho poloha je driver zo svetovej polohy hlavy ramena), lano mieri z hlavy na hák. Diely sú na uchytoch `<Žeriav>_uchyt_<diel>`, zoznam v `Dokumentacia/Zeriav.txt`.
+
+## Drvič a triedička – ovládanie
+
+Vlastnosti na hlavnom objekte (panel N → Item): `Otacanie` (stupne zotrvačníkov, resp. fáza vibrácií sita), `Chod` (0 = stojí, 1 = beží: vibrácie podávača / sita a kývanie čeľuste), `Pas_pohyb` (metre pásu, listy a kamene bežia po slučke), `Nasypka_bocnice`, `Nasypka_naplnenie`, `Dvere_motora`; drvič má `Hromada_strk`, triedička `Hromada_hrube`, `Hromada_stredne`, `Hromada_jemne`. Animácia 1 až 1000 (rozbeh, plnenie násypky, rast hromád). Pásy sú zložené z uchytov `<Stroj>_uchyt_<id>` (rám, pás, kryt hlavy, dva bubny); listy pásu a kamene sú objekty s driverom z `Pas_pohyb`. Zoznamy dielov v `Dokumentacia/Drvic.txt` a `Dokumentacia/Triedicka.txt`.
 
 ## Návesy – ovládanie
 

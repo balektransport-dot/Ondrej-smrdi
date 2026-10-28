@@ -1,0 +1,45 @@
+Celustovy drvic kamena - diely (rozmery X x Y x Z v metroch). Predok = +X, lava = +Y.
+
+== DRVIC - CELUSTOVY ==
+Dr_podvozok                              4.00 x 2.48 x 0.45
+Dr_pas_L                                 4.11 x 0.58 x 1.02
+Dr_ram                                   7.15 x 3.44 x 1.76
+Dr_nasypka                               3.27 x 2.91 x 1.14
+Dr_bocnica_L                             3.10 x 0.07 x 0.67
+Dr_rost                                  2.05 x 1.60 x 0.20
+Dr_podavac                               3.00 x 2.30 x 0.45
+Dr_pruziny                               2.44 x 2.08 x 0.26
+Dr_drvic                                 1.86 x 1.61 x 2.08
+Dr_celust                                0.71 x 0.98 x 1.38
+Dr_hriadel                               0.90 x 2.02 x 0.89
+Dr_motor                                 1.82 x 0.84 x 2.28
+Dr_dvere_motora                          0.86 x 0.07 x 1.10
+Dr_chladic                               0.72 x 0.80 x 1.10
+Dr_nadrze                                1.70 x 0.88 x 1.17
+Dr_plosina                               2.20 x 0.57 x 1.29
+Dr_rebrik                                0.59 x 0.44 x 1.39
+Dr_rozstrek                              0.06 x 1.84 x 0.58
+Dr_svetlo                                0.11 x 0.26 x 0.14
+Dr_majak                                 0.18 x 0.18 x 0.15
+Dr_hromada_nasypka                       2.30 x 2.31 x 1.16
+Dr_hromada_vstup                         4.49 x 4.43 x 1.66
+Dr_hromada_strk                          6.96 x 6.95 x 2.87
+Cv_dr_dopr_ram                           8.44 x 1.16 x 0.87
+Cv_dr_dopr_pas                           8.08 x 0.90 x 0.54
+Cv_dr_dopr_buben                         0.45 x 1.38 x 0.45
+Cv_dr_dopr_lista                         0.24 x 0.55 x 0.05
+Cv_dr_dopr_kryt                          1.17 x 1.10 x 1.16
+Cv_dr_dopr_naklad_0                      0.42 x 0.65 x 0.09
+
+
+CELUSTOVY DRVIC KAMENA (Drvic_celustovy): mobilny pasovy drvic. Pociatok = zem pod stredom podvozku, predok +X (vystup dopravnika), nasypka vzadu (-X), lava +Y.
+  Vlastnosti na hlavnom objekte: Otacanie (stupne zotrvacnikov), Chod (0 = stoji, 1 = bezi: vibracie podavaca a kyvanie celuste), Pas_pohyb (metre pasu), Nasypka_bocnice (0 zlozene, 1 vyklopene),
+    Nasypka_naplnenie (kamen v nasypke), Hromada_strk (hromada strku), Dvere_motora (0 az 1). Animacia 1 az 1000: dvere motora 20 az 120, bocnice 60 az 100, rozbeh 130 az 170, nasypka sa plni 130 az 210, strk rastie 220 az 1000.
+  DEMONTAZ: kazdy diel je samostatny objekt <Drvic_celustovy>_<diel> a je detom UCHYTU <Drvic_celustovy>_uchyt_<diel> (prazdny objekt v pivote dielu). Vymena: zmaz objekt dielu a novy diel daj ako dieta uchytu.
+  Diely: podvozok, pas_L / _P (pasy, stoja), ram, nasypka, bocnica_L / _P (klapky, rotacia X podla Nasypka_bocnice), rost (rost), pruziny, podavac (vibruje po X a Z), drvic (telo drvica s pevnou celustou),
+    celust (pohybliva celust, pivot v osi hriadela, kyva sa o +-3 st.), hriadel (excentricky hriadel so zotrvacnikmi, otaca sa), motor, dvere_motora_1 / _2 (zavesy, rotacia Z), chladic, nadrze, plosina, rebrik, rozstrek (vodny rozstrek),
+    svetlo_1 az 4, majak, hromada_nasypka (kamen v nasypke, mierka podla Nasypka_naplnenie), hromada_vstup (vstupny material na zemi), hromada_strk (vydrveny strk, mierka podla Hromada_strk).
+  Dopravnik (uchyt <Drvic_celustovy>_uchyt_dopravnik, sklon 21 st.): dopravnik_ram, dopravnik_pas (korytovy pas), dopravnik_kryt (hlava so zlabom), dopravnik_buben_hlava / _chvost (otacaju sa podla Pas_pohyb), listy pasu a kamene bezia po slucke
+    (objekty <Drvic_celustovy>_dopravnik_lista_N a _naklad_N, poloha je driver z Pas_pohyb). Podpera dopravnika: dva teleskopicke valce <Drvic_celustovy>_valec_pasu_L / _P (prvy stupen mieri na bod na bocnici dopravnika).
+  Rozmery: dlzka bez dopravnika asi 8 m, s dopravnikom a nasypkou asi 12.5 m, sirka 3.2 m, vyska nasypky 3.8 m, dopravnik 7.6 m, pas 0.90 m.
+V Unreali: kazdy par 'mieri na' urob cez Find Look at Rotation (alebo Look At v Control Rig / Animation Blueprinte).
