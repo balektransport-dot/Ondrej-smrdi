@@ -1,21 +1,21 @@
-# Stylizovane low poly podvalniky (nizka plosina s krkom, 2 az 4 napravy na vzduchovych vankusoch, sklopne rampy) pre Blender 3.0 a novsi.
+# Stylizovane low poly podvalniky (nizka plosina s krkom v jednej vyske, 2 az 4 napravy s malymi dvojitymi kolesami, sklopne rampy) pre Blender 3.0 a novsi.
 #
 # Pouzitie: zalozka Scripting (Skriptovani) -> pretiahni subor do textoveho editora -> Alt+P.
 #
 # Vytvori kolekciu "Naves_podval":
 #   Podval_12_0, Podval_14_0, Podval_16_0 - hotove podvalniky rozne velke (kazdy v svojej podkolekcii):
-#       nosniky s rovnym krkom za capom, klesanim do hlbokej casti (vrch plosiny 0.78 m) a zdvihom nad napravy (1.38 m), drevena plosina a bocne listy po profile,
-#       elektricke podpery, napravy na vankusoch (prva sa da zdvihnut), blatniky, zadny naraznik so svetlami, skrinka na naradie, ovladac naprav a kose na rezervy,
-#       dve sklopne rampy vzadu (pri zlozeni lezia na plosine, sklopene lezia na zemi).
+#       nosniky s rovnym krkom za capom (vrch plosiny 1.38 m = vrch tocne), klesanie na nizku plosinu v jednej vyske (0.96 m) az k zadnemu okraju,
+#       drevena plosina a bocne listy po profile, elektricke podpery, napravy na vankusoch (prva sa da zdvihnut) s malymi kolesami (polomer 0.35 m),
+#       na kazdej strane dve kolesa vedla seba ako na aute, blatniky, nizky zadny naraznik so svetlami, skrinka na naradie, ovladac naprav,
+#       dve sklopne rampy vzadu (pri zlozeni lezia na plosine, sklopene lezia na zemi). Bez rezervnych kolies.
 #   Podval_diely - kazdy diel samostatne s menovkou (spolocne diely raz, diely podla velkosti pre kazdu velkost zvlast).
 # Velkosti su v zozname VARIANTS nizsie (celkova dlzka navesu v m, najmenej 12.0): 12.0 m = 2 napravy, 14.0 m = 3 napravy, 16.0 m = 4 napravy;
-#   dlzka hlbokej casti a rampy rastu s dlzkou (rampy 3.2 / 3.7 / 4.2 m).
+#   rampy rastu s poctom naprav (3.0 / 3.5 / 4.0 m).
 # Ovladanie (vlastnosti na hlavnom objekte navesu, napr. "Podval_14_0": panel N -> Item, alebo Object -> Custom Properties):
 #   Rampa_L, Rampa_P - 0 = rampa zlozena na plosine, 1 = sklopena na zem (kazda zvlast)
 #   Vyska_podvozku  - dofuknutie / vypustenie vankusov: zadok sa zdvihne alebo spusti (-0.06 az 0.10 m)
 #   Zdvih_napravy   - zdvihnutie prvej napravy 0 = dole, 1 = hore (rovnako ako ovladac na boku navesu so sipkami hore / dole)
 #   Podpery         - 0 = zdvihnute (naves na tahaci), 1 = spustene na zem (elektricke podpery, bez kliky)
-#   Rezerva_L, Rezerva_P - 1 = rezervne koleso lezi vodorovne pod ramom za kolesami v kosi, 0 = prazdny kos
 # Ked pustis animaciu (medzernik): jazda cez nerovnosti, zvysenie a znizenie, zdvih napravy, podpery a nakoniec sklopenie a zlozenie ramp.
 # Predok = +X, lava strana = +Y. Pociatok navesu = zem pod kralovskym capom (king pin).
 # Zapriahnutie k nasim tahacom: spodok navesu pri cape je vo vyske 1.31 m = vrch tocne tahaca,
@@ -121,17 +121,23 @@ SPARE_Z = 1.10 - TIRE_W * 0.5      # rezerva lezi vodorovne pod ramom: stred kol
 SPARE_Y = 0.60                     # dve rezervy vedla seba: stredy kolies v y = +-0.60
 AXLE_GAP = 1.31
 Y_POS = -14.0              # poloha navesa v scene (vedla tahacov)
-# podvalnik (nizka plosina): profil nosnikov a plosiny (x od capu, z od zeme)
-NECK_Z = 1.38              # vrch plosiny na krku a nad napravami (rovnako ako plato)
-WELL_TOP = 0.78            # vrch plosiny v hlbokej casti
-WELL_BOT = 0.46            # spodok nosnikov v hlbokej casti
+# podvalnik (nizka plosina v jednej vyske, male dvojite kolesa): rozmery (x od capu, z od zeme)
+WHEEL_R = 0.35             # male kolesa (priemer 0.70 m), vzdy dve vedla seba na kazdej strane
+FRAME_BOT = 0.625          # spodok nosnikov nad napravami (zavesy ramien a vankuse)
+ARM_PIVOT = Vector((0.60, BEAM_Y, 0.445))
+BAG_BOTTOM_Z = 0.325
+BAG_TOP_Z = 0.645
+SHOCK_UP = Vector((0.20, 0.62, 0.705))
+SPINDLE = 0.79
+WHEEL_SCALE = 0.667        # mierka kolesa z navesov (0.525 -> 0.35)
+DUAL_PITCH = 0.287         # vzdialenost stredov dvoch pneumatik
+NECK_Z = 1.38              # vrch plosiny na krku pri cape
+DECK_Z = 0.96              # vrch plosiny na celej nizkej casti
 NECK_END = -2.20           # koniec rovneho krku (zaciatok klesania)
-DROP_END = -3.60           # koniec klesania (zaciatok hlbokej casti)
+DROP_END = -3.40           # koniec klesania (odtialto je plosina v jednej vyske az dozadu)
 RAMP_Y, RAMP_W = 0.70, 1.10        # rampy: stred v y = +-0.70, sirka 1.10 m
-RAMP_Z = 1.40              # os zavesu rampy (vrch plosiny + 2 cm)
-RAMP_LEN, RAMP_SLOPE = 3.2, 0.40
-X_RISE0, X_RISE1 = -6.0, -6.9
-WELL_LEN = 2.2
+RAMP_Z = DECK_Z + 0.02     # os zavesu rampy (vrch plosiny + 2 cm)
+RAMP_LEN, RAMP_SLOPE = 3.0, 0.3
 LEG_X = -1.50              # podpery su na rovnom krku pred klesanim
 
 
@@ -939,13 +945,6 @@ def build_trailer_axle():
     return finish_mesh(bm, "SM_Podval_naprava")
 
 
-def build_wheel():
-    bm = bmesh.new()
-    add_hub_drum(bm)
-    add_truck_tire(bm, 0.08)
-    add_wheel_disc(bm, HUB_LEN, HUB_LEN + 0.02, 1.0)
-    add_truck_hub(bm, HUB_LEN + 0.02)
-    return finish_mesh(bm, "SM_Podval_koleso")
 
 
 # ---------------------------------------------------------------------------
@@ -978,17 +977,6 @@ def build_headboard():
     return finish_mesh(bm, "SM_Podval_celo")
 
 
-def build_rear_edge():
-    # zadna hrana plata: hlinikova priecka s rohovymi uchytmi
-    bm = bmesh.new()
-    xp = X_REAR + 0.06
-    add_box(bm, (0.12, 2.0 * HALF_W - 0.004, 0.13), (xp, 0.0, 1.345), ALU, bev=0.008)
-    for s in SIDES_LR:
-        add_box(bm, (0.14, 0.10, 0.16), (xp, s * (HALF_W - 0.05), 1.34), ALU, bev=0.01)
-    for k in range(-3, 4):
-        add_box(bm, (0.05, 0.03, 0.03), (xp - 0.065, k * 0.30, 1.35), STEEL, bev=0.004)
-    add_rear_apron(bm)
-    return finish_mesh(bm, "SM_Podval_zadny_lem")
 
 
 def add_rear_apron(bm):
@@ -1002,45 +990,8 @@ def add_rear_apron(bm):
         add_box(bm, (0.012, 0.04, z1 - z0 - 0.05), (X_REAR - 0.003, k * 0.33, zm), ALU, bev=0.003)
 
 
-def build_bumper():
-    # mohutny zadny podjazdovy naraznik: hlboky hlinikovy profil, hrube nosne rury, velke koncovky, cervenobiely pas
-    bm = bmesh.new()
-    xb = X_REAR + 0.20
-    zb = 0.62
-    add_box(bm, (0.16, 2.42, 0.20), (xb, 0.0, zb), ALU, bev=0.03)
-    add_box(bm, (0.04, 2.30, 0.05), (xb + 0.095, 0.0, zb - 0.075), DARK, bev=0.006)
-    add_box(bm, (0.02, 2.30, 0.012), (xb - 0.083, 0.0, zb + 0.082), DARK)
-    add_box(bm, (0.02, 2.30, 0.012), (xb - 0.083, 0.0, zb - 0.082), DARK)
-    for s in SIDES_LR:
-        add_box(bm, (0.22, 0.10, 0.27), (xb, s * 1.21, zb), DARK, bev=0.025)
-        for y in (0.95, 0.40):
-            add_box(bm, (0.09, 0.09, 1.26 - (zb + 0.10)), (xb, s * y, (1.26 + zb + 0.10) * 0.5), ALU, bev=0.012)
-            add_box(bm, (0.14, 0.16, 0.04), (xb, s * y, 1.27), FRAME, bev=0.005)
-        add_box_between(bm, (xb + 0.30, s * 0.95, 1.16), (xb, s * 0.95, zb + 0.14), 0.06, 0.10, FRAME, bev=0.006)
-        add_box_between(bm, (xb + 0.30, s * 0.95, 1.20), (xb + 0.08, s * 0.95, 1.20), 0.06, 0.06, FRAME, bev=0.004)
-    for k in range(-4, 5):
-        add_box(bm, (0.012, 0.15, 0.115), (xb - 0.087, k * 0.155, zb), RED if k % 2 == 0 else WHITE, bev=0.002)
-    add_box(bm, (0.012, 0.52, 0.12), (X_REAR - 0.007, 0.0, 1.22), WHITE, bev=0.003)
-    add_box(bm, (0.03, 0.14, 0.03), (X_REAR - 0.012, 0.0, 1.295), DARK, bev=0.012)
-    return finish_mesh(bm, "SM_Podval_zadny_naraznik")
 
 
-def build_rear_light():
-    # zadne svetlo na nariazniku (lava strana): siroky obdlznik na zadnej strane pri konci, zvonka oranzova smerovka,
-    # cervene ryhovane sklo, vnutri biele cuvanie
-    bm = bmesh.new()
-    xb = X_REAR + 0.20
-    ly, lz = HALF_W - 0.30, 0.62
-    xh = xb - 0.08 - 0.035
-    xl = xh - 0.0405
-    add_box(bm, (0.07, 0.37, 0.13), (xh, ly, lz), DARK, bev=0.012)
-    add_box(bm, (0.012, 0.085, 0.095), (xl, ly + 0.1325, lz), LAMP_OR, bev=0.003)
-    add_box(bm, (0.012, 0.17, 0.095), (xl, ly - 0.005, lz), LAMP_RED, bev=0.003)
-    for dy in (-0.05, 0.0, 0.05):
-        add_box(bm, (0.016, 0.006, 0.095), (xl - 0.002, ly - 0.005 + dy, lz), DARK)
-    add_box(bm, (0.012, 0.07, 0.095), (xl, ly - 0.135, lz), LAMP_WHITE, bev=0.003)
-    add_box(bm, (0.045, 0.012, 0.05), (xh, ly + 0.19, lz), RED, bev=0.003)
-    return bm
 
 
 def build_side_skirt():
@@ -1193,11 +1144,11 @@ LENGTH_PARTS = ("Podval_ram", "Podval_podlaha", "Podval_zadny_lem", "Podval_zadn
 
 
 # ---------------------------------------------------------------------------
-# Podvalnik: nosniky s krkom a hlbokou casti, plosina po profile, bocne listy, zavesy ramp, rampy
+# Podvalnik: nosniky s krkom a nizkou plosinou v jednej vyske, bocne listy, zavesy ramp, rampy, male dvojite kolesa
 # ---------------------------------------------------------------------------
 
 def deck_profile():
-    return [(X_FRONT, NECK_Z), (NECK_END, NECK_Z), (DROP_END, WELL_TOP), (X_RISE0, WELL_TOP), (X_RISE1, NECK_Z), (X_REAR + 0.10, NECK_Z)]
+    return [(X_FRONT, NECK_Z), (NECK_END, NECK_Z), (DROP_END, DECK_Z), (X_REAR + 0.10, DECK_Z)]
 
 
 def build_frame():
@@ -1209,8 +1160,8 @@ def build_frame():
         for path, dz in ((top, -0.008), (BEAM_BOTTOM, 0.008)):
             for (xa, za), (xb, zb) in zip(path, path[1:]):
                 add_box_between(bm, (xa, s * BEAM_Y, za + dz), (xb, s * BEAM_Y, zb + dz), 0.12, 0.016, FRAME)
-        # bocna lista plosiny (hlinik) po profile s uchytmi na upinanie
-        rail_top = [(x, z + 0.02) for x, z in deck_profile()[:-1]] + [(X_REAR + 0.12, NECK_Z + 0.02)]
+        # bocna lista plosiny (hlinik) po profile
+        rail_top = [(x, z + 0.02) for x, z in deck_profile()[:-1]] + [(X_REAR + 0.12, DECK_Z + 0.02)]
         rail_bot = [(x, z - 0.12) for x, z in rail_top]
         add_extruded(bm, rail_top + rail_bot[::-1], s * (HALF_W - 0.10), s * HALF_W, "XZ", ALU)
     xs = [1.45, 1.00, 0.58, -0.58]
@@ -1223,11 +1174,16 @@ def build_frame():
         add_box(bm, (0.07, 2.0 * BEAM_Y - 0.10, 0.07), (x, 0.0, z), FRAME, bev=0.006)
         for s in SIDES_LR:
             add_box(bm, (0.05, HALF_W - 0.10 - BEAM_Y - 0.06, 0.07), (x, s * (BEAM_Y + 0.06 + HALF_W - 0.10) * 0.5, z), FRAME, bev=0.005)
-    add_box(bm, (0.10, 2.0 * HALF_W - 0.20, 0.12), (X_REAR + 0.22, 0.0, NECK_Z - 0.06), FRAME, bev=0.008)
-    for x in (1.2, 0.2, -1.0, -2.0, (DROP_END + X_RISE0) * 0.5, X_RISE1 - 1.2, X_REAR + 0.55):
-        if x > X_REAR + 0.3:
-            for s in SIDES_LR:
-                add_box(bm, (0.05, 0.03, 0.03), (x, s * (HALF_W + 0.012), deck_z(x) - 0.03), STEEL, bev=0.004)
+    add_box(bm, (0.10, 2.0 * HALF_W - 0.20, 0.12), (X_REAR + 0.22, 0.0, DECK_Z - 0.06), FRAME, bev=0.008)
+    x = 1.2
+    ring_x = [1.2, 0.2, -1.0, -2.0]
+    x = -4.0
+    while x > X_REAR + 0.5:
+        ring_x.append(x)
+        x -= 1.2
+    for x in ring_x:
+        for s in SIDES_LR:
+            add_box(bm, (0.05, 0.03, 0.03), (x, s * (HALF_W + 0.012), deck_z(x) - 0.03), STEEL, bev=0.004)
     # zavesy ramien vzduchoveho perovania, horne drziaky tlmicov, gumove dorazy
     for ax in AXLES:
         for s in SIDES_LR:
@@ -1251,15 +1207,12 @@ def build_frame():
 def build_floor():
     # plosina po profile: kratka doska nad nosnikmi, v rovnych castiach s ryhami
     bm = bmesh.new()
-    pts = [(X_FRONT - 0.05, NECK_Z)] + deck_profile()[1:-1] + [(X_REAR + 0.12, NECK_Z)]
+    pts = [(X_FRONT - 0.05, NECK_Z)] + deck_profile()[1:-1] + [(X_REAR + 0.12, DECK_Z)]
     thick = [(x, z - 0.03) for x, z in pts]
     add_extruded(bm, pts + thick[::-1], -(HALF_W - 0.10), HALF_W - 0.10, "XZ", WOOD, bev=0.004)
-    flat = [(X_FRONT - 0.15, NECK_END), (DROP_END + 0.05, X_RISE0 - 0.05), (X_RISE1 - 0.05, X_REAR + 0.20)]
-    for xa, xb in flat:
+    for xa, xb in ((X_FRONT - 0.15, NECK_END), (DROP_END + 0.05, X_REAR + 0.20)):
         for k in range(-5, 6):
             add_box(bm, (xa - xb, 0.006, 0.002), ((xa + xb) * 0.5, k * 0.21, deck_z((xa + xb) * 0.5) + 0.0005), DARK)
-    for (xa, za), (xb, zb) in zip(pts[1:3], pts[2:4]):
-        pass
     return finish_mesh(bm, "SM_Podval_podlaha")
 
 
@@ -1270,6 +1223,86 @@ def build_side_lights():
         add_box(bm, (0.17, 0.012, 0.07), (x, HALF_W + 0.004, z), DARK)
         add_box(bm, (0.14, 0.025, 0.05), (x, HALF_W + 0.012, z), LAMP_OR, bev=0.006)
     return bm
+
+
+def build_wheel():
+    # male dvojite koleso (ako na aute): dve pneumatiky vedla seba, pivot na konci napravy, vonkajsia strana +Y
+    global WHEEL_R, RIM_R, TIRE_W
+    saved = (WHEEL_R, RIM_R, TIRE_W)
+    WHEEL_R, RIM_R, TIRE_W = 0.525, 0.286, 0.385
+    bm = bmesh.new()
+    scale = Matrix.Diagonal((WHEEL_SCALE, WHEEL_SCALE, WHEEL_SCALE, 1.0))
+
+    def inner(b):
+        add_hub_drum(b)
+        add_truck_tire(b, 0.08)
+        add_wheel_disc(b, HUB_LEN, HUB_LEN + 0.02, 1.0)
+
+    def outer(b):
+        add_truck_tire(b, 0.08)
+        add_wheel_disc(b, HUB_LEN, HUB_LEN + 0.02, 1.0)
+        add_truck_hub(b, HUB_LEN + 0.02)
+
+    add_transformed(bm, scale, inner)
+    add_transformed(bm, Matrix.Translation((0.0, DUAL_PITCH, 0.0)) @ scale, outer)
+    WHEEL_R, RIM_R, TIRE_W = saved
+    return finish_mesh(bm, "SM_Podval_koleso")
+
+
+def build_bumper():
+    # zadny podjazdovy naraznik pod nizkou plosinou: nizky hlinikovy profil, kratke nosne rury k nosnikom, cervenobiely pas
+    bm = bmesh.new()
+    xb = X_REAR + 0.20
+    zb = 0.42
+    add_box(bm, (0.16, 2.42, 0.20), (xb, 0.0, zb), ALU, bev=0.03)
+    add_box(bm, (0.04, 2.30, 0.05), (xb + 0.095, 0.0, zb - 0.075), DARK, bev=0.006)
+    add_box(bm, (0.02, 2.30, 0.012), (xb - 0.083, 0.0, zb + 0.082), DARK)
+    add_box(bm, (0.02, 2.30, 0.012), (xb - 0.083, 0.0, zb - 0.082), DARK)
+    for s in SIDES_LR:
+        add_box(bm, (0.22, 0.10, 0.27), (xb, s * 1.21, zb), DARK, bev=0.025)
+        for y in (0.95, 0.40):
+            add_box(bm, (0.09, 0.09, FRAME_BOT - (zb + 0.10) + 0.02), (xb, s * y, (FRAME_BOT + 0.02 + zb + 0.10) * 0.5), ALU, bev=0.012)
+            add_box(bm, (0.14, 0.16, 0.04), (xb, s * y, FRAME_BOT + 0.03), FRAME, bev=0.005)
+        add_box_between(bm, (xb + 0.30, s * 0.95, FRAME_BOT - 0.01), (xb, s * 0.95, zb + 0.14), 0.06, 0.10, FRAME, bev=0.006)
+    for k in range(-4, 5):
+        add_box(bm, (0.012, 0.15, 0.115), (xb - 0.087, k * 0.155, zb), RED if k % 2 == 0 else WHITE, bev=0.002)
+    add_box(bm, (0.012, 0.52, 0.12), (X_REAR - 0.007, 0.0, 0.80), WHITE, bev=0.003)
+    return finish_mesh(bm, "SM_Podval_zadny_naraznik")
+
+
+def build_rear_light():
+    # zadne svetlo na nariazniku (lava strana): obdlznik, zvonka oranzova smerovka, cervene ryhovane sklo, vnutri biele cuvanie
+    bm = bmesh.new()
+    xb = X_REAR + 0.20
+    ly, lz = HALF_W - 0.30, 0.42
+    xh = xb - 0.08 - 0.035
+    xl = xh - 0.0405
+    add_box(bm, (0.07, 0.37, 0.13), (xh, ly, lz), DARK, bev=0.012)
+    add_box(bm, (0.012, 0.085, 0.095), (xl, ly + 0.1325, lz), LAMP_OR, bev=0.003)
+    add_box(bm, (0.012, 0.17, 0.095), (xl, ly - 0.005, lz), LAMP_RED, bev=0.003)
+    for dy in (-0.05, 0.0, 0.05):
+        add_box(bm, (0.016, 0.006, 0.095), (xl - 0.002, ly - 0.005 + dy, lz), DARK)
+    add_box(bm, (0.012, 0.07, 0.095), (xl, ly - 0.135, lz), LAMP_WHITE, bev=0.003)
+    add_box(bm, (0.045, 0.012, 0.05), (xh, ly + 0.19, lz), RED, bev=0.003)
+    return bm
+
+
+def build_rear_edge():
+    # zadna hrana plosiny: hlinikova priecka s rohovymi uchytmi a zastera dolu k nosnikom
+    bm = bmesh.new()
+    xp = X_REAR + 0.06
+    zt = DECK_Z - 0.065
+    add_box(bm, (0.12, 2.0 * HALF_W - 0.004, 0.13), (xp, 0.0, zt), ALU, bev=0.008)
+    for s in SIDES_LR:
+        add_box(bm, (0.14, 0.10, 0.16), (xp, s * (HALF_W - 0.05), zt + 0.005), ALU, bev=0.01)
+    for k in range(-3, 4):
+        add_box(bm, (0.05, 0.03, 0.03), (xp - 0.065, k * 0.30, zt + 0.005), STEEL, bev=0.004)
+    z0, z1 = FRAME_BOT + 0.03, DECK_Z - 0.13
+    zm = (z0 + z1) * 0.5
+    add_box(bm, (0.03, 2.0 * (HALF_W - 0.03), z1 - z0), (X_REAR + 0.015, 0.0, zm), ALU, bev=0.006)
+    for s in SIDES_LR:
+        add_box(bm, (0.05, 0.07, z1 - z0 + 0.02), (X_REAR + 0.025, s * (HALF_W - 0.05), zm - 0.01), ALU, bev=0.008)
+    return finish_mesh(bm, "SM_Podval_zadny_lem")
 
 
 def build_ramp():
@@ -1295,33 +1328,31 @@ def build_ramp():
 
 def deck_z(x):
     # vrch plosiny (m) v mieste x
-    pts = [(X_FRONT, NECK_Z), (NECK_END, NECK_Z), (DROP_END, WELL_TOP), (X_RISE0, WELL_TOP), (X_RISE1, NECK_Z), (-99.0, NECK_Z)]
-    for (xa, za), (xb, zb) in zip(pts, pts[1:]):
-        if xb <= x <= xa:
-            return za + (zb - za) * (xa - x) / (xa - xb)
-    return NECK_Z
+    if x >= NECK_END:
+        return NECK_Z
+    if x <= DROP_END:
+        return DECK_Z
+    return DECK_Z + (NECK_Z - DECK_Z) * (x - DROP_END) / (NECK_END - DROP_END)
 
 
 def configure(length):
-    # nastavi vsetky rozmery, ktore zavisia od dlzky: pocet naprav, dlzka hlbokej casti, napravy, ram, rampy
+    # nastavi vsetky rozmery, ktore zavisia od dlzky: pocet naprav, napravy, ram, rampy
     length = max(length, MIN_LENGTH)
     n_ax = 2 if length < 13.0 else 3 if length < 15.0 else 4
-    well = length - 8.6 - AXLE_GAP * (n_ax - 1)
-    x_rise0 = DROP_END - well
-    x_rise1 = x_rise0 - 0.90
-    first = x_rise1 - 0.95
-    axles = tuple(first - AXLE_GAP * i for i in range(n_ax))
-    x_rear = axles[-1] - 1.55
-    assert abs((X_FRONT - x_rear) - length) < 0.02, (X_FRONT - x_rear, length)
-    ramp_end = axles[0] + ARM_PIVOT.x + 0.35
-    beam_bottom = [(1.52, COUPLING_Z), (-0.75, COUPLING_Z), (-1.60, 1.10), (NECK_END, 1.10), (DROP_END, WELL_BOT), (x_rise0, WELL_BOT),
-                   (ramp_end, FRAME_BOT), (axles[-1] - 0.60, FRAME_BOT), (axles[-1] - 0.95, 1.12), (x_rear + 0.10, 1.12)]
-    ramp_len = 3.2 + 0.5 * (n_ax - 2)
+    x_rear = X_FRONT - length
+    last = x_rear + 1.40
+    axles = tuple(last + AXLE_GAP * (n_ax - 1 - i) for i in range(n_ax))
+    beam_bottom = [(1.52, COUPLING_Z), (-0.75, COUPLING_Z), (-1.60, 1.10), (NECK_END, 1.10), (DROP_END, FRAME_BOT), (x_rear + 0.10, FRAME_BOT)]
+    ramp_len = 3.0 + 0.5 * (n_ax - 2)
+    lights = [0.85, -1.2, -4.5]
+    while lights[-1] - 3.0 > x_rear + 1.0:
+        lights.append(lights[-1] - 3.0)
+    lights.append(x_rear + 0.40)
     globals().update(dict(
-        LENGTH=length, X_REAR=x_rear, AXLES=axles, BEAM_BOTTOM=beam_bottom, XBEAMS_DEEP=[], WELL_LEN=well, X_RISE0=x_rise0, X_RISE1=x_rise1,
+        LENGTH=length, X_REAR=x_rear, AXLES=axles, BEAM_BOTTOM=beam_bottom, XBEAMS_DEEP=[],
         FLOOR_X0=x_rear + 0.12, FLOOR_X1=X_FRONT - 0.05, FLOOR_LEN=X_FRONT - 0.05 - x_rear - 0.12,
-        FLOOR_MID=(x_rear + 0.12 + X_FRONT - 0.05) * 0.5, GUARD_XS=(), SIDE_LIGHT_X=[0.85, -1.2, (DROP_END + x_rise0) * 0.5, x_rise1 - 1.0, x_rear + 0.40],
-        POSTS_X=(), DOOR_HINGE_X=x_rear - 0.045, SPARE_X=axles[-1] - 1.50, TOOLBOX_X=LEG_X - 0.60, CTRL_X=axles[-1] - 1.50 - 0.725,
+        FLOOR_MID=(x_rear + 0.12 + X_FRONT - 0.05) * 0.5, GUARD_XS=(), SIDE_LIGHT_X=lights,
+        POSTS_X=(), DOOR_HINGE_X=x_rear - 0.045, SPARE_X=0.0, TOOLBOX_X=LEG_X - 0.60, CTRL_X=axles[-1] - 0.85,
         RAMP_LEN=ramp_len, RAMP_SLOPE=math.asin((RAMP_Z - 0.028) / (ramp_len + 0.12))))
 
 
@@ -1351,7 +1382,7 @@ def build_parts(mats, tag):
         put(finish_mesh(bm, name + "_L"))
         put(finish_mesh(mirrored, name + "_P"))
 
-    common = [build_frame, build_floor, build_kingpin_plate, build_bumper, build_toolbox, build_spare, build_controller,
+    common = [build_frame, build_floor, build_kingpin_plate, build_bumper, build_toolbox, build_controller,
               build_trailer_axle, build_wheel, build_shock_body, build_shock_rod, build_trailing_arm, build_air_bag,
               build_leg_inner, build_leg_cross, build_headboard, build_rear_edge]
     for fn in common:
@@ -1361,8 +1392,7 @@ def build_parts(mats, tag):
     put_lr(build_side_guard(), "SM_Podval_zabrana")
     put_lr(build_rear_light(), "SM_Podval_zadne_svetlo")
     put_lr(build_side_lights(), "SM_Podval_bocne_svetla")
-    put_lr(build_mudguard(0.72, 1.19, "frame"), "SM_Podval_blatnik")
-    put_lr(build_spare_basket(), "SM_Podval_rezerva_kos")
+    put_lr(build_mudguard(0.70, 1.27, "frame"), "SM_Podval_blatnik")
 
     parts = {}
     for key, mesh in built.items():
@@ -1397,8 +1427,6 @@ def build_trailer(coll, parts, rn, y_pos):
     set_prop(root, "Vyska_podvozku", 0.0, -0.06, 0.10, "Dofuknutie / vypustenie vankusov v metroch (zadok hore / dole)")
     set_prop(root, "Zdvih_napravy", 0.0, 0.0, 1.0, "0 = prva naprava dole, 1 = zdvihnuta (ovladac na boku)")
     set_prop(root, "Podpery", 0.0, 0.0, 1.0, "0 = podpery hore (na tahaci), 1 = spustene na zem")
-    set_prop(root, "Rezerva_L", 1, 0, 1, "1 = lave rezervne koleso lezi v kosi pod ramom, 0 = prazdny kos")
-    set_prop(root, "Rezerva_P", 1, 0, 1, "1 = prave rezervne koleso lezi v kosi pod ramom, 0 = prazdny kos")
     set_prop(root, "Rampa_L", 0.0, 0.0, 1.0, "0 = lava rampa zlozena na plosine, 1 = sklopena na zem")
     set_prop(root, "Rampa_P", 0.0, 0.0, 1.0, "0 = prava rampa zlozena na plosine, 1 = sklopena na zem")
     if curtain:
@@ -1451,18 +1479,13 @@ def build_trailer(coll, parts, rn, y_pos):
     for name in body_parts:
         new_object(coll, nm(name[PFX_LEN:]), parts[name], (0.0, 0.0, 0.0), body)
     new_object(coll, nm("naradi_skrinka"), parts["Podval_naradi_skrinka"], (TOOLBOX_X, 0.0, 0.0), body)
-    new_object(coll, nm("ovladac_napravy"), parts["Podval_ovladac_napravy"], (CTRL_X, BEAM_Y + 0.13, 1.12), body)
+    new_object(coll, nm("ovladac_napravy"), parts["Podval_ovladac_napravy"], (CTRL_X, BEAM_Y + 0.13, 0.76), body)
     for side in ("L", "P"):
         names = ["Podval_zadne_svetlo_", "Podval_bocne_svetla_"]
         if len(parts["Podval_zabrana_" + side].vertices):
             names.append("Podval_zabrana_")
         for name in names:
             new_object(coll, nm(name[PFX_LEN:] + side), parts[name + side], (0.0, 0.0, 0.0), body)
-    for s, side in ((1.0, "L"), (-1.0, "P")):
-        new_object(coll, nm("rezerva_kos_" + side), parts["Podval_rezerva_kos_" + side], (SPARE_X, 0.0, 0.0), body)
-        spare = new_object(coll, nm("rezerva_" + side), parts["Podval_rezerva"], (SPARE_X, s * SPARE_Y, SPARE_Z), body, (90.0, 0.0, 0.0))
-        for path_name in ("hide_viewport", "hide_render"):
-            driver(spare, path_name, -1, "r < 0.5", [prop("r", "Rezerva_" + side)])
 
     # --- kolesa, ramena, vankuse, tlmice, blatniky ---
     path, seat_local, bag_bottom, _ = arm_geometry()
@@ -1561,9 +1584,8 @@ def animate(root, terrain, curtain):
 
 
 COMMON_SECTIONS = [
-    ("PODPERY, REZERVA, SKRINKA, OVLADAC", ["Podval_noha_vonkajsia_L", "Podval_noha_vonkajsia_P", "Podval_noha_vnutorna",
-                                            "Podval_podpery_traverza", "Podval_naradi_skrinka", "Podval_ovladac_napravy",
-                                            "Podval_rezerva", "Podval_rezerva_kos_L", "Podval_rezerva_kos_P"]),
+    ("PODPERY, SKRINKA, OVLADAC", ["Podval_noha_vonkajsia_L", "Podval_noha_vonkajsia_P", "Podval_noha_vnutorna",
+                                   "Podval_podpery_traverza", "Podval_naradi_skrinka", "Podval_ovladac_napravy"]),
     ("BLATNIKY", ["Podval_blatnik_L", "Podval_blatnik_P"]),
     ("NAPRAVY A PEROVANIE", ["Podval_naprava", "Podval_koleso", "Podval_rameno", "Podval_vankus", "Podval_tlmic_valec",
                              "Podval_tlmic_piestnica"]),
@@ -1602,7 +1624,7 @@ def main():
         roots.append(build_trailer(child_collection(coll, rn), parts, rn, Y_POS - index * 4.0))
         variants.append(dict(length=LENGTH, tag=tag, parts=parts, axles=AXLES, rear=X_REAR, root=rn, spare=SPARE_X, tool=TOOLBOX_X,
                              guard=GUARD_XS, ctrl=CTRL_X, posts=POSTS_X, panels=CURTAIN_PANELS, panel_w=CURTAIN_W,
-                             hinge=DOOR_HINGE_X, well=WELL_LEN, rise0=X_RISE0, ramp_len=RAMP_LEN, ramp_slope=RAMP_SLOPE))
+                             hinge=DOOR_HINGE_X, ramp_len=RAMP_LEN, ramp_slope=RAMP_SLOPE))
     scene.frame_start, scene.frame_end = 1, 580
     scene.frame_set(1)
 
@@ -1644,8 +1666,8 @@ def main():
     _, seat_local, bag_bottom, _ = arm_geometry()
     lines += ["DLZKY: " + ", ".join("%.1f m (%d napravy)" % (v["length"], len(v["axles"])) for v in variants), ""]
     for v in variants:
-        lines.append("%s: napravy x = %s; koniec skrine x = %.2f; stred rezervy x = %.2f; skrinka x = %.2f; ovladac x = %.2f; zabrany x = %s" % (
-            v["root"], ", ".join("%.2f" % a for a in v["axles"]), v["rear"], v["spare"], v["tool"], v["ctrl"],
+        lines.append("%s: napravy x = %s; koniec skrine x = %.2f; skrinka x = %.2f; ovladac x = %.2f; zabrany x = %s" % (
+            v["root"], ", ".join("%.2f" % a for a in v["axles"]), v["rear"], v["tool"], v["ctrl"],
             ", ".join("%.2f" % x for x in v["guard"]) or "bez"))
         if TRAILER_TYPE == "plachta":
             lines.append("    stlpiky x = %s; plachta %d dielikov po %.3f m; zavesy dveri x = %.3f" % (
@@ -1665,8 +1687,7 @@ def main():
         "    dole %s (od napravy), hore x napravy + %.2f, y %.2f, z %.2f." % (vec(SHOCK_LOW), SHOCK_UP.x, SHOCK_UP.y, SHOCK_UP.z),
         "  Podpery: vonkajsie nohy v x %.2f, y +-%.2f; vnutorne nohy idu o %.2f m dole (Podpery 0 -> 1). Podpery su elektricke, bez kliky." % (
             LEG_X, LEG_Y, LEG_TRAVEL),
-        "  Rezerva: dve kolesa vedla seba (lave a prave, stredy v y = +-%.2f, z = %.3f), lezia vodorovne pod ramom (otocene o 90 st. okolo X, plocha disku hore); kazde ma kos z dvoch U-rurok; vlastnosti Rezerva_L a Rezerva_P." % (SPARE_Y, SPARE_Z),
-        "  Ovladac napravy: na vonkajsej strane laveho nosnika hned za lavou rezervou (pivot na vonkajsej strane v y = %.2f, z = 1.12, x = x rezervy - 0.725), smeruje do +Y; sipky hore a dole su nakreslene na tlacidlach." % (BEAM_Y + 0.13),
+        "  Ovladac napravy: na vonkajsej strane laveho nosnika za poslednou napravou (pivot na vonkajsej strane v y = %.2f, z = 0.76, x = posledna naprava - 0.85), smeruje do +Y; sipky hore a dole su nakreslene na tlacidlach." % (BEAM_Y + 0.13),
         "  Rovnaky ovladac je aj pri podperach (objekt ovladac_podper): na vonkajsej strane laveho stlpu nohy, pivot v (%.2f, %.2f, 1.17), smeruje do +Y." % (LEG_X, LEG_Y + 0.07 + 0.082),
         "  Prave diely _P su zrkadlove. Blatniky, svetla a zabrany maju pivot v pociatku navesu alebo v osi kolesa.",
         "V Unreali: kazdy par 'mieri na' urob cez Find Look at Rotation (alebo Look At v Control Rig / Animation Blueprinte).",
@@ -1681,17 +1702,18 @@ def main():
 
     lines += [
         "",
-        "PODVALNIK: nosniky maju rovny krk (vrch plosiny %.2f m) az po x = %.2f, potom klesaju do hlbokej casti (vrch %.2f m, spodok nosnikov %.2f m) a pred napravami sa zase zdvihnu na %.2f m." % (
-            NECK_Z, NECK_END, WELL_TOP, WELL_BOT, NECK_Z),
-        "  Plosina (Podval_podlaha) ide po profile nosnikov, bocne listy (hlinik) tiez; podpery su na rovnom krku (x = %.2f)." % LEG_X,
+        "PODVALNIK: nosniky maju rovny krk (vrch plosiny %.2f m) az po x = %.2f, potom klesaju na nizku plosinu (vrch %.2f m), ktora ide v jednej vyske az k zadnemu okraju." % (
+            NECK_Z, NECK_END, DECK_Z),
+        "  Plosina (Podval_podlaha) ide po profile nosnikov, bocne listy (hlinik) tiez; podpery su na rovnom krku (x = %.2f). Rezervy nie su." % LEG_X,
+        "  Kolesa: male (polomer %.2f m), na kazdej strane dve vedla seba ako na aute (Podval_koleso = dvojmontaz, pivot na konci napravy, pravu stranu otoc o 180 st.)." % WHEEL_R,
         "  Rampy: dve (lava a prava, stred v y = +-%.2f, sirka %.2f m), pivot v zavese na zadnom okraji plosiny (x = zadok + 0.12, z = %.2f, os Y), rotacia okolo Y:" % (RAMP_Y, RAMP_W, RAMP_Z),
         "    zlozena rampa lezi na plosine dopredu (180 st.), vlastnosti Rampa_L a Rampa_P 0 az 1 ju sklopia cez vodorovnu polohu az na zem (uhol 180 st. -> -sklon).",
-        "  Vlastnosti: Rampa_L, Rampa_P (0 = zlozena na plosine, 1 = sklopena na zem), Vyska_podvozku, Zdvih_napravy, Podpery, Rezerva_L/P.",
+        "  Vlastnosti: Rampa_L, Rampa_P (0 = zlozena na plosine, 1 = sklopena na zem), Vyska_podvozku, Zdvih_napravy, Podpery.",
         "  Animacia (snimky 1 az 580): jazda, vyska, zdvih napravy, podpery, potom sklopenie a zlozenie ramp.",
     ]
     for v in variants:
-        lines.append("  %s: %d napravy, celkova dlzka %.2f m, hlboka cast %.2f m (x = %.2f az %.2f), rampy po %.2f m, sklon ramp %.1f st." % (
-            v["root"], len(v["axles"]), v["length"], v["well"], v["rise0"], DROP_END, v["ramp_len"], math.degrees(v["ramp_slope"])))
+        lines.append("  %s: %d napravy, celkova dlzka %.2f m, plosina v jednej vyske od x = %.2f az %.2f, rampy po %.2f m, sklon ramp %.1f st." % (
+            v["root"], len(v["axles"]), v["length"], DROP_END, v["rear"], v["ramp_len"], math.degrees(v["ramp_slope"])))
 
     if EXPORT_FBX:
         os.makedirs(EXPORT_DIR, exist_ok=True)

@@ -15,8 +15,8 @@ Bez okna: `blender --background --python skript.py`. Do FBX sa exportuje každý
 | `tahace2_low_poly.py` | ťahače 4x2 / 6x2 / 8x2 s inou kabínou a nárazníkom |
 | `tahace_low_poly.py`, `tahac_low_poly.py` | prvé verzie ťahačov |
 | `naves_plachtovy_low_poly.py`, `naves_plato_low_poly.py` | plachtové a plato návesy (2 až 3 nápravy, vzduchové vankúše) |
-| `naves_sklapaci_low_poly.py` | sklápacie návesy 8 / 9 / 10 / 11 m (2 až 3 nápravy, korba tvaru U, 6-stupňový teleskopický valec vpredu, zadné čelo na horných pántoch) |
-| `naves_podval_low_poly.py` | podvalníky 12 / 14 / 16 m (2 až 4 nápravy, nízka plošina s krkom, sklopné rampy) |
+| `naves_sklapaci_low_poly.py` | sklápacie návesy 8 / 9 / 10 / 11 m (2 až 3 nápravy, iba stredový rám, korba tvaru U, 6-stupňový teleskopický valec vpredu, zadné čelo na horných pántoch) |
+| `naves_podval_low_poly.py` | podvalníky 12 / 14 / 16 m (2 až 4 nápravy, nízka plošina v jednej výške s krkom, malé dvojité kolesá, sklopné rampy, bez rezerv) |
 | `podvozok_low_poly.py`, `nadrz_tocna_low_poly.py` | podvozok kamióna, nádrže a otočná |
 | `motory_low_poly.py`, `prevodovky_low_poly.py` | motory R4 / R6 / V8 a prevodovky |
 | `sklopka_low_poly.py`, `sklopka_v2_low_poly.py`, `vozik_low_poly.py` | sklopka (malý nákladiak) a vyklápací vozík |
@@ -35,6 +35,6 @@ Náhľady sú v `Nahlady/`, pomocný skript na render náhľadu v `Nastroje/rend
 
 ## Návesy – ovládanie
 
-- **Sklápací náves:** `Sklopenie` (0 až 1, korba sa zdvihne o 42 až 45°) a `Zadne_celo` (0 až 1, otvorí zadné čelo o 72°); ostatné vlastnosti ako pri plato návese (`Vyska_podvozku`, `Zdvih_napravy`, `Podpery`, `Rezerva_L/P`).
+- **Sklápací náves:** `Sklopenie` (0 až 1, korba sa zdvihne o 42 až 45°) a `Zadne_celo` (0 až 1, otvorí zadné čelo o 72°); ostatné vlastnosti ako pri plato návese (`Vyska_podvozku`, `Zdvih_napravy`, `Podpery`, `Rezerva_L/P`); náves má len stredový rám bez bočných líšt.
 - **Podvalník:** `Rampa_L`, `Rampa_P` (0 = zložená na plošine, 1 = sklopená na zem), ostatné ako vyššie.
 - Kráľovský čap je v počiatku návesu, spodok dosky je vo výške 1,31 m (vrch točne ťahača), takže hlavný objekt návesu stačí dať na miesto točne.

@@ -4,7 +4,7 @@
 #
 # Vytvori kolekciu "Naves_sklapaci":
 #   Sklapac_8_0, Sklapac_9_0, Sklapac_10_0, Sklapac_11_0 - hotove sklapacie navesy rozne velke (kazdy v svojej podkolekcii):
-#       ram a podvozok ako pri plate (kralovsky cap, elektricke podpery, napravy na vankusoch, blatniky, zabrany, rezerva, naradie),
+#       stredovy ram a podvozok ako pri plate (kralovsky cap, elektricke podpery, napravy na vankusoch, blatniky, rezerva, naradie; bez bocnych listov a zabran),
 #       oceľova korba v tvare U so skosenymi rohmi, rebrami, prednou stenou a zadnym celom na hornych zavesoch,
 #       teleskopicky valec (6 stupnov) pred prednou stenou, ktory korbu zdvihne az o 45 st.
 #   Sklapac_diely - kazdy diel samostatne s menovkou (spolocne diely raz, diely podla velkosti pre kazdu velkost zvlast).
@@ -737,20 +737,11 @@ def build_frame():
         add_box(bm, (1.52 - xe, 0.12, 0.016), ((1.52 + xe) * 0.5, s * BEAM_Y, FLOOR_BOT - 0.008), FRAME, bev=0.002)
         for (xa, za), (xb, zb) in zip(BEAM_BOTTOM, BEAM_BOTTOM[1:]):
             add_box_between(bm, (xa, s * BEAM_Y, za + 0.008), (xb, s * BEAM_Y, zb + 0.008), 0.12, 0.016, FRAME)
-        # bocna lista podlahy (hlinik) s uchytmi na upinanie
-        add_box(bm, (FLOOR_LEN, 0.10, 0.12), (FLOOR_MID, s * (HALF_W - 0.05), 1.35), ALU, bev=0.006)
-        for k in range(int((FLOOR_LEN - 0.6) / 0.65)):
-            add_box(bm, (0.05, 0.03, 0.03), (FLOOR_X1 - 0.30 - k * 0.65, s * (HALF_W + 0.012), 1.31), STEEL, bev=0.004)
     for x in XBEAMS_SHALLOW:
         add_box(bm, (0.07, 2.0 * BEAM_Y - 0.10, 0.07), (x, 0.0, FLOOR_BOT - 0.035), FRAME, bev=0.006)
     for x in XBEAMS_DEEP:
         add_box(bm, (0.07, 2.0 * BEAM_Y - 0.10, 0.12), (x, 0.0, FLOOR_BOT - 0.06), FRAME, bev=0.006)
-    add_box(bm, (0.10, 2.0 * HALF_W - 0.20, 0.12), (X_REAR + 0.22, 0.0, FLOOR_BOT - 0.06), FRAME, bev=0.008)
-    # vyloznikov k bocnym listam
-    for x in XBEAMS_SHALLOW + tuple(XBEAMS_DEEP):
-        for s in SIDES_LR:
-            add_box(bm, (0.05, HALF_W - 0.10 - BEAM_Y - 0.06, 0.07), (x, s * (BEAM_Y + 0.06 + HALF_W - 0.10) * 0.5, FLOOR_BOT - 0.035),
-                    FRAME, bev=0.005)
+    add_box(bm, (0.10, 2.0 * BEAM_Y + 0.12, 0.12), (X_REAR + 0.22, 0.0, FLOOR_BOT - 0.06), FRAME, bev=0.008)
     # zavesy ramien vzduchoveho perovania, horne drziaky tlmicov, gumove dorazy
     for ax in AXLES:
         for s in SIDES_LR:
@@ -951,10 +942,12 @@ def build_leg_cross():
 
 
 def build_side_lights():
+    # bocne obrysove svetla na vonkajsej strane nosnikov (naves nema bocne listy, iba stredovy ram)
     bm = bmesh.new()
+    y = BEAM_Y + 0.012
     for x in SIDE_LIGHT_X:
-        add_box(bm, (0.17, 0.012, 0.07), (x, HALF_W + 0.004, 1.35), DARK)
-        add_box(bm, (0.14, 0.025, 0.05), (x, HALF_W + 0.012, 1.35), LAMP_OR, bev=0.006)
+        add_box(bm, (0.17, 0.012, 0.07), (x, y + 0.006, 1.345), DARK)
+        add_box(bm, (0.14, 0.025, 0.05), (x, y + 0.0145, 1.345), LAMP_OR, bev=0.006)
     return bm
 
 
@@ -1358,6 +1351,16 @@ def tip_telescope(coll, name, parts, base_parent, base_pt, aim_parent, aim_pt):
     return base, aim
 
 
+def build_side_lights():
+    # bocne obrysove svetla na vonkajsej strane nosnikov (naves nema bocne listy, iba stredovy ram)
+    bm = bmesh.new()
+    y = BEAM_Y + 0.012
+    for x in SIDE_LIGHT_X:
+        add_box(bm, (0.17, 0.012, 0.07), (x, y + 0.006, 1.345), DARK)
+        add_box(bm, (0.14, 0.025, 0.05), (x, y + 0.0145, 1.345), LAMP_OR, bev=0.006)
+    return bm
+
+
 def configure(length):
     # nastavi vsetky rozmery, ktore zavisia od dlzky (napravy, ram, bocne svetla, korba, valec sklapania...)
     length = max(length, MIN_LENGTH)
@@ -1373,9 +1376,7 @@ def configure(length):
     while -1.90 - 0.95 * k > x_rear + 0.35:
         deep.append(-1.90 - 0.95 * k)
         k += 1
-    guard_x0, guard_x2 = LEG_X - 0.65, axles[0] + 0.95
-    span = guard_x0 - guard_x2
-    guard = () if span < 0.9 else (guard_x0, guard_x2) if span < 2.0 else (guard_x0, (guard_x0 + guard_x2) * 0.5, guard_x2)
+    guard = ()
     lights = [0.85]
     while lights[-1] - 3.5 > x_rear + 1.0:
         lights.append(lights[-1] - 3.5)

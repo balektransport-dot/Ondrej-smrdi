@@ -27,7 +27,7 @@ Sklapac_tlmic_valec                0.07 x 0.07 x 0.35
 Sklapac_tlmic_piestnica            0.08 x 0.08 x 0.37
 
 == DIELY PRE DLZKU 8.0 m ==
-Sklapac_ram_8_0                    7.95 x 2.60 x 0.95
+Sklapac_ram_8_0                    7.95 x 1.56 x 0.95
 Sklapac_korba_8_0                  7.49 x 2.65 x 1.60
 Sklapac_zadne_celo_8_0             0.17 x 2.50 x 1.40
 Sklapac_zadny_naraznik_8_0         0.56 x 2.52 x 0.82
@@ -43,7 +43,7 @@ Sklapac_valec_4_8_0                0.13 x 0.13 x 1.32
 Sklapac_valec_5_8_0                0.11 x 0.15 x 1.39
 
 == DIELY PRE DLZKU 9.0 m ==
-Sklapac_ram_9_0                    8.95 x 2.60 x 0.95
+Sklapac_ram_9_0                    8.95 x 1.56 x 0.95
 Sklapac_korba_9_0                  8.49 x 2.65 x 1.75
 Sklapac_zadne_celo_9_0             0.17 x 2.50 x 1.55
 Sklapac_zadny_naraznik_9_0         0.56 x 2.52 x 0.82
@@ -59,7 +59,7 @@ Sklapac_valec_4_9_0                0.13 x 0.13 x 1.45
 Sklapac_valec_5_9_0                0.11 x 0.15 x 1.52
 
 == DIELY PRE DLZKU 10.0 m ==
-Sklapac_ram_10_0                   9.95 x 2.60 x 0.95
+Sklapac_ram_10_0                   9.95 x 1.56 x 0.95
 Sklapac_korba_10_0                 9.49 x 2.65 x 1.90
 Sklapac_zadne_celo_10_0            0.17 x 2.50 x 1.70
 Sklapac_zadny_naraznik_10_0        0.56 x 2.52 x 0.82
@@ -75,7 +75,7 @@ Sklapac_valec_4_10_0               0.13 x 0.13 x 1.58
 Sklapac_valec_5_10_0               0.11 x 0.15 x 1.65
 
 == DIELY PRE DLZKU 11.0 m ==
-Sklapac_ram_11_0                   10.95 x 2.60 x 0.95
+Sklapac_ram_11_0                   10.95 x 1.56 x 0.95
 Sklapac_korba_11_0                 10.49 x 2.65 x 2.05
 Sklapac_zadne_celo_11_0            0.17 x 2.50 x 1.85
 Sklapac_zadny_naraznik_11_0        0.56 x 2.52 x 0.82
@@ -83,8 +83,6 @@ Sklapac_zadne_svetlo_L_11_0        0.09 x 0.38 x 0.13
 Sklapac_zadne_svetlo_P_11_0        0.09 x 0.38 x 0.13
 Sklapac_bocne_svetla_L_11_0        10.02 x 0.03 x 0.07
 Sklapac_bocne_svetla_P_11_0        10.02 x 0.03 x 0.07
-Sklapac_zabrana_L_11_0             1.48 x 0.09 x 0.77
-Sklapac_zabrana_P_11_0             1.48 x 0.09 x 0.77
 Sklapac_valec_0_11_0               0.24 x 0.34 x 1.81
 Sklapac_valec_1_11_0               0.22 x 0.23 x 1.72
 Sklapac_valec_2_11_0               0.19 x 0.20 x 1.72
@@ -97,7 +95,7 @@ DLZKY: 8.0 m (2 napravy), 9.0 m (3 napravy), 10.0 m (3 napravy), 11.0 m (3 napra
 Sklapac_8_0: napravy x = -3.69, -5.00; koniec skrine x = -6.40; stred rezervy x = -6.50; skrinka x = -3.00; ovladac x = -7.22; zabrany x = bez
 Sklapac_9_0: napravy x = -3.38, -4.69, -6.00; koniec skrine x = -7.40; stred rezervy x = -7.50; skrinka x = -3.00; ovladac x = -8.22; zabrany x = bez
 Sklapac_10_0: napravy x = -4.38, -5.69, -7.00; koniec skrine x = -8.40; stred rezervy x = -8.50; skrinka x = -3.00; ovladac x = -9.22; zabrany x = bez
-Sklapac_11_0: napravy x = -5.38, -6.69, -8.00; koniec skrine x = -9.40; stred rezervy x = -9.50; skrinka x = -3.00; ovladac x = -10.22; zabrany x = -3.05, -4.43
+Sklapac_11_0: napravy x = -5.38, -6.69, -8.00; koniec skrine x = -9.40; stred rezervy x = -9.50; skrinka x = -3.00; ovladac x = -10.22; zabrany x = bez
 
 AKO JE TO POSKLADANE (hierarchia v kolekciach podla dlzky), suradnice od pociatku navesu (zem pod capom):
   Hlavny objekt navesu (prazdny) - posuvaj nim cely naves, vlastnosti = ovladanie (popis na zaciatku skriptu).
