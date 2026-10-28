@@ -2828,22 +2828,26 @@ def cab_local(p):
 
 
 def build_cab_extras(style):
-    # doplnky na streche kabiny (pivot ako kabina): eu = dva oranzove majaky, us = siroka svetelna lista
+    # doplnky na streche kabiny (pivot ako kabina), osadene na skutocny hrebien strechy (z = 3.71 v x = -0.8, strecha klesa dopredu):
+    # eu = dva oranzove majaky, us = siroka svetelna lista na styroch nohach
     bm = bmesh.new()
+    xr, zr = -0.80, 3.71
     if style == "eu":
         for s in SIDES_LR:
-            add_cylinder(bm, 0.15, 0.04, along_z(cab_local((-0.40, s * 0.60, 3.74))), DARK, segments=10, bev=0.004)
-            add_cylinder(bm, 0.12, 0.15, along_z(cab_local((-0.40, s * 0.60, 3.83))), LAMP_OR, segments=10, bev=0.01)
-            add_cylinder(bm, 0.05, 0.03, along_z(cab_local((-0.40, s * 0.60, 3.92))), DARK, segments=8)
-        add_box(bm, (0.10, 0.50, 0.03), cab_local((-0.40, 0.0, 3.735)), DARK, bev=0.004)
+            add_cylinder(bm, 0.15, 0.12, along_z(cab_local((xr, s * 0.60, zr + 0.01))), DARK, segments=10, bev=0.004)
+            add_cylinder(bm, 0.12, 0.15, along_z(cab_local((xr, s * 0.60, zr + 0.13))), LAMP_OR, segments=10, bev=0.01)
+            add_cylinder(bm, 0.05, 0.03, along_z(cab_local((xr, s * 0.60, zr + 0.22))), DARK, segments=8)
     else:
-        add_box(bm, (0.34, 1.60, 0.05), cab_local((-0.35, 0.0, 3.745)), DARK, bev=0.008)
+        add_box(bm, (0.34, 1.60, 0.12), cab_local((xr - 0.02, 0.0, zr + 0.01)), DARK, bev=0.008)
+        for s in SIDES_LR:
+            for dx in (-0.12, 0.12):
+                add_box(bm, (0.06, 0.06, 0.16), cab_local((xr - 0.02 + dx, s * 0.62, zr - 0.06)), STEEL, bev=0.004)
         for k in range(8):
             y = -0.70 + 0.20 * k
-            add_box(bm, (0.28, 0.17, 0.10), cab_local((-0.35, y, 3.82)), LAMP_OR if k % 4 != 1 else LAMP_WHITE, bev=0.012)
+            add_box(bm, (0.28, 0.17, 0.10), cab_local((xr - 0.02, y, zr + 0.12)), LAMP_OR if k % 4 != 1 else LAMP_WHITE, bev=0.012)
         for s in SIDES_LR:
-            add_box(bm, (0.32, 0.06, 0.12), cab_local((-0.35, s * 0.83, 3.82)), DARK, bev=0.008)
-            add_cylinder(bm, 0.018, 0.30, along_z(cab_local((-0.20, s * 0.50, 3.90))), CHROME, segments=6)
+            add_box(bm, (0.32, 0.06, 0.12), cab_local((xr - 0.02, s * 0.83, zr + 0.08)), DARK, bev=0.008)
+            add_cylinder(bm, 0.018, 0.30, along_z(cab_local((xr + 0.12, s * 0.50, zr + 0.14))), CHROME, segments=6)
     return finish_mesh(bm, "SM_Odt_od_kabina_" + style)
 
 
@@ -2925,7 +2929,7 @@ PART_MAKERS.append(od_shared_parts)
 
 PL_FRONT = -1.55                     # predna hrana plosiny
 PL_ZP, PL_BOT, PL_THICK = 1.22, 1.36, 0.20     # os klbu naklapania, spodok plosiny, hrubka
-PL_KEEP = 1.50                       # kolko plosiny ostane na podrame po odsune
+PL_KEEP = 0.90                       # kolko plosiny ostane na podrame po odsune (menej = plosina vyjde dalej = mensi sklon)
 PL_WEDGE = 1.25                      # dlzka skoseneho konca plosiny
 PL_CARS = {"4x2": dict(L=3.40, wb=2.15, fo=0.55, w=1.62, h=1.42, rw=0.28, paint=PAINT_BLUE),
            "6x2": dict(L=4.50, wb=2.70, fo=0.85, w=1.78, h=1.45, rw=0.31, paint=PAINT_RED)}
@@ -3026,9 +3030,8 @@ def build_pl_rack(style):
         add_box(bm, (0.05, 2.12, hr - 0.30), (-0.06, 0.0, 0.14 + (hr - 0.30) * 0.5), ACCENT, bev=0.01)
         for y in (-0.72, 0.0, 0.72):
             add_box(bm, (0.052, 0.46, 0.34), (-0.06, y, 0.52), DARK, bev=0.01)
-        for k in range(6):
+        for k in (0, 1, 4, 5):
             add_box(bm, (0.09, 0.22, 0.07), (0.0, -0.92 + 0.368 * k, hr + 0.09), LAMP_OR, bev=0.01)
-        add_box(bm, (0.10, 0.10, 0.10), (-0.06, 0.0, hr + 0.04), DARK, bev=0.01)
     else:
         for z in (0.40, 0.90, hr):
             add_rod(bm, (-0.06, -1.12, z), (-0.06, 1.12, z), 0.045 if z == hr else 0.035, CHROME, segments=10)
@@ -3036,8 +3039,9 @@ def build_pl_rack(style):
         diamond(bm, -0.14, -0.10, -1.0, 1.0, 0.43, STEEL, 0.14)
         for k in range(-8, 9):
             add_rod(bm, (-0.06, k * 0.13, 0.43), (-0.06, k * 0.13, hr - 0.02), 0.014, STEEL, segments=6)
-        add_box(bm, (0.14, 1.60, 0.07), (-0.02, 0.0, hr + 0.07), DARK, bev=0.01)
-        for k in range(8):
+        for s in SIDES_LR:
+            add_box(bm, (0.14, 0.50, 0.07), (-0.02, s * 0.72, hr + 0.07), DARK, bev=0.01)
+        for k in (0, 1, 6, 7):
             add_box(bm, (0.12, 0.17, 0.08), (0.04, -0.70 + 0.20 * k, hr + 0.07), LAMP_OR if k % 4 != 1 else LAMP_WHITE, bev=0.01)
     # drziak haku a retaze (vlavo na zadnej strane steny)
     add_box(bm, (0.12, 0.30, 0.04), (0.04, -0.52, 0.50), STEEL, bev=0.005)
@@ -3321,7 +3325,7 @@ def pl_rig(coll, truck, parts, body, root, prop, mats):
     xf, zt = g["xf"], g["zt"]
     accent(rails, truck, mats)
     accent(new_object(coll, name + "_celna_stena", parts["Odt_od_celna_stena_" + style], (xf, 0.0, zt), bed), truck, mats)
-    zw = 0.60 if style == "eu" else 0.85
+    zw = (1.00 if style == "eu" else 1.40) + 0.10          # navijak je navrchu celnej steny (vrch hornej priecky + police)
     winch = accent(new_object(coll, name + "_navijak", parts["Odt_od_navijak_" + style], (xf - 0.31, 0.0, zt + zw), bed), truck, mats)
     drum = new_object(coll, name + "_navijak_buben", parts["Odt_od_navijak_buben"], (0.0, 0.0, 0.22), winch)
     fair = empty(coll, name + "_navijak_vodiaca", (-0.28, 0.0, 0.12), winch)
@@ -3432,7 +3436,7 @@ def _pl_doc():
         "  Sklopny podram: prazdny objekt <Auto>_plosina_klb (pivot v osi klbu vzadu na rame, os Y, otaca sa o -Plosina_sklon x uhol, zadok ide dole). Jeho deti:",
         "    podram (diel Odt_od_podram_<podvozok>: dva nosniky s valcekmi, priecniky, cap), plosina (Odt_od_plosina_<styl>_<podvozok>, pohyb v X o -Plosina_odsun x odsun),",
         "    valce odsunu (zaklad na podrame vpredu). Plosina ma na zadnom konci skosenie (%.2f m) a spicka sa po odsune dotkne zeme." % PL_WEDGE,
-        "  Dieta plosiny: celna stena (pivot na prednej hrane na podlahe), navijak (maly, hore na celnej stene: pivot na jeho polici v strede, 0.31 m za prednou hranou a 0.60 m (eu) / 0.85 m (us) nad podlahou), jeho buben (otaca sa podla vzdialenosti haku),",
+        "  Dieta plosiny: celna stena (pivot na prednej hrane na podlahe), navijak (maly, navrchu celnej steny: pivot na jeho polici v strede, 0.31 m za prednou hranou a 1.10 m (eu) / 1.50 m (us) nad podlahou), jeho buben (otaca sa podla vzdialenosti haku),",
         "    prazdny objekt navijak_vodiaca (vystup lana, zaklad lana) a hak_drziak (miesto haku v pokoji).",
         "  Lano (Odt_od_lano, jednotkova dlzka v +Z): zaklad na vodiacej kladke, mieri (track Z) na hak, mierka Z = vzdialenost vodiacej kladky a haku.",
         "  Hak (Odt_od_hak) je dieta hak_drziak; constraint Copy Location 'Na_aute' (cielom je prazdny objekt auto_oko = tazne oko auta) ma vplyv = vlastnost Hak_k_autu (0 = v drziaku, 1 = na aute).",
